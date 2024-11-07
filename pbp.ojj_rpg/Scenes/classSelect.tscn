@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2edha6ave3td"]
+
+[ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="1_vct6o"]
+
+[node name="ClassSelect" type="Node2D"]
+
+[node name="Character" type="Sprite2D" parent="."]
+position = Vector2(185, 319.49)
+scale = Vector2(2.60937, 4.52359)
+texture = ExtResource("1_vct6o")
+
+[node name="CharacterStats" type="Label" parent="."]
+offset_left = 467.0
+offset_top = 29.0
+offset_right = 1131.0
+offset_bottom = 540.0
+theme_override_font_sizes/font_size = 30
+text = "Name: Steve Jobs
+Weapon of Choice: Sword
+Character Statistics:
+Strength: xx
+Endurance: xx
+Technology: xx
+"
+horizontal_alignment = 1
+
+[node name="Previous" type="Button" parent="."]
+offset_left = 477.0
+offset_top = 556.0
+offset_right = 642.0
+offset_bottom = 628.0
+text = "Previous Class
+"
+
+[node name="Select" type="Button" parent="."]
+offset_left = 718.0
+offset_top = 553.0
+offset_right = 883.0
+offset_bottom = 626.0
+text = "Select
+"
+
+[node name="Next" type="Button" parent="."]
+offset_left = 949.0
+offset_top = 561.0
+offset_right = 1115.0
+offset_bottom = 634.0
+text = "Next Class"
