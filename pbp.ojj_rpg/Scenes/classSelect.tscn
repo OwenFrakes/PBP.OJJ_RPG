@@ -33,10 +33,10 @@ text = "Previous Class
 "
 
 [node name="Select" type="Button" parent="."]
-offset_left = 718.0
-offset_top = 553.0
-offset_right = 883.0
-offset_bottom = 626.0
+offset_left = 720.0
+offset_top = 557.0
+offset_right = 885.0
+offset_bottom = 630.0
 text = "Select
 "
 
