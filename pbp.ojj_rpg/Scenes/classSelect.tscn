@@ -48,3 +48,5 @@ offset_right = 1115.0
 offset_bottom = 634.0
 text = "Next Class"
 script = ExtResource("2_dexyt")
+
+[connection signal="pressed" from="NextButton" to="NextButton" method="_on_pressed"]
