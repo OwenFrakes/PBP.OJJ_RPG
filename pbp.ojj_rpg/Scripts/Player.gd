@@ -6,16 +6,18 @@ var player_collision : CollisionShape2D
 var movement_cooldown = 0
 var player_size : Vector2
 var desired_position = position
+@export var picture : String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#Give the player their sprite body.
 	player_sprite = Sprite2D.new()
-	player_sprite.texture = load("res://Resources/dante.png")
+	player_sprite.texture = load(picture)
 	#  scale = 32/t
 	#
 	player_sprite.scale = Vector2(32.0/player_sprite.texture.get_width(), 32.0/player_sprite.texture.get_height())
 	player_sprite.z_index = 5
+	player_sprite.rotate(PI*3/2)
 	add_child(player_sprite)
 	
 	#Give the player their collisions.
@@ -27,6 +29,8 @@ func _ready() -> void:
 	rectangle_shape.size = Vector2(sprite_size_x / 2, sprite_size_y / 2)
 	player_collision.shape = rectangle_shape
 	add_child(player_collision)
+	
+	position = Vector2(((position.x / 16) * 16), ((position.y / 16) * 16))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

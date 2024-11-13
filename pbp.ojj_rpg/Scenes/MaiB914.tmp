@@ -38,7 +38,7 @@ sources/0 = SubResource("TileSetAtlasSource_xuefn")
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(1728, 1567)
+position = Vector2(336, 336)
 script = ExtResource("1_nya2f")
 picture = "D:/Frakes, Owen/Godot/Projects/PBP.OJJ_RPG/pbp.ojj_rpg/Resources/icon.svg"
 
