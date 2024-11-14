@@ -54,3 +54,6 @@ func move(delta :float):
 
 func moveAnimation(point : Vector2, delta : float):
 	position = position.move_toward(point, 500 * delta)
+
+func setClass():
+	pass

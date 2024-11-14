@@ -50,4 +50,5 @@ text = "Next Class"
 script = ExtResource("2_dexyt")
 
 [connection signal="pressed" from="PreviousButton" to="NextButton" method="_on_previous_button_pressed"]
+[connection signal="pressed" from="SelectButton" to="NextButton" method="_on_select_button_pressed"]
 [connection signal="pressed" from="NextButton" to="NextButton" method="_on_pressed"]

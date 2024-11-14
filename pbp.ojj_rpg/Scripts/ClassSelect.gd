@@ -18,7 +18,11 @@ func _ready() -> void:
 	classes[4] = playerClass.new()
 	classes[4].setClass("Marksman", 100, 20,20, "Sniper", 40, 50)
 	pClass = classes[0]
-	$"../CharacterStats".text = "Name: " + pClass.getName() + "\nWeapon: " + pClass.getWeaponName() + "\nHealth: " + str(pClass.getHealth()) + "\nStamina:" + str(pClass.getStamina()) + "\nMana:" + str(pClass.getMana()) 
+	$"../CharacterStats".text = "Name: " + pClass.getName() + \
+	"\nWeapon: " + pClass.getWeaponName() + \
+	"\nHealth: " + str(pClass.getHealth()) + \
+	"\nStamina:" + str(pClass.getStamina()) + \
+	"\nMana:" + str(pClass.getMana()) 
 
 func _on_pressed() -> void:
 	if place == 4:
@@ -27,7 +31,11 @@ func _on_pressed() -> void:
 		place += 1
 	print("next")
 	pClass = classes[place]
-	$"../CharacterStats".text = "Name: " + pClass.getName() + "\nWeapon: " + pClass.getWeaponName() + "\nHealth: " + str(pClass.getHealth()) + "\nStamina:" + str(pClass.getStamina()) + "\nMana:" + str(pClass.getMana()) 
+	$"../CharacterStats".text = "Name: " + pClass.getName() + \
+	"\nWeapon: " + pClass.getWeaponName() + \
+	"\nHealth: " + str(pClass.getHealth()) + \
+	"\nStamina:" + str(pClass.getStamina()) + \
+	"\nMana:" + str(pClass.getMana()) 
 	
 
 func _on_previous_button_pressed() -> void:
@@ -37,4 +45,11 @@ func _on_previous_button_pressed() -> void:
 		place -= 1
 	print("previous") 
 	pClass = classes[place]
-	$"../CharacterStats".text = "Name: " + pClass.getName() + "\nWeapon: " + pClass.getWeaponName() + "\nHealth: " + str(pClass.getHealth()) + "\nStamina:" + str(pClass.getStamina()) + "\nMana:" + str(pClass.getMana()) 
+	$"../CharacterStats".text = "Name: " + pClass.getName() + \
+	"\nWeapon: " + pClass.getWeaponName() + \
+	"\nHealth: " + str(pClass.getHealth()) + \
+	"\nStamina:" + str(pClass.getStamina()) + \
+	"\nMana:" + str(pClass.getMana()) 
+
+func _on_select_button_pressed() -> void:
+	pass
