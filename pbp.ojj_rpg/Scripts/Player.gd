@@ -7,9 +7,14 @@ var movement_cooldown = 0
 var player_size : Vector2
 var desired_position = position
 @export var picture : String
+var inFight = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var posX = ((int(position.x) / 32) * 32) + 16
+	var posY = ((int(position.y) / 32) * 32) + 16
+	position = Vector2(posX, posY)
+	desired_position = Vector2(posX, posY)
 	#Give the player their sprite body.
 	player_sprite = Sprite2D.new()
 	player_sprite.texture = load(picture)
@@ -30,12 +35,11 @@ func _ready() -> void:
 	player_collision.shape = rectangle_shape
 	add_child(player_collision)
 	
-	position = Vector2(((position.x / 16) * 16), ((position.y / 16) * 16))
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	move(delta)
+	if(!inFight):
+		move(delta)
 	moveAnimation(desired_position, delta)
 
 func move(delta :float):
@@ -62,3 +66,6 @@ func move(delta :float):
 
 func moveAnimation(point : Vector2, delta : float):
 	position = position.move_toward(point, 500 * delta)
+
+func battle():
+	inFight = true
