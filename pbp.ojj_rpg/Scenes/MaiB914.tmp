@@ -1,12 +1,10 @@
-[gd_scene load_steps=13 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=11 format=4 uid="uid://d4gy4cuq2fxdt"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_nya2f"]
 [ext_resource type="Texture2D" uid="uid://c4hlorq3j8cg" path="res://Resources/DefaultTileSet.png" id="2_5iw5r"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/GreenTile.png" id="3_dlwig"]
 [ext_resource type="Texture2D" uid="uid://bcvg07sc80vv" path="res://Resources/GrassyTile.png" id="4_eifdn"]
 [ext_resource type="Script" path="res://Scenes/generation.gd" id="5_b0uyi"]
-[ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="6_3ndgx"]
-[ext_resource type="Script" path="res://Scenes/enemy.gd" id="6_str8b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_72jl7"]
 texture = ExtResource("2_5iw5r")
@@ -40,7 +38,7 @@ sources/0 = SubResource("TileSetAtlasSource_xuefn")
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(661, 392)
+position = Vector2(336, 336)
 script = ExtResource("1_nya2f")
 picture = "D:/Frakes, Owen/Godot/Projects/PBP.OJJ_RPG/pbp.ojj_rpg/Resources/icon.svg"
 
@@ -58,9 +56,3 @@ tile_set = SubResource("TileSet_kvflo")
 y_sort_origin = 1
 script = ExtResource("5_b0uyi")
 size = 100
-
-[node name="Enemy" type="Sprite2D" parent="."]
-self_modulate = Color(0.730198, 0.228925, 0.257187, 1)
-position = Vector2(431, 274)
-texture = ExtResource("6_3ndgx")
-script = ExtResource("6_str8b")

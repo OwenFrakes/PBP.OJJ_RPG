@@ -6,14 +6,23 @@ var player_collision : CollisionShape2D
 var movement_cooldown = 0
 var player_size : Vector2
 var desired_position = position
+@export var picture : String
+var inFight = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var posX = ((int(position.x) / 32) * 32) + 16
+	var posY = ((int(position.y) / 32) * 32) + 16
+	position = Vector2(posX, posY)
+	desired_position = Vector2(posX, posY)
 	#Give the player their sprite body.
 	player_sprite = Sprite2D.new()
-	player_sprite.texture = load("res://Resources/icon.svg")
-	player_sprite.scale = Vector2(0.5, 0.5)
+	player_sprite.texture = load(picture)
+	#  scale = 32/t
+	#
+	player_sprite.scale = Vector2(32.0/player_sprite.texture.get_width(), 32.0/player_sprite.texture.get_height())
 	player_sprite.z_index = 5
+	player_sprite.rotate(PI*3/2)
 	add_child(player_sprite)
 	
 	#Give the player their collisions.
@@ -25,15 +34,17 @@ func _ready() -> void:
 	rectangle_shape.size = Vector2(sprite_size_x / 2, sprite_size_y / 2)
 	player_collision.shape = rectangle_shape
 	add_child(player_collision)
-
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	move(delta)
+	if(!inFight):
+		move(delta)
 	moveAnimation(desired_position, delta)
 
 func move(delta :float):
 	var move_direction = Input.get_vector("Left", "Right", "Down", "Up")
+	#0.707107 diagonal input
 	if(movement_cooldown <= 0 && move_direction != Vector2(0,0)):
 		match(move_direction):
 			#Left
@@ -41,16 +52,20 @@ func move(delta :float):
 				desired_position.x -= player_size.x
 			#Right
 			Vector2(1,0):
-				desired_position.x += player_size.x
+				desired_position.x += player_size.x 
 			#Down
 			Vector2(0,-1):
-				desired_position.y += player_size.y
+				desired_position.y += player_size.y 
 			#Up
 			Vector2(0,1):
-				desired_position.y -= player_size.y
+				desired_position.y -= player_size.y 
 		movement_cooldown = 0.25
+		look_at(desired_position)
 	else:
 		movement_cooldown -= delta
 
 func moveAnimation(point : Vector2, delta : float):
 	position = position.move_toward(point, 500 * delta)
+
+func battle():
+	inFight = true
