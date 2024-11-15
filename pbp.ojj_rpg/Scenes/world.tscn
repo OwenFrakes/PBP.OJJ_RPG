@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bcvg07sc80vv" path="res://Resources/GrassyTile.png" id="3_7myob"]
 [ext_resource type="Script" path="res://Scripts/generation.gd" id="4_31yte"]
 [ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="5_wnqjd"]
-[ext_resource type="Script" path="res://Scripts/enemy.gd" id="6_nlq3h"]
+[ext_resource type="Script" path="res://Scripts/enemy_body.gd" id="6_nlq3h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xuefn"]
 texture = ExtResource("2_3e5v3")

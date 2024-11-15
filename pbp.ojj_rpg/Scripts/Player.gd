@@ -83,5 +83,12 @@ func moveAnimation(point : Vector2, delta : float):
 	#Move towards the desired position.
 	position = position.move_toward(point, 500 * delta)
 
-func battle():
+func battle(enemies : Array):
+	PlayerStats.enemy = enemies
 	inFight = true
+	
+	# Find a way to open the battle scene and remember the previous scene.
+	#var viewportScene = Viewport
+	#viewportScene.world = World2D.new()
+	#add_child(viewportScene)
+	#viewportScene.add_child(load("res://Scenes/battle.tscn"))

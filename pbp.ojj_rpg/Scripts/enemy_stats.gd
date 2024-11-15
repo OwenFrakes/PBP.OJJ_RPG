@@ -1,9 +1,9 @@
+class_name EnemyStats
 extends Node
 
-# Stats of the Player go here as variables.
-var selected_player_class : PlayerClass
-var selected_player_weapon : PlayerWeapon
-var enemy = [] 
+var health = 10
+var something = 10
+var rizz = "Spectatcular"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

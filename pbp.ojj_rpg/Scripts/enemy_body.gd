@@ -6,6 +6,7 @@ var movement_cooldown = 0
 var playerPosition : Vector2
 var range = 8
 var inFight = false
+var enemy_group = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,6 +17,8 @@ func _ready() -> void:
 	desired_position = Vector2(posX, posY)
 	
 	scale = Vector2(32.0/texture.get_width(), 32.0/texture.get_height())
+	
+	enemy_group.append(EnemyStats.new())
 
 func move(point : Vector2, delta : float):
 	if(movement_cooldown <= 0):
@@ -41,7 +44,7 @@ func _process(delta: float) -> void:
 	#If within 1 tile of the player, initiate battle.
 	if((playerPosition - position).abs() <= Vector2(32,32)):
 		inFight = true
-		player.battle()
+		player.battle(enemy_group)
 	
 	#If in range, chase the player to initiate battle.
 	elif(!inFight && (playerPosition - position).abs() <= Vector2(32 * range,32 * range)):
