@@ -1,4 +1,4 @@
-class_name playerWeapon
+class_name PlayerWeapon
 extends Node
 var wName
 var damage

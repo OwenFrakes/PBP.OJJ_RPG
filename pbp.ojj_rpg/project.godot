@@ -11,16 +11,19 @@ config_version=5
 [application]
 
 config/name="PBP.OJJ_RPG"
-run/main_scene="res://Scenes/Main.tscn"
+run/main_scene="res://Scenes/world.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Resources/icon.svg"
+
+[autoload]
+
+PlayerStats="*res://Scripts/player_stats.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/borderless=true
-window/stretch/scale=2.0
 
 [input]
 

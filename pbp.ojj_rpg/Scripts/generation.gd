@@ -58,9 +58,6 @@ func squareCells(x : int, y : int):
 		for yCord in range(3):
 			surroundingCells.append(Vector2i((x-1) + xCord, (y-1) + yCord))
 	surroundingCells.erase(Vector2i(x,y))
-	###
-	#A#
-	###
 	
 	return surroundingCells
 

@@ -1,10 +1,10 @@
-class_name playerClass
+class_name PlayerClass
 extends Node
 var cName
 var health
 var stamina
 var mana
-var pWeapon: playerWeapon
+var pWeapon: PlayerWeapon
 
 
 func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana: float, tempWName: String, tempWDamage: float, tempWSpeed):
@@ -12,7 +12,7 @@ func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana:
 	health = temphealth
 	stamina = tempstamina
 	mana = tempmana
-	pWeapon = playerWeapon.new()
+	pWeapon = PlayerWeapon.new()
 	pWeapon.setWeapon(tempWName, tempWDamage, tempWSpeed)
 
 #get the Variables

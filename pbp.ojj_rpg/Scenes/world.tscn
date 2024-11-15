@@ -1,0 +1,47 @@
+[gd_scene load_steps=10 format=3 uid="uid://d4gy4cuq2fxdt"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_sauk2"]
+[ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/GreenTile.png" id="2_3e5v3"]
+[ext_resource type="Texture2D" uid="uid://bcvg07sc80vv" path="res://Resources/GrassyTile.png" id="3_7myob"]
+[ext_resource type="Script" path="res://Scripts/generation.gd" id="4_31yte"]
+[ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="5_wnqjd"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="6_nlq3h"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xuefn"]
+texture = ExtResource("2_3e5v3")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_30clv"]
+texture = ExtResource("3_7myob")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_kvflo"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_30clv")
+sources/0 = SubResource("TileSetAtlasSource_xuefn")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(661, 392)
+script = ExtResource("1_sauk2")
+picture = "D:/Frakes, Owen/Godot/Projects/PBP.OJJ_RPG/pbp.ojj_rpg/Resources/icon.svg"
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(2, 2)
+
+[node name="Generation" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_kvflo")
+y_sort_origin = 1
+script = ExtResource("4_31yte")
+size = 100
+
+[node name="Enemy" type="Sprite2D" parent="."]
+self_modulate = Color(0.730198, 0.228925, 0.257187, 1)
+position = Vector2(431, 274)
+texture = ExtResource("5_wnqjd")
+script = ExtResource("6_nlq3h")
