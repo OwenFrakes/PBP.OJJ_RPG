@@ -52,4 +52,4 @@ func _on_previous_button_pressed() -> void:
 	"\nMana:" + str(pClass.getMana()) 
 
 func _on_select_button_pressed() -> void:
-	pass
+	load("res://Scenes/Main.tscn")
