@@ -1,6 +1,7 @@
-class_name EnemyStats
+class_name Enemy
 extends Node
 
+var title = "THE RIZZASTARD"
 var health = 10
 var something = 10
 var rizz = "Spectatcular"

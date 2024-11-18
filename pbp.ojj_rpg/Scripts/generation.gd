@@ -12,7 +12,7 @@ func _ready() -> void:
 			set_cell(Vector2(x,y), randi_range(0,1), Vector2i(0,0))
 	
 	for x in range(8):
-		await get_tree().create_timer(0.1).timeout
+		#await get_tree().create_timer(0.1).timeout
 		conway()
 
 func conway():

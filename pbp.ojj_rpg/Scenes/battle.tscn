@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://uwiky55c1mwu"]
-
-[ext_resource type="Script" path="res://Scripts/battle_master.gd" id="1_gekmo"]
-
-[node name="Battle" type="Node2D"]
-
-[node name="BattleMaster" type="Node" parent="."]
-script = ExtResource("1_gekmo")

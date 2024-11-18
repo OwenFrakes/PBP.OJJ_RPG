@@ -10,6 +10,11 @@ var desired_position = position
 @export var picture : String
 var inFight = false
 
+#SRUFF
+@onready var battle_camera = $"../BattleCamera"
+@onready var player_camera = $PlayerCamera
+@onready var enemy_label = $"../BattleCamera/Control/SubViewportContainer/SubViewport/EnemiesLabel"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#Make sure the player object center is in the middle of the 32 by 32 pixel grid.
@@ -25,7 +30,7 @@ func _ready() -> void:
 	# Scale will be changed to make the size of the picture so. Where scale is : scale = 32/t
 	player_sprite.scale = Vector2(32.0/player_sprite.texture.get_width(), 32.0/player_sprite.texture.get_height())
 	player_sprite.z_index = 5
-	player_sprite.rotate(PI*3/2)
+	#player_sprite.rotate(PI*3/2)
 	add_child(player_sprite)
 	
 	#Give the player their collisions.
@@ -37,13 +42,13 @@ func _ready() -> void:
 	rectangle_shape.size = Vector2(sprite_size_x / 2, sprite_size_y / 2)
 	player_collision.shape = rectangle_shape
 	add_child(player_collision)
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	#If not in a fight, the player can move.
 	if(!inFight):
 		move(delta)
+	
 	
 	#Actually move the player to the desired position.
 	moveAnimation(desired_position, delta)
@@ -74,7 +79,8 @@ func move(delta :float):
 		movement_cooldown = 0.25
 		
 		#Face the direction they're moving.
-		look_at(desired_position)
+		player_sprite.look_at(desired_position)
+		player_sprite.rotate(-PI/2)
 	else:
 		#Subtract time from the cooldown.
 		movement_cooldown -= delta
@@ -83,12 +89,32 @@ func moveAnimation(point : Vector2, delta : float):
 	#Move towards the desired position.
 	position = position.move_toward(point, 500 * delta)
 
-func battle(enemies : Array):
-	PlayerStats.enemy = enemies
+func battle(enemy_group):
+	PlayerStats.enemy = enemy_group
 	inFight = true
 	
-	# Find a way to open the battle scene and remember the previous scene.
-	#var viewportScene = Viewport
-	#viewportScene.world = World2D.new()
-	#add_child(viewportScene)
-	#viewportScene.add_child(load("res://Scenes/battle.tscn"))
+	var enemies = enemy_group.enemies
+	
+	for enemy in enemies:
+		enemy_label.text += str(enemy.title + "\n")
+		enemy_label.text += str(str(enemy.health) + "\n")
+		enemy_label.text += str(str(enemy.something) + "\n")
+		enemy_label.text += str(enemy.rizz)
+	
+	switchBattleCamera()
+
+func battleWin():
+	PlayerStats.enemy.free()
+	inFight = false
+	switchBattleCamera()
+
+func battleLose():
+	get_tree().quit()
+
+func switchBattleCamera():
+	if(player_camera.is_current()):
+		battle_camera.make_current()
+		battle_camera.visible = true
+	else:
+		player_camera.make_current()
+		battle_camera.visible = false
