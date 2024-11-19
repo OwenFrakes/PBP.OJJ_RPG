@@ -18,8 +18,8 @@ var inFight = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#Make sure the player object center is in the middle of the 32 by 32 pixel grid.
-	var posX = ((int(position.x) / 32) * 32) + 16
-	var posY = ((int(position.y) / 32) * 32) + 16
+	var posX = ((int(position.x) / 64) * 64) + 32
+	var posY = ((int(position.y) / 64) * 64) + 32
 	position = Vector2(posX, posY)
 	desired_position = Vector2(posX, posY)
 	
@@ -28,7 +28,7 @@ func _ready() -> void:
 	player_sprite.texture = load(picture)
 	# The size of each picture will be 32x32 pixels.
 	# Scale will be changed to make the size of the picture so. Where scale is : scale = 32/t
-	player_sprite.scale = Vector2(32.0/player_sprite.texture.get_width(), 32.0/player_sprite.texture.get_height())
+	player_sprite.scale = Vector2(64.0/player_sprite.texture.get_width(), 64.0/player_sprite.texture.get_height())
 	player_sprite.z_index = 5
 	#player_sprite.rotate(PI*3/2)
 	add_child(player_sprite)

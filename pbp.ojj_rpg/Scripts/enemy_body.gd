@@ -12,12 +12,12 @@ var enemies = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	var posX = ((int(position.x) / 32) * 32) + 16
-	var posY = ((int(position.y) / 32) * 32) + 16
+	var posX = ((int(position.x) / 64) * 64) + 32
+	var posY = ((int(position.y) / 64) * 64) + 32
 	position = Vector2(posX, posY)
 	desired_position = Vector2(posX, posY)
 	
-	scale = Vector2(32.0/texture.get_width(), 32.0/texture.get_height())
+	scale = Vector2(64.0/texture.get_width(), 64.0/texture.get_height())
 	
 	enemies.append(Enemy.new())
 
