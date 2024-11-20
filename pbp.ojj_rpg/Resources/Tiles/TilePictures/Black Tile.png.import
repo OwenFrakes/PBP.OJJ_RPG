@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxuo1neobyssw"
-path="res://.godot/imported/dante.png-148aa339d3295576f22d17440c820116.ctex"
+uid="uid://2j2ivhe0wdcs"
+path="res://.godot/imported/Black Tile.png-6b0ee709168650bce888b2fd44107ae2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/dante.png"
-dest_files=["res://.godot/imported/dante.png-148aa339d3295576f22d17440c820116.ctex"]
+source_file="res://Resources/Tiles/TilePictures/Black Tile.png"
+dest_files=["res://.godot/imported/Black Tile.png-6b0ee709168650bce888b2fd44107ae2.ctex"]
 
 [params]
 

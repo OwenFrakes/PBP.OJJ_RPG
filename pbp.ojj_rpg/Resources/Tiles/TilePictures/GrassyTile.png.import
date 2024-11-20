@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjjyhx3hj0iyh"
-path="res://.godot/imported/White Tile.png-cc4aa58b2397aea591b89f46088fbb28.ctex"
+uid="uid://bcvg07sc80vv"
+path="res://.godot/imported/GrassyTile.png-b5f15dee154fbed74f21c1377115d90b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/White Tile.png"
-dest_files=["res://.godot/imported/White Tile.png-cc4aa58b2397aea591b89f46088fbb28.ctex"]
+source_file="res://Resources/Tiles/TilePictures/GrassyTile.png"
+dest_files=["res://.godot/imported/GrassyTile.png-b5f15dee154fbed74f21c1377115d90b.ctex"]
 
 [params]
 

@@ -1,6 +1,9 @@
 class_name Player
 extends CharacterBody2D
 
+#Sprite / Tile size
+var tile_size = 64.0
+
 #Variables
 var player_sprite : Sprite2D
 var player_collision : CollisionShape2D
@@ -10,16 +13,17 @@ var desired_position = position
 @export var picture : String
 var inFight = false
 
-#SRUFF
+#Battle Variables
 @onready var battle_camera = $"../BattleCamera"
 @onready var player_camera = $PlayerCamera
-@onready var enemy_label = $"../BattleCamera/Control/SubViewportContainer/SubViewport/EnemiesLabel"
+@onready var enemy_label = $"../BattleCamera/EnemiesLabel"
+@onready var map_tile_set = $"../Generation"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#Make sure the player object center is in the middle of the 32 by 32 pixel grid.
-	var posX = ((int(position.x) / 64) * 64) + 32
-	var posY = ((int(position.y) / 64) * 64) + 32
+	var posX = (int(position.x / tile_size) * tile_size) + (tile_size / 2)
+	var posY = (int(position.y / tile_size) * tile_size) + (tile_size / 2)
 	position = Vector2(posX, posY)
 	desired_position = Vector2(posX, posY)
 	
@@ -28,7 +32,7 @@ func _ready() -> void:
 	player_sprite.texture = load(picture)
 	# The size of each picture will be 32x32 pixels.
 	# Scale will be changed to make the size of the picture so. Where scale is : scale = 32/t
-	player_sprite.scale = Vector2(64.0/player_sprite.texture.get_width(), 64.0/player_sprite.texture.get_height())
+	player_sprite.scale = Vector2(tile_size/player_sprite.texture.get_width(), tile_size/player_sprite.texture.get_height())
 	player_sprite.z_index = 5
 	#player_sprite.rotate(PI*3/2)
 	add_child(player_sprite)
@@ -47,11 +51,26 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	#If not in a fight, the player can move.
 	if(!inFight):
-		move(delta)
+		#move(delta)
+		move2(delta)
 	
 	
 	#Actually move the player to the desired position.
 	moveAnimation(desired_position, delta)
+
+func move2(delta : float):
+	
+	#OWEN DO THIS EVENTUALLY
+	
+	var move_direction = Input.get_vector("Left", "Right", "Down", "Up")
+	
+	if(movement_cooldown <= 0 && move_direction != Vector2(0,0)):
+		match(move_direction):
+			pass
+	else:
+		#Subtract time from the cooldown.
+		movement_cooldown -= delta
+	
 
 func move(delta :float):
 	# Get which way is the player moving.
@@ -89,18 +108,10 @@ func moveAnimation(point : Vector2, delta : float):
 	#Move towards the desired position.
 	position = position.move_toward(point, 500 * delta)
 
-func battle(enemy_group):
+func battle(enemy_group : EnemyBody):
 	PlayerStats.enemy = enemy_group
 	inFight = true
-	
-	var enemies = enemy_group.enemies
-	
-	for enemy in enemies:
-		enemy_label.text += str(enemy.title + "\n")
-		enemy_label.text += str(str(enemy.health) + "\n")
-		enemy_label.text += str(str(enemy.something) + "\n")
-		enemy_label.text += str(enemy.rizz)
-	
+	battle_camera.readyBattle(enemy_group)
 	switchBattleCamera()
 
 func battleWin():

@@ -1,15 +1,14 @@
 extends Node
 
-var enemies = PlayerStats.enemy
+#Variables
+var enemy_group : EnemyBody
+@onready var debug_label = $EnemiesLabel
+@onready var player_label = $PlayerLabel
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	for enemy in enemies:
-		print(enemy.rizz)
+#Give new variables for new battle.
+func readyBattle(new_enemy):
+	enemy_group = PlayerStats.enemy
+	for enemy in enemy_group.enemies:
+		debug_label.text += (enemy.stringInfo())
 	
-	print(str(PlayerStats.selected_player_class))
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	player_label.text += PlayerStats.stringInfo()

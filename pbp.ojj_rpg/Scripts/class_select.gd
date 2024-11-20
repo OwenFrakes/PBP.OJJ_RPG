@@ -72,6 +72,6 @@ func _on_previous_button_pressed() -> void:
 func _on_select_button_pressed() -> void:
 	#Make the global singleton have these stats.
 	PlayerStats.selected_player_class = classes[place]
-	
+	PlayerStats.selected_player_weapon = classes[place].pWeapon
 	#Go to next scene.
 	get_tree().change_scene_to_file("res://Scenes/world.tscn")

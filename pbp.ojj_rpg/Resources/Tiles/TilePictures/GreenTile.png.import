@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2j2ivhe0wdcs"
-path="res://.godot/imported/Black Tile.png-ddd401e220974ce90d8bf0de8f19c3b5.ctex"
+uid="uid://cnv823cj7vo3p"
+path="res://.godot/imported/GreenTile.png-6b6f9a992fcdd1f3e39e55fd7856f0e2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Black Tile.png"
-dest_files=["res://.godot/imported/Black Tile.png-ddd401e220974ce90d8bf0de8f19c3b5.ctex"]
+source_file="res://Resources/Tiles/TilePictures/GreenTile.png"
+dest_files=["res://.godot/imported/GreenTile.png-6b6f9a992fcdd1f3e39e55fd7856f0e2.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chhfaev27y7tk"
-path="res://.godot/imported/Cowboy Moving Finished.png-cf601d43a0a36a6e0885b4c7e8ad37f5.ctex"
+uid="uid://d2s2ehr11thi1"
+path="res://.godot/imported/GreenTile-64.png.png-bf3230400ab3da048a1d743b5935f5e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Cowboy Moving Finished.png"
-dest_files=["res://.godot/imported/Cowboy Moving Finished.png-cf601d43a0a36a6e0885b4c7e8ad37f5.ctex"]
+source_file="res://Resources/Tiles/TilePictures/GreenTile-64.png.png"
+dest_files=["res://.godot/imported/GreenTile-64.png.png-bf3230400ab3da048a1d743b5935f5e4.ctex"]
 
 [params]
 
