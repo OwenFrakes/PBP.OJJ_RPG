@@ -22,10 +22,11 @@ var inFight = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#Make sure the player object center is in the middle of the 32 by 32 pixel grid.
-	var posX = (int(position.x / tile_size) * tile_size) + (tile_size / 2)
-	var posY = (int(position.y / tile_size) * tile_size) + (tile_size / 2)
-	position = Vector2(posX, posY)
-	desired_position = Vector2(posX, posY)
+	#var posX = (int(position.x / tile_size) * tile_size) + (tile_size / 2)
+	#var posY = (int(position.y / tile_size) * tile_size) + (tile_size / 2)
+	#position = Vector2(posX, posY)
+	#desired_position = Vector2(posX, posY)
+	posToMap(position)
 	
 	#Give the player their sprite body.
 	player_sprite = Sprite2D.new()
@@ -58,15 +59,33 @@ func _process(delta: float) -> void:
 	#Actually move the player to the desired position.
 	moveAnimation(desired_position, delta)
 
+func posToMap(player_position : Vector2):
+	var tile_pos = map_tile_set.local_to_map(player_position)
+	var center_pos = map_tile_set.map_to_local(tile_pos)
+	desired_position = center_pos
+	position = center_pos
+
 func move2(delta : float):
 	
-	#OWEN DO THIS EVENTUALLY
-	
+	var tile_pos = map_tile_set.local_to_map(position)
 	var move_direction = Input.get_vector("Left", "Right", "Down", "Up")
 	
 	if(movement_cooldown <= 0 && move_direction != Vector2(0,0)):
 		match(move_direction):
+			Vector2(1,0):
+				tile_pos += Vector2i(1,0)
+			Vector2(0,1):
+				tile_pos += Vector2i(0,-1)
+			Vector2(-1,0):
+				tile_pos += Vector2i(-1,0)
+			Vector2(0,-1):
+				tile_pos += Vector2i(0,1)
+		#Check what the next tile is.
+		if(map_tile_set.get_cell_atlas_coords(tile_pos).x == 7):
 			pass
+		else:
+			desired_position = map_tile_set.map_to_local(tile_pos)
+			movement_cooldown = 0.25
 	else:
 		#Subtract time from the cooldown.
 		movement_cooldown -= delta

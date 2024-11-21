@@ -9,11 +9,15 @@ func _ready() -> void:
 	
 	for x in range(size):
 		for y in range(size):
-			set_cell(Vector2(x,y), randi_range(0,1), Vector2i(0,0))
+			set_cell(Vector2(x,y), 0, Vector2i(0,randi_range(0,1)))
 	
 	for x in range(8):
-		#await get_tree().create_timer(0.1).timeout
+		#await get_tree().create_timer(0.5).timeout
 		conway()
+	
+	set_cell(Vector2(10,10), 0, Vector2i(7,randi_range(0,1)))
+	set_cell(Vector2(10,11), 0, Vector2i(7,randi_range(0,1)))
+	set_cell(Vector2(10,12), 0, Vector2i(7,randi_range(0,1)))
 
 func conway():
 	var newMap = []
@@ -33,14 +37,14 @@ func conway():
 			var cells = squareCells(x,y)
 			for pos in cells:
 				#Count the colors
-				if(get_cell_source_id(pos) == 1):
+				if(get_cell_atlas_coords(pos) == Vector2i(0,1)):
 					white += 1
 			
 			#Change the cell on the new map
-			if(get_cell_source_id(Vector2i(x,y)) == 1 && white > 3):
+			if(get_cell_atlas_coords(Vector2i(x,y)) == Vector2i(0,1) && white > 3):
 				newMap[x][y] = 1
 				#pass
-			elif(get_cell_source_id(Vector2i(x,y)) == 0 && white > 4):
+			elif(get_cell_atlas_coords(Vector2i(x,y)) == Vector2i(0,0) && white > 4):
 				newMap[x][y] = 1
 				#set_cell(Vector2i(x+1,y+1), 1, Vector2i(0,0))
 			else:
@@ -49,7 +53,10 @@ func conway():
 	
 	for x in range(size):
 		for y in range(size):
-			set_cell(Vector2(x,y), newMap[x][y], Vector2i(0,0))
+			if(newMap[x][y] == 1):
+				set_cell(Vector2(x,y), 0, Vector2i(0,1))
+			else:
+				set_cell(Vector2(x,y), 0, Vector2i(0,0))
 
 func squareCells(x : int, y : int):
 	var surroundingCells = []
