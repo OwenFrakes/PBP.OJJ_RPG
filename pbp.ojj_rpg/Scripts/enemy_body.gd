@@ -8,8 +8,8 @@ var tile_size = 64.0
 var desired_position = position
 var movement_cooldown = 0
 @onready var player = $"../Player"
-var playerPosition : Vector2
-var detection_range = 2
+var player_position : Vector2
+var detection_range = 8
 var inFight = false
 var enemies = []
 
@@ -30,8 +30,8 @@ func _ready() -> void:
 func move(point : Vector2, delta : float):
 	if(movement_cooldown <= 0):
 		#Get wether the enemy is farther from the player in the y or x dimension.
-		var xDiff = playerPosition.x - position.x
-		var yDiff = playerPosition.y - position.y
+		var xDiff = player_position.x - position.x
+		var yDiff = player_position.y - position.y
 		
 		if(abs(xDiff) >= abs(yDiff)):
 			desired_position.x = position.x + clampi(xDiff, -tile_size, tile_size)
@@ -46,18 +46,33 @@ func moveAnimation(point : Vector2, delta : float):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	playerPosition = player.position
+	player_position = player.position
 	
 	#If within 1 tile of the player, initiate battle.
-	if(!inFight && (playerPosition - position).abs() <= Vector2(tile_size,tile_size)):
+	if(!inFight && inCloseRange(player_position)):
 		inFight = true
 		player.battle(self)
-	
-	#If in range, chase the player to initiate battle.
-	elif(!inFight && (playerPosition - position).abs() <= Vector2(tile_size * detection_range,tile_size * detection_range)):
+		
+	elif(!inFight && inRange(player_position)):
 		#Move the desired position towards the player.
-		move(playerPosition, delta)
+		move(player_position, delta)
 	
 	#Actually move it.
 	moveAnimation(desired_position, delta)
-	
+
+func inCloseRange(given_player_position) -> bool:
+	# Get distance from enemy to player.
+	var player_distance = (given_player_position - position).abs()
+	# (1 * tile_size) is just tile_size, but (1 * tile_size) is more legable meaning just 1 tile.
+	if(player_distance.x <= (1 * tile_size) && player_distance.y <= (1 * tile_size)):
+		return true
+	return false
+
+func inRange(given_player_position) -> bool:
+	# Get distance from enemy to player.
+	var player_distance = (given_player_position - position).abs()
+	# Make the detection range.
+	var detection_distance = tile_size * detection_range
+	if(player_distance.x < detection_distance && player_distance.y < detection_distance):
+		return true
+	return false
