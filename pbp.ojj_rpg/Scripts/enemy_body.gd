@@ -12,6 +12,7 @@ var player_position : Vector2
 var detection_range = 8
 var inFight = false
 var enemies = []
+@onready var map_tile_set = $"../Generation"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,13 +34,43 @@ func move(point : Vector2, delta : float):
 		var xDiff = player_position.x - position.x
 		var yDiff = player_position.y - position.y
 		
-		if(abs(xDiff) >= abs(yDiff)):
-			desired_position.x = position.x + clampi(xDiff, -tile_size, tile_size)
+		#Get predicted tile.
+		var tile_pos = map_tile_set.local_to_map(position)
+		var next_tile_x = map_tile_set.local_to_map(position + Vector2(clampi(xDiff, -tile_size, tile_size), 0))
+		var next_tile_y = map_tile_set.local_to_map(position + Vector2(0, clampi(yDiff, -tile_size, tile_size)))
+		
+		#STEP 1, DOES THAT TILE WORK. OTHERWISE CHANGE IT AND CHECK AGAIN.
+		if(xDiff >= yDiff && viableTile(next_tile_x)):
+			desired_position = map_tile_set.map_to_local(next_tile_x)
+		elif(xDiff < yDiff && viableTile(next_tile_y)):
+			desired_position = map_tile_set.map_to_local(next_tile_y)
+		elif(viableTile(next_tile_x)):
+			desired_position = map_tile_set.map_to_local(next_tile_x)
+		elif(viableTile(next_tile_y)):
+			desired_position = map_tile_set.map_to_local(next_tile_y)
 		else:
-			desired_position.y = position.y + clampi(yDiff, -tile_size, tile_size)
+			pass
+			
+		##map_tile_set.get_cell_atlas_coords(tile_pos).x == 7
+		#if(abs(xDiff) >= abs(yDiff)):
+		#	#desired_position.x = position.x + clampi(xDiff, -tile_size, tile_size)
+		#	if(xDiff < 0):
+		#		pass
+		#	pass
+		#else:
+		#	#desired_position.y = position.y + clampi(yDiff, -tile_size, tile_size)
+		#	pass
+		#if(map_tile_set.get_cell_atlas_coords(next_tile).x == 7):
+		#	pass
+		
 		movement_cooldown = 0.25
 	else:
 		movement_cooldown -= delta
+
+func viableTile(want_tile) -> bool:
+	if(map_tile_set.get_cell_atlas_coords(want_tile).x == 7):
+		return false
+	return true
 
 func moveAnimation(point : Vector2, delta : float):
 	position = position.move_toward(point, 500 * delta)
