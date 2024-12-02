@@ -2,7 +2,7 @@ extends Node
 
 # Stats of the Player go here as variables.
 var selected_player_class : PlayerClass
-var selected_player_weapon : PlayerWeapon
+var selected_player_weapon : Weapon
 var enemy : EnemyBody
 
 func stringInfo() -> String:

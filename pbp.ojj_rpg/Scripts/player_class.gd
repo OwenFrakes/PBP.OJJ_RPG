@@ -4,7 +4,7 @@ var cName
 var health
 var stamina
 var mana
-var pWeapon: PlayerWeapon
+var pWeapon: Weapon
 
 
 func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana: float, tempWName: String, tempWDamage: float, tempWSpeed):
@@ -12,7 +12,7 @@ func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana:
 	health = temphealth
 	stamina = tempstamina
 	mana = tempmana
-	pWeapon = PlayerWeapon.new()
+	pWeapon = Weapon.new()
 	pWeapon.setWeapon(tempWName, tempWDamage, tempWSpeed)
 
 #get the Variables

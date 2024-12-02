@@ -1,12 +1,19 @@
 class_name Enemy
 extends Node
 
-var title = "THE RIZZASTARD"
-var health = 10
-var something = 15
-var rizz = "Spectatcular"
+var eName = "Enemy Not Found"
+var health = 0
+var mana = 0
+var eWeapon: Weapon
 
 # Called when the node enters the scene tree for the first time.
+func setEnemy(tempName: String, temphealth: float, tempmana: float, tempWName: String, tempWDamage: float, tempWSpeed):
+	eName = tempName
+	health = temphealth
+	mana = tempmana
+	eWeapon = Weapon.new()
+	eWeapon.setWeapon(tempWName, tempWDamage, tempWSpeed)
+
 func _ready() -> void:
 	pass # Replace with function body.
 
@@ -15,4 +22,4 @@ func _process(delta: float) -> void:
 	pass
 
 func stringInfo() -> String:
-	return title + "\n" + str(health) + "\n" + str(something) + "\n" + rizz
+	return "\n" + eName + "\n" + str(health) + "\n" + str(mana) + "\n" 
