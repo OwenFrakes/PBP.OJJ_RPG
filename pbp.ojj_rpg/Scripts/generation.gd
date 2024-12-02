@@ -14,12 +14,6 @@ func _ready() -> void:
 	for x in range(8):
 		#await get_tree().create_timer(0.5).timeout
 		conway()
-	
-	set_cell(Vector2(10,10), 0, Vector2i(7,randi_range(0,1)))
-	set_cell(Vector2(10,11), 0, Vector2i(7,randi_range(0,1)))
-	set_cell(Vector2(10,12), 0, Vector2i(7,randi_range(0,1)))
-	set_cell(Vector2(11,10), 0, Vector2i(7,randi_range(0,1)))
-	set_cell(Vector2(12,10), 0, Vector2i(7,randi_range(0,1)))
 
 func conway():
 	var newMap = []

@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvlu7lsv2802r"]
+
+[ext_resource type="Script" path="res://Scripts/title_screen.gd" id="1_8c648"]
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_8c648")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 839.0
+offset_top = 188.0
+offset_right = 1126.0
+offset_bottom = 325.0
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 100
+text = "GAME"
+
+[node name="StartBtn" type="Button" parent="."]
+offset_left = 120.0
+offset_top = 526.0
+offset_right = 455.0
+offset_bottom = 617.0
+theme_override_font_sizes/font_size = 60
+text = "Start Game"
+
+[node name="QuickStartBtn" type="Button" parent="."]
+offset_left = 120.0
+offset_top = 674.0
+offset_right = 878.0
+offset_bottom = 765.0
+theme_override_font_sizes/font_size = 60
+text = "Quick Start Game (Debug)"
+
+[node name="QuitBtn" type="Button" parent="."]
+offset_left = 120.0
+offset_top = 829.0
+offset_right = 440.0
+offset_bottom = 920.0
+theme_override_font_sizes/font_size = 60
+text = "Quit Game"
+
+[connection signal="pressed" from="StartBtn" to="." method="startGame"]
+[connection signal="pressed" from="QuickStartBtn" to="." method="quickStartGame"]
+[connection signal="pressed" from="QuitBtn" to="." method="quitGame"]

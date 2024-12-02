@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PBP.OJJ_RPG"
-run/main_scene="res://Scenes/classSelect.tscn"
+run/main_scene="res://Scenes/titleScreen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Resources/icon.svg"
 

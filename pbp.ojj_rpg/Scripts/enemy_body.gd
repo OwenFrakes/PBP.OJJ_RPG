@@ -12,7 +12,7 @@ var player_position : Vector2
 var detection_range = 8
 var inFight = false
 var enemies = []
-@onready var map_tile_set = $"../Generation"
+@onready var map_tile_set = $"../World Terrain"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -40,9 +40,9 @@ func move(point : Vector2, delta : float):
 		var next_tile_y = map_tile_set.local_to_map(position + Vector2(0, clampi(yDiff, -tile_size, tile_size)))
 		
 		#STEP 1, DOES THAT TILE WORK. OTHERWISE CHANGE IT AND CHECK AGAIN.
-		if(xDiff >= yDiff && viableTile(next_tile_x)):
+		if(abs(xDiff) >= abs(yDiff) && viableTile(next_tile_x)):
 			desired_position = map_tile_set.map_to_local(next_tile_x)
-		elif(xDiff < yDiff && viableTile(next_tile_y)):
+		elif(abs(xDiff) < abs(yDiff) && viableTile(next_tile_y)):
 			desired_position = map_tile_set.map_to_local(next_tile_y)
 		elif(viableTile(next_tile_x)):
 			desired_position = map_tile_set.map_to_local(next_tile_x)

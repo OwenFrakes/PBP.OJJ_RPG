@@ -17,15 +17,10 @@ var inFight = false
 @onready var battle_camera = $"../BattleCamera"
 @onready var player_camera = $PlayerCamera
 @onready var enemy_label = $"../BattleCamera/EnemiesLabel"
-@onready var map_tile_set = $"../Generation"
+@onready var map_tile_set = $"../World Terrain"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#Make sure the player object center is in the middle of the 32 by 32 pixel grid.
-	#var posX = (int(position.x / tile_size) * tile_size) + (tile_size / 2)
-	#var posY = (int(position.y / tile_size) * tile_size) + (tile_size / 2)
-	#position = Vector2(posX, posY)
-	#desired_position = Vector2(posX, posY)
 	posToMap(position)
 	
 	#Give the player their sprite body.
@@ -33,9 +28,9 @@ func _ready() -> void:
 	player_sprite.texture = load(picture)
 	# The size of each picture will be 32x32 pixels.
 	# Scale will be changed to make the size of the picture so. Where scale is : scale = 32/t
-	player_sprite.scale = Vector2(tile_size/player_sprite.texture.get_width(), tile_size/player_sprite.texture.get_height())
+	player_sprite.scale = Vector2(tile_size/player_sprite.texture.get_width(), \
+								  tile_size/player_sprite.texture.get_height())
 	player_sprite.z_index = 5
-	#player_sprite.rotate(PI*3/2)
 	add_child(player_sprite)
 	
 	#Give the player their collisions.
@@ -52,9 +47,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	#If not in a fight, the player can move.
 	if(!inFight):
-		#move(delta)
 		move2(delta)
-	
 	
 	#Actually move the player to the desired position.
 	moveAnimation(desired_position, delta)
@@ -86,39 +79,6 @@ func move2(delta : float):
 		else:
 			desired_position = map_tile_set.map_to_local(tile_pos)
 			movement_cooldown = 0.25
-	else:
-		#Subtract time from the cooldown.
-		movement_cooldown -= delta
-	
-
-func move(delta :float):
-	# Get which way is the player moving.
-	var move_direction = Input.get_vector("Left", "Right", "Down", "Up")
-	#0.707107 for diagonal input. Probably doesn't matter though.
-	
-	#The player can move if they aren't on cooldown.
-	#The 2nd If is so it doesn't try moving while the player isn't trying to move.
-	if(movement_cooldown <= 0 && move_direction != Vector2(0,0)):
-		match(move_direction):
-			#Left
-			Vector2(-1,0):
-				desired_position.x -= player_size.x
-			#Right
-			Vector2(1,0):
-				desired_position.x += player_size.x 
-			#Down
-			Vector2(0,-1):
-				desired_position.y += player_size.y 
-			#Up
-			Vector2(0,1):
-				desired_position.y -= player_size.y 
-		
-		#Stop the player from moving instantly again.
-		movement_cooldown = 0.25
-		
-		#Face the direction they're moving.
-		player_sprite.look_at(desired_position)
-		player_sprite.rotate(-PI/2)
 	else:
 		#Subtract time from the cooldown.
 		movement_cooldown -= delta
