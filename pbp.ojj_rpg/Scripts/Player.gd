@@ -12,6 +12,7 @@ var player_size : Vector2
 var desired_position = position
 @export var picture : String
 var inFight = false
+@onready var main_menu_panel = $PauseMenu
 
 #Battle Variables
 @onready var battle_camera = $"../BattleCamera"
@@ -19,7 +20,7 @@ var inFight = false
 @onready var enemy_label = $"../BattleCamera/EnemiesLabel"
 @onready var map_tile_set = $"../World Terrain"
 
-# Called when the node enters the scene tree for the first time.
+## START UP ########################################################################################
 func _ready() -> void:
 	posToMap(position)
 	
@@ -43,22 +44,52 @@ func _ready() -> void:
 	player_collision.shape = rectangle_shape
 	add_child(player_collision)
 
+## EVERY FRAME #####################################################################################
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	if(Input.is_action_just_pressed("EscapeAction")):
+		pauseMenu()
+	
 	#If not in a fight, the player can move.
 	if(!inFight):
-		move2(delta)
+		move(delta)
 	
 	#Actually move the player to the desired position.
 	moveAnimation(desired_position, delta)
 
-func posToMap(player_position : Vector2):
-	var tile_pos = map_tile_set.local_to_map(player_position)
-	var center_pos = map_tile_set.map_to_local(tile_pos)
-	desired_position = center_pos
-	position = center_pos
+## PAUSE MENU METHODS ##############################################################################
+func pauseMenu():
+	if(get_tree().paused == false):
+		pauseGame()
+	
+	elif(get_tree().paused == true):
+		resumeGame()
 
-func move2(delta : float):
+func mainMenu():
+	resumeGame()
+	get_tree().change_scene_to_file("res://Scenes/titleScreen.tscn")
+
+func quitGame():
+	resumeGame()
+	get_tree().quit()
+
+#Pauses the Game and brings up the menu.
+func pauseGame():
+	get_tree().paused = true
+	main_menu_panel.show()
+
+#Resumes the game and hides the menu.
+func resumeGame():
+	get_tree().paused = false
+	main_menu_panel.hide()
+
+func _shortcut_input(event: InputEvent) -> void:
+	if (event.is_action("EscapeAction")):
+		resumeGame()
+
+## MOVEMENT METHODS ################################################################################
+func move(delta : float):
 	
 	var tile_pos = map_tile_set.local_to_map(position)
 	var move_direction = Input.get_vector("Left", "Right", "Down", "Up")
@@ -87,6 +118,13 @@ func moveAnimation(point : Vector2, delta : float):
 	#Move towards the desired position.
 	position = position.move_toward(point, 500 * delta)
 
+func posToMap(player_position : Vector2):
+	var tile_pos = map_tile_set.local_to_map(player_position)
+	var center_pos = map_tile_set.map_to_local(tile_pos)
+	desired_position = center_pos
+	position = center_pos
+
+## BATTLE METHODS ##################################################################################
 func battle(enemy_group : EnemyBody):
 	PlayerStats.enemy = enemy_group
 	inFight = true
