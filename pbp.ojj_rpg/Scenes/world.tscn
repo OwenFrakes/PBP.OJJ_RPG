@@ -34,7 +34,7 @@ picture = "res://Resources/Character/dante.png"
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 z_index = 25
-zoom = Vector2(0.75, 0.75)
+zoom = Vector2(1.25, 1.25)
 
 [node name="PauseMenu" type="Panel" parent="Player"]
 process_mode = 3

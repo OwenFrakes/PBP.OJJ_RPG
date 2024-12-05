@@ -6,6 +6,13 @@ var stamina
 var mana
 var pWeapon: PlayerWeapon
 
+func _init(tempName: String = "", temphealth: float = 1, tempstamina: float = 1, tempmana: float = 1, tempWName: String = "", tempWDamage: float = 1, tempWSpeed = 1) -> void:
+	cName = tempName
+	health = temphealth
+	stamina = tempstamina
+	mana = tempmana
+	pWeapon = PlayerWeapon.new()
+	pWeapon.setWeapon(tempWName, tempWDamage, tempWSpeed)
 
 func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana: float, tempWName: String, tempWDamage: float, tempWSpeed):
 	cName = tempName
