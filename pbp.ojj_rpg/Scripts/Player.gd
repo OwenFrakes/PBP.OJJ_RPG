@@ -13,6 +13,7 @@ var desired_position = position
 @export var picture : String
 var inFight = false
 @onready var main_menu_panel = $PauseMenu
+var inventory : Inventory_Component
 
 #Battle Variables
 @onready var battle_camera = $"../BattleCamera"
@@ -43,6 +44,11 @@ func _ready() -> void:
 	rectangle_shape.size = Vector2(sprite_size_x / 2, sprite_size_y / 2)
 	player_collision.shape = rectangle_shape
 	add_child(player_collision)
+	
+	#Inventory Code
+	inventory = Inventory_Component.new(3,3)
+	inventory.position = Vector2(-((1920*0.75)/2),-((1080*0.75)/2))
+	add_child(inventory)
 
 ## EVERY FRAME #####################################################################################
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -50,6 +56,9 @@ func _process(delta: float) -> void:
 	
 	if(Input.is_action_just_pressed("EscapeAction")):
 		pauseMenu()
+	
+	if(Input.is_action_just_pressed("Inventory")):
+		inventory.openInventory()
 	
 	#If not in a fight, the player can move.
 	if(!inFight):

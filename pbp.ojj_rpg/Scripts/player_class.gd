@@ -7,7 +7,7 @@ var mana
 var pWeapon: PlayerWeapon
 
 func _init(tempName: String = "", temphealth: float = 1, tempstamina: float = 1, tempmana: float = 1, tempWName: String = "", tempWDamage: float = 1, tempWSpeed = 1) -> void:
-	cName = tempName
+	cName = tempName 
 	health = temphealth
 	stamina = tempstamina
 	mana = tempmana

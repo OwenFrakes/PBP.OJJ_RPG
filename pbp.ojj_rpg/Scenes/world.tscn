@@ -28,7 +28,7 @@ sources/1 = SubResource("TileSetAtlasSource_5s2pl")
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(1371, 5599)
+position = Vector2(-722, 5442)
 script = ExtResource("1_sauk2")
 picture = "res://Resources/Character/dante.png"
 
