@@ -8,7 +8,7 @@ var panel : Panel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	hide()
 
 # Called with instantiated.
 func _init(new_rows : int = 1, new_cols : int = 1) -> void:
@@ -30,6 +30,7 @@ func _init(new_rows : int = 1, new_cols : int = 1) -> void:
 			space[x].append(new_cell)
 			add_child(new_cell)
 	
+	space[0][0].setItem(Item_Base.new())
 
 func openInventory():
 	if(self.visible):

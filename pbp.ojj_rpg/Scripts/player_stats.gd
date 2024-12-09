@@ -4,6 +4,7 @@ extends Node
 var selected_player_class : PlayerClass
 var selected_player_weapon : PlayerWeapon
 var enemy : EnemyBody
+var player_node_path
 
 func stringInfo() -> String:
 	return selected_player_class.getName() + "\n" + \

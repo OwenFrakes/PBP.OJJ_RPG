@@ -14,6 +14,7 @@ var desired_position = position
 var inFight = false
 @onready var main_menu_panel = $PauseMenu
 var inventory : Inventory_Component
+var active_inventory_cell
 
 #Battle Variables
 @onready var battle_camera = $"../BattleCamera"
@@ -23,6 +24,7 @@ var inventory : Inventory_Component
 
 ## START UP ########################################################################################
 func _ready() -> void:
+	PlayerStats.player_node_path = get_path()
 	posToMap(position)
 	
 	#Give the player their sprite body.
