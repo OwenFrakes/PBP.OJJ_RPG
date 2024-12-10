@@ -97,4 +97,5 @@ position = Vector2(281, 223)
 texture = ExtResource("7_ro2cn")
 script = ExtResource("7_dr5p8")
 
+[connection signal="pressed" from="BattleCamera/FightButton" to="Player" method="_on_fight_button_pressed"]
 [connection signal="pressed" from="BattleCamera/Button" to="Player" method="battleWin"]

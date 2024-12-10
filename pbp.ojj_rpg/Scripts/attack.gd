@@ -15,3 +15,22 @@ func setAttack(tempName: String, tempDamage: float, tHCost: float, tMCost: float
 	mCost =tMCost
 	type = typing.new()
 	type.setType(tempType)
+
+func checkEffectiveness(tempType: typing):
+	var count = 0
+	var eType = tempType
+	for i in type.superEffective:
+		if(type.superEffective[count] == eType.name):
+			print("super effective")
+			break
+		else:
+			count += 1 
+			print("nope")
+	count = 0
+	for i in type.notEffective:
+		if(type.notEffective[count] == eType.name):
+			print("not effective")
+			break
+		else:
+			count += 1 
+			print("nope")

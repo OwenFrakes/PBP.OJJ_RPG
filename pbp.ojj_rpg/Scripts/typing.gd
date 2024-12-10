@@ -69,6 +69,15 @@ func setType(tempName: String):
 			notEffective[0] = "ice"
 			notEffective[1] = "dark"
 
+func getSEffective():
+	return superEffective
+
+func getNEffective():
+	return notEffective
+
 func checkEffectiveness(type1: typing, type2: typing):
-	pass
+	var count = 0
+	for each in superEffective:
+		count += 1 
+		print(count)
 	

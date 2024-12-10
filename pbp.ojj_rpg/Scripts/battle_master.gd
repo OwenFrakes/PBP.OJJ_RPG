@@ -12,3 +12,4 @@ func readyBattle(new_enemy):
 		debug_label.text += (enemy.stringInfo())
 	
 	player_label.text += PlayerStats.stringInfo()
+	
