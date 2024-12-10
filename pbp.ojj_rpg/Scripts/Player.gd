@@ -48,7 +48,7 @@ func _ready() -> void:
 	add_child(player_collision)
 	
 	#Inventory Code
-	inventory = Inventory_Component.new(3,3)
+	inventory = Inventory_Component.new(3,3,true)
 	inventory.position = Vector2(-((1920*0.75)/2),-((1080*0.75)/2))
 	add_child(inventory)
 
@@ -60,6 +60,11 @@ func _process(delta: float) -> void:
 		pauseMenu()
 	
 	if(Input.is_action_just_pressed("Inventory")):
+		#Make sure everything that in the inventory is in it.
+		#for x in inventory.getWidth():
+		#	for y in inventory.getLength():
+		#		pass
+		#Show it to the player.
 		inventory.openInventory()
 	
 	#If not in a fight, the player can move.
@@ -68,6 +73,9 @@ func _process(delta: float) -> void:
 	
 	#Actually move the player to the desired position.
 	moveAnimation(desired_position, delta)
+
+func addItem():
+	inventory.space[0][0].setItem(Item_Base.new())
 
 ## PAUSE MENU METHODS ##############################################################################
 func pauseMenu():

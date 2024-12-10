@@ -5,6 +5,7 @@ var selected_player_class : PlayerClass
 var selected_player_weapon : PlayerWeapon
 var enemy : EnemyBody
 var player_node_path
+var player_inventory : Inventory_Component
 
 func stringInfo() -> String:
 	return selected_player_class.getName() + "\n" + \

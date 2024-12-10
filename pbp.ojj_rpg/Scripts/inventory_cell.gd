@@ -20,12 +20,28 @@ func _init(new_item = null) -> void:
 		button.text = "Worked"
 
 func active_cell():
-	player.active_inventory_cell = self
-	print(player.active_inventory_cell.getItem())
+	#Player has nothing selected
+	if(typeof(player.active_inventory_cell) == typeof(null)):
+		player.active_inventory_cell = self
+		button.self_modulate = Color(0,1,0)
+	#Player has the same cell selected
+	elif(player.active_inventory_cell == self):
+		player.active_inventory_cell = null
+		button.self_modulate = Color(1,1,1)
+	#Player selected a different cell
+	else:
+		player.active_inventory_cell.button.self_modulate = Color(1,1,1)
+		var old_item = item
+		setItem(player.active_inventory_cell.item)
+		player.active_inventory_cell.setItem(old_item)
+		player.active_inventory_cell = null
 
 func setItem(new_item : Item_Base):
 	item = new_item
-	#Issue here, button dosen exist yet or something
+	if(typeof(item) == typeof(null)):
+		button.text = ""
+	else:
+		button.text = item.getName()
 
 func getItem():
 	if(typeof(item) == typeof(null)):
