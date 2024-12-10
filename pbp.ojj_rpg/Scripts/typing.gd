@@ -74,10 +74,3 @@ func getSEffective():
 
 func getNEffective():
 	return notEffective
-
-func checkEffectiveness(type1: typing, type2: typing):
-	var count = 0
-	for each in superEffective:
-		count += 1 
-		print(count)
-	

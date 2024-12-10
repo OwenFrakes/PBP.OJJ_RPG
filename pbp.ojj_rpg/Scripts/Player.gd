@@ -155,7 +155,5 @@ func _on_fight_button_pressed() -> void:
 	attack1 = attack.new()
 	attack1.setAttack("icey", 10, 10, 0, "fire")
 	var type2 : typing
-	type2 = typing.new()
-	type2.setType("ice")
-	attack1.checkEffectiveness(type2)
+	attack1.checkEffectiveness("fire")
 	
