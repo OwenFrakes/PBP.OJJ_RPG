@@ -3,11 +3,14 @@ extends Node
 var wName
 var damage
 var attackSpeed
+var type = typing
 
-func setWeapon(tempName: String, tempDamage: float, tempSpeed: float):
+func setWeapon(tempName: String, tempDamage: float, tempSpeed: float, tempType: typing):
 	wName = tempName
 	damage = tempDamage
 	attackSpeed = tempSpeed
+	type = typing.new()
+	type.setType(tempType)
 
 #get Variables
 func getName():

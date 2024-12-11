@@ -25,11 +25,13 @@ func _ready() -> void:
 	scale = Vector2(tile_size/texture.get_width(), tile_size/texture.get_height())
 	
 	enemies.append(Enemy.new())
-	enemies[0].setEnemy("Basic", 20, 10, "Club", 10, 10)
+	var eType = typing.new()
+	eType.setType("bash")
+	enemies[0].setEnemy("Basic", 20, 10, "Club", 10, 10, eType)
 	enemies.append(Enemy.new())
-	enemies[1].setEnemy("Basic", 30, 5, "Club", 10, 10)
+	enemies[1].setEnemy("Basic", 30, 5, "Club", 10, 10, eType)
 	enemies.append(Enemy.new())
-	enemies[2].setEnemy("Basic", 10, 20, "Club", 10, 10)
+	enemies[2].setEnemy("Basic", 10, 20, "Club", 10, 10, eType)
 
 func move(point : Vector2, delta : float):
 	if(movement_cooldown <= 0):

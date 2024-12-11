@@ -153,7 +153,7 @@ func switchBattleCamera():
 func _on_fight_button_pressed() -> void:
 	var attack1 : attack
 	attack1 = attack.new()
-	attack1.setAttack("icey", 10, 10, 0, "fire")
+	attack1.setAttack("icey", 10, 10, 0, "fire", 5)
 	var type2 : typing
 	attack1.checkEffectiveness("fire")
 	

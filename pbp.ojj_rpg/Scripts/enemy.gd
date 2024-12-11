@@ -7,12 +7,12 @@ var mana = 0
 var eWeapon: Weapon
 
 # Called when the node enters the scene tree for the first time.
-func setEnemy(tempName: String, temphealth: float, tempmana: float, tempWName: String, tempWDamage: float, tempWSpeed):
+func setEnemy(tempName: String, temphealth: float, tempmana: float, tempWName: String, tempWDamage: float, tempWSpeed, tempWType: typing):
 	eName = tempName
 	health = temphealth
 	mana = tempmana
 	eWeapon = Weapon.new()
-	eWeapon.setWeapon(tempWName, tempWDamage, tempWSpeed)
+	eWeapon.setWeapon(tempWName, tempWDamage, tempWSpeed, tempWType)
 
 func _ready() -> void:
 	pass # Replace with function body.
