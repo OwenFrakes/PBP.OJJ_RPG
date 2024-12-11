@@ -5,7 +5,7 @@ var selected_player_class : PlayerClass
 var selected_player_weapon : PlayerWeapon
 var enemy : EnemyBody
 var player_node_path
-var player_inventory : Inventory_Component
+var player_inventory = [[Item_Base.new(),null,null],[null,null,null],[null,null,null]]
 
 func stringInfo() -> String:
 	return selected_player_class.getName() + "\n" + \

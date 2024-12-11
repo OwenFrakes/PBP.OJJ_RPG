@@ -45,5 +45,5 @@ func setItem(new_item : Item_Base):
 
 func getItem():
 	if(typeof(item) == typeof(null)):
-		return "Empty"
+		return null
 	return item
