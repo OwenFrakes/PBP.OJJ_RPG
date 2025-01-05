@@ -5,6 +5,8 @@ var title = "THE RIZZASTARD"
 var health = 10
 var something = 15
 var rizz = "Spectatcular"
+var weakness: Array
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

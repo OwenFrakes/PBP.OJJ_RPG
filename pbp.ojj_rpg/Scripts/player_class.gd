@@ -5,15 +5,22 @@ var health
 var stamina
 var mana
 var pWeapon: PlayerWeapon
+var weakness: Array
+var learnset: Array
 
 
-func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana: float, tempWName: String, tempWDamage: float, tempWSpeed):
+func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana: float, tempWName: String, tempWDamage: float, tempWSpeed: float, tempWType: String, tempWeak: Array):
 	cName = tempName
 	health = temphealth
 	stamina = tempstamina
 	mana = tempmana
 	pWeapon = PlayerWeapon.new()
-	pWeapon.setWeapon(tempWName, tempWDamage, tempWSpeed)
+	pWeapon.setWeapon(tempWName, tempWDamage, tempWSpeed, tempWType)
+	weakness.resize(tempWeak.size())
+	for each in tempWeak:
+		weakness[each] = tempWeak[each]
+	
+	
 
 #get the Variables
 func getName():

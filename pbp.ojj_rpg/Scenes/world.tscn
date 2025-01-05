@@ -145,7 +145,7 @@ text = "PLAYER :"
 
 [node name="EnemyBody" type="Sprite2D" parent="."]
 self_modulate = Color(0.807919, 0.703809, 0.0847713, 1)
-position = Vector2(563, 289)
+position = Vector2(2136, 4115)
 texture = ExtResource("7_ro2cn")
 script = ExtResource("7_dr5p8")
 
