@@ -1,11 +1,11 @@
 class_name Enemy
 extends Node
 
-var title = "THE RIZZASTARD"
+var eName = "THE RIZZASTARD"
 var health = 10
-var something = 15
-var rizz = "Spectatcular"
+var mana = 10
 var weakness: Array
+var moveset: Array
 
 
 # Called when the node enters the scene tree for the first time.
@@ -17,4 +17,4 @@ func _process(delta: float) -> void:
 	pass
 
 func stringInfo() -> String:
-	return title + "\n" + str(health) + "\n" + str(something) + "\n" + rizz
+	return eName + "\n" + str(health) + "\n" + str(mana) + "\n"
