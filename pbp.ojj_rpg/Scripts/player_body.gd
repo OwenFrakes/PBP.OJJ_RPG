@@ -72,7 +72,9 @@ func _process(delta: float) -> void:
 		move(delta)
 	
 	#Actually move the player to the desired position.
-	moveAnimation(desired_position, delta)
+	#moveAnimation(desired_position, delta)
+	move2()
+	move_and_slide()
 
 func addItem():
 	inventory.space[0][0].setItem(Item_Base.new())
@@ -106,6 +108,13 @@ func resumeGame():
 func _shortcut_input(event: InputEvent) -> void:
 	if (event.is_action("EscapeAction")):
 		resumeGame()
+
+## MOVEMENT TEST ###################################################################################
+
+func move2():
+	var move_magnitude = Input.get_vector("Left","Right","Up","Down")
+	
+	velocity = move_magnitude * 500
 
 ## MOVEMENT METHODS ################################################################################
 func move(delta : float):

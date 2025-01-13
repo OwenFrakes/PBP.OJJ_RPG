@@ -12,6 +12,7 @@ func _ready() -> void:
 	add_child(button)
 	
 	button.pressed.connect(active_cell)
+	z_index = 50
 
 func _init(new_item = null) -> void:
 	item = new_item

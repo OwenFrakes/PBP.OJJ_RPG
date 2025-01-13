@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://d4gy4cuq2fxdt"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_sauk2"]
+[ext_resource type="Script" path="res://Scripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
 [ext_resource type="Theme" uid="uid://jb6cfq2h0xhb" path="res://Resources/Themes/PauseMenu.tres" id="2_g36tr"]
 [ext_resource type="TileSet" uid="uid://bslv4e41bebif" path="res://Resources/Tiles/SuperTileAtlas.tres" id="2_rkuw8"]
@@ -34,7 +34,6 @@ picture = "res://Resources/Character/dante.png"
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 z_index = 25
-zoom = Vector2(1.25, 1.25)
 
 [node name="PauseMenu" type="Panel" parent="Player"]
 process_mode = 3
@@ -119,7 +118,6 @@ y_sort_origin = 1
 texture_filter = 1
 position = Vector2(-3106, -17)
 anchor_mode = 0
-zoom = Vector2(2, 2)
 script = ExtResource("7_8l8pn")
 
 [node name="EnemiesLabel" type="Label" parent="BattleCamera"]
