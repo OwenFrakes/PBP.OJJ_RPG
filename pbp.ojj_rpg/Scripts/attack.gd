@@ -1,3 +1,4 @@
+class_name attack
 extends Node
 var aName: String
 var damage: float
