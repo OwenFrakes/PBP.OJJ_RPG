@@ -69,11 +69,12 @@ func _process(delta: float) -> void:
 	
 	#If not in a fight, the player can move.
 	if(!inFight):
-		move(delta)
+		move2()
+		pass
 	
 	#Actually move the player to the desired position.
 	#moveAnimation(desired_position, delta)
-	move2()
+	
 	move_and_slide()
 
 func addItem():

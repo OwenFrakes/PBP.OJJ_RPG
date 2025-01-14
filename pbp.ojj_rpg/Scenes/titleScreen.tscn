@@ -59,6 +59,38 @@ texture_filter = 1
 scale = Vector2(25, 25)
 texture = ExtResource("3_ip7vo")
 
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+z_index = -10
+position = Vector2(497, 259)
+gravity_scale = 0.0
+linear_damp = 1.0
+angular_damp = 1.0
+script = ExtResource("2_ddm8w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource("CircleShape2D_8webb")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2"]
+texture_filter = 1
+scale = Vector2(25, 25)
+texture = ExtResource("3_ip7vo")
+
+[node name="RigidBody2D3" type="RigidBody2D" parent="."]
+z_index = -10
+position = Vector2(704, 1049)
+gravity_scale = 0.0
+linear_damp = 1.0
+angular_damp = 1.0
+script = ExtResource("2_ddm8w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D3"]
+shape = SubResource("CircleShape2D_8webb")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D3"]
+texture_filter = 1
+scale = Vector2(25, 25)
+texture = ExtResource("3_ip7vo")
+
 [connection signal="pressed" from="StartBtn" to="." method="startGame"]
 [connection signal="pressed" from="QuickStartBtn" to="." method="quickStartGame"]
 [connection signal="pressed" from="QuitBtn" to="." method="quitGame"]

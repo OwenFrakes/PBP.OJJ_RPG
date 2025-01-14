@@ -7,7 +7,6 @@ func _ready() -> void:
 	
 	while(true):
 		await get_tree().create_timer(1).timeout
-		print(linear_velocity.x)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://Scripts/enemy_body.gd" id="7_dr5p8"]
 [ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="7_ro2cn"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjmx1"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6s4g"]
 size = Vector2(64, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cgvv3"]
@@ -42,7 +42,7 @@ angular_damp = 1000.0
 script = ExtResource("1_6iywq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NewEnemy"]
-shape = SubResource("RectangleShape2D_gjmx1")
+shape = SubResource("RectangleShape2D_u6s4g")
 
 [node name="Sprite2D" type="Sprite2D" parent="NewEnemy"]
 texture = ExtResource("1_2uw6j")
