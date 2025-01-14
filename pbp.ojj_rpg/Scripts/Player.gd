@@ -20,6 +20,12 @@ var inFight = false
 @onready var enemy_label = $"../BattleCamera/EnemiesLabel"
 @onready var map_tile_set = $"../World Terrain"
 
+#Leveling Variables
+var level: float
+var exp: float
+var required_exp: float
+var moveset: Array
+
 ## START UP ########################################################################################
 func _ready() -> void:
 	posToMap(position)
@@ -43,6 +49,10 @@ func _ready() -> void:
 	rectangle_shape.size = Vector2(sprite_size_x / 2, sprite_size_y / 2)
 	player_collision.shape = rectangle_shape
 	add_child(player_collision)
+	
+	#Add basic attack to the moveset
+	
+	
 
 ## EVERY FRAME #####################################################################################
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -135,6 +145,9 @@ func battleWin():
 	PlayerStats.enemy.free()
 	inFight = false
 	switchBattleCamera()
+	exp += 20
+	if exp >= required_exp:
+		levelUp()
 
 func battleLose():
 	get_tree().quit()
@@ -146,3 +159,9 @@ func switchBattleCamera():
 	else:
 		player_camera.make_current()
 		battle_camera.visible = false
+
+## LEVELING METHODS ##################################################################################
+func levelUp():
+	level += 1
+	exp = exp - required_exp
+	required_exp += 100

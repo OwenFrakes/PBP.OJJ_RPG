@@ -35,10 +35,16 @@ func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana:
 	learnset[3] = tAttack
 	tAttack.setAttack("Moderate Electric", 15, 0, 3, "electric", 9)
 	learnset[4] = tAttack
-	tAttack.setAttack("MASSIVE Attack", pWeapon.damage * 2, 6, 0, pWeapon.type, 10) #You know what else is massive? LO-
+	tAttack.setAttack("MASSIVE Attack", pWeapon.damage * 2, 10, 0, pWeapon.type, 10) #You know what else is massive? LO-
 	learnset[5] = tAttack
-	tAttack.setAttack("Massive Light", 15, 0, 3, "ice", 7)
-	learnset[3] = tAttack
+	tAttack.setAttack("Massive Light", 30, 0, 10, "light", 12)
+	learnset[6] = tAttack
+	tAttack.setAttack("Massive Dark", 30, 0, 10, "dark", 14)
+	learnset[7] = tAttack
+	tAttack.setAttack("Massive Fire", 30, 0, 3, "fire", 16)
+	learnset[8] = tAttack
+	tAttack.setAttack("TMOA", pWeapon.damage * 5, 0, 50, pWeapon.type, 20)
+	learnset[9] = tAttack
 	
 #get the Variables
 func getName():
