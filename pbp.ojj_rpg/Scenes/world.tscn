@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=16 format=4 uid="uid://d4gy4cuq2fxdt"]
 
 [ext_resource type="Texture2D" uid="uid://cgc33x27pb7f0" path="res://Resources/Tiles/TilePictures/GrassyTile-64.png.png" id="1_2uw6j"]
 [ext_resource type="Script" path="res://Scripts/enemy_2.gd" id="1_6iywq"]
@@ -8,9 +8,8 @@
 [ext_resource type="TileSet" uid="uid://bslv4e41bebif" path="res://Resources/Tiles/SuperTileAtlas.tres" id="2_rkuw8"]
 [ext_resource type="Texture2D" uid="uid://bcvg07sc80vv" path="res://Resources/Tiles/TilePictures/GrassyTile.png" id="3_7myob"]
 [ext_resource type="Script" path="res://Scripts/generation.gd" id="4_31yte"]
+[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="5_awuil"]
 [ext_resource type="Script" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
-[ext_resource type="Script" path="res://Scripts/enemy_depreciated.gd" id="7_dr5p8"]
-[ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="7_ro2cn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gjmx1"]
 size = Vector2(64, 64)
@@ -36,7 +35,8 @@ sources/1 = SubResource("TileSetAtlasSource_5s2pl")
 [node name="Node2D" type="Node2D"]
 
 [node name="NewEnemy" type="RigidBody2D" parent="."]
-position = Vector2(1369, 805)
+position = Vector2(1569, 938)
+collision_layer = 2
 linear_damp = 1.0
 angular_damp = 1000.0
 script = ExtResource("1_6iywq")
@@ -48,8 +48,51 @@ shape = SubResource("RectangleShape2D_gjmx1")
 texture_filter = 1
 texture = ExtResource("1_2uw6j")
 
+[node name="NewEnemy2" type="RigidBody2D" parent="."]
+position = Vector2(2518, 893)
+collision_layer = 2
+linear_damp = 1.0
+angular_damp = 1000.0
+script = ExtResource("1_6iywq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NewEnemy2"]
+shape = SubResource("RectangleShape2D_gjmx1")
+
+[node name="Sprite2D" type="Sprite2D" parent="NewEnemy2"]
+texture_filter = 1
+texture = ExtResource("1_2uw6j")
+
+[node name="NewEnemy3" type="RigidBody2D" parent="."]
+position = Vector2(2725, 1323)
+collision_layer = 2
+linear_damp = 1.0
+angular_damp = 1000.0
+script = ExtResource("1_6iywq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NewEnemy3"]
+shape = SubResource("RectangleShape2D_gjmx1")
+
+[node name="Sprite2D" type="Sprite2D" parent="NewEnemy3"]
+texture_filter = 1
+texture = ExtResource("1_2uw6j")
+
+[node name="NewEnemy4" type="RigidBody2D" parent="."]
+position = Vector2(1933, 1661)
+collision_layer = 2
+linear_damp = 1.0
+angular_damp = 1000.0
+script = ExtResource("1_6iywq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NewEnemy4"]
+shape = SubResource("RectangleShape2D_gjmx1")
+
+[node name="Sprite2D" type="Sprite2D" parent="NewEnemy4"]
+texture_filter = 1
+texture = ExtResource("1_2uw6j")
+
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(2239, 1267)
+collision_mask = 3
 script = ExtResource("1_sauk2")
 picture = "res://Resources/Character/dante.png"
 
@@ -75,6 +118,7 @@ offset_bottom = 290.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_g36tr")
+script = ExtResource("5_awuil")
 
 [node name="ResumeBtn" type="Button" parent="Player/PauseMenu"]
 z_index = 1
@@ -118,11 +162,6 @@ offset_bottom = 528.0
 grow_horizontal = 2
 theme = ExtResource("2_g36tr")
 text = "Quit Game"
-
-[node name="AddItem" type="Button" parent="Player/PauseMenu"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
 
 [node name="Generation" type="TileMapLayer" parent="."]
 z_index = -5
@@ -173,14 +212,7 @@ offset_right = 580.0
 offset_bottom = 101.0
 text = "PLAYER :"
 
-[node name="EnemyBody" type="Sprite2D" parent="."]
-self_modulate = Color(0.807919, 0.703809, 0.0847713, 1)
-position = Vector2(563, 289)
-texture = ExtResource("7_ro2cn")
-script = ExtResource("7_dr5p8")
-
 [connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player" method="pauseMenu"]
 [connection signal="pressed" from="Player/PauseMenu/MainMenuBtn" to="Player" method="mainMenu"]
 [connection signal="pressed" from="Player/PauseMenu/QuitBtn" to="Player" method="quitGame"]
-[connection signal="pressed" from="Player/PauseMenu/AddItem" to="Player" method="addItem"]
 [connection signal="pressed" from="BattleCamera/Button" to="Player" method="battleWin"]
