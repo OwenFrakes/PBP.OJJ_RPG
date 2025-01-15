@@ -115,7 +115,7 @@ func _shortcut_input(event: InputEvent) -> void:
 func move2():
 	var move_magnitude = Input.get_vector("Left","Right","Up","Down")
 	
-	velocity = move_magnitude * 500
+	velocity = move_magnitude * 250
 
 ## MOVEMENT METHODS ################################################################################
 func move(delta : float):
@@ -154,7 +154,7 @@ func posToMap(player_position : Vector2):
 	position = center_pos
 
 ## BATTLE METHODS ##################################################################################
-func battle(enemy_group : EnemyBody):
+func battle(enemy_group):
 	PlayerStats.enemy = enemy_group
 	inFight = true
 	battle_camera.readyBattle(enemy_group)

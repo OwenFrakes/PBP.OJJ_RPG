@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=4 uid="uid://d4gy4cuq2fxdt"]
 
 [ext_resource type="Texture2D" uid="uid://cgc33x27pb7f0" path="res://Resources/Tiles/TilePictures/GrassyTile-64.png.png" id="1_2uw6j"]
-[ext_resource type="Script" path="res://Scenes/enemy2.gd" id="1_6iywq"]
+[ext_resource type="Script" path="res://Scripts/enemy_2.gd" id="1_6iywq"]
 [ext_resource type="Script" path="res://Scripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
 [ext_resource type="Theme" uid="uid://jb6cfq2h0xhb" path="res://Resources/Themes/PauseMenu.tres" id="2_g36tr"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bcvg07sc80vv" path="res://Resources/Tiles/TilePictures/GrassyTile.png" id="3_7myob"]
 [ext_resource type="Script" path="res://Scripts/generation.gd" id="4_31yte"]
 [ext_resource type="Script" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
-[ext_resource type="Script" path="res://Scripts/enemy_body.gd" id="7_dr5p8"]
+[ext_resource type="Script" path="res://Scripts/enemy_depreciated.gd" id="7_dr5p8"]
 [ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="7_ro2cn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gjmx1"]
@@ -45,10 +45,11 @@ script = ExtResource("1_6iywq")
 shape = SubResource("RectangleShape2D_gjmx1")
 
 [node name="Sprite2D" type="Sprite2D" parent="NewEnemy"]
+texture_filter = 1
 texture = ExtResource("1_2uw6j")
 
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(1801, 893)
+position = Vector2(2239, 1267)
 script = ExtResource("1_sauk2")
 picture = "res://Resources/Character/dante.png"
 
@@ -142,6 +143,7 @@ y_sort_origin = 1
 [node name="BattleCamera" type="Camera2D" parent="."]
 texture_filter = 1
 position = Vector2(-3106, -17)
+scale = Vector2(2, 2)
 anchor_mode = 0
 script = ExtResource("7_8l8pn")
 

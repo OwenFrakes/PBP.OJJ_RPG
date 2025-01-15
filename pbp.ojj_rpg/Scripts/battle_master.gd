@@ -1,7 +1,7 @@
 extends Node
 
 #Variables
-var enemy_group : EnemyBody
+var enemy_group
 @onready var debug_label = $EnemiesLabel
 @onready var player_label = $PlayerLabel
 
