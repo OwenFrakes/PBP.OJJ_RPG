@@ -14,3 +14,17 @@ func setAttack(tName: String, tDamage: float, tHCost: float, tMCost: float, temp
 	mCost = tMCost
 	type = tempType
 	learnLevel = tLearnLevel
+
+#get functions
+func getName():
+	return aName
+func getDamage():
+	return damage
+func getHealthCost():
+	return hCost
+func getManaCost():
+	return mCost
+func getType():
+	return type
+func getLearnLevel():
+	return learnLevel

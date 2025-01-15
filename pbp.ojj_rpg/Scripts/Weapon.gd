@@ -18,6 +18,8 @@ func getDamage():
 	return damage
 func getAttackSpeed():
 	return attackSpeed
+func getType():
+	return type
 
 #set Variables
 func setName(tempName: String):

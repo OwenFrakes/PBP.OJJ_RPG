@@ -26,6 +26,9 @@ var exp: float
 var required_exp: float
 var moveset: Array
 
+#Players Class
+var player_Class: PlayerClass
+
 ## START UP ########################################################################################
 func _ready() -> void:
 	posToMap(position)
@@ -50,9 +53,23 @@ func _ready() -> void:
 	player_collision.shape = rectangle_shape
 	add_child(player_collision)
 	
-	#Add basic attack to the moveset
+	#Add Class to Player
+	player_Class = PlayerClass.new()
+	player_Class.setClass(PlayerStats.selected_player_class.getName(), \
+						PlayerStats.selected_player_class.getHealth(), \
+						PlayerStats.selected_player_class.getStamina(), \
+						PlayerStats.selected_player_class.getMana(), \
+						PlayerStats.selected_player_weapon.getName(), \
+						PlayerStats.selected_player_weapon.getDamage(), \
+						PlayerStats.selected_player_weapon.getAttackSpeed(), \
+						PlayerStats.selected_player_weapon.getType(), \
+						PlayerStats.selected_player_class.getWeakness())
 	
-	
+	#Start Moveset
+	moveset.resize(10)
+	moveset[0] = attack.new()
+	moveset[0] = player_Class.getLearnset()[0]
+
 
 ## EVERY FRAME #####################################################################################
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -165,3 +182,5 @@ func levelUp():
 	level += 1
 	exp = exp - required_exp
 	required_exp += 100
+	
+## CLASS METHODS ##################################################################################

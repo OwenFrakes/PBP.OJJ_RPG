@@ -61,6 +61,10 @@ func getWeaponDamage():
 	return pWeapon.getDamage()
 func getWeaponSpeed():
 	return pWeapon.getAttackSpeed()
+func getLearnset():
+	return learnset
+func getWeakness():
+	return weakness
 
 #set the Variables
 func setName(tempName: String):
