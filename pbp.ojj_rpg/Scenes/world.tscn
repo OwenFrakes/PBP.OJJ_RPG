@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=18 format=4 uid="uid://d4gy4cuq2fxdt"]
 
 [ext_resource type="Texture2D" uid="uid://cgc33x27pb7f0" path="res://Resources/Tiles/TilePictures/GrassyTile-64.png.png" id="1_2uw6j"]
 [ext_resource type="Script" path="res://Scripts/enemy_2.gd" id="1_6iywq"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bcvg07sc80vv" path="res://Resources/Tiles/TilePictures/GrassyTile.png" id="3_7myob"]
 [ext_resource type="Script" path="res://Scripts/generation.gd" id="4_31yte"]
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="5_awuil"]
+[ext_resource type="Script" path="res://Scenes/inventory.gd" id="6_68pg1"]
 [ext_resource type="Script" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gjmx1"]
@@ -16,6 +17,9 @@ size = Vector2(64, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cgvv3"]
 size = Vector2(64, 64)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ofps5"]
+bg_color = Color(0.690236, 0.584584, 0.393931, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i3ao1"]
 texture = ExtResource("2_3e5v3")
@@ -35,7 +39,7 @@ sources/1 = SubResource("TileSetAtlasSource_5s2pl")
 [node name="Node2D" type="Node2D"]
 
 [node name="NewEnemy" type="RigidBody2D" parent="."]
-position = Vector2(1569, 938)
+position = Vector2(800, 695)
 collision_layer = 2
 linear_damp = 1.0
 angular_damp = 1000.0
@@ -45,48 +49,6 @@ script = ExtResource("1_6iywq")
 shape = SubResource("RectangleShape2D_gjmx1")
 
 [node name="Sprite2D" type="Sprite2D" parent="NewEnemy"]
-texture_filter = 1
-texture = ExtResource("1_2uw6j")
-
-[node name="NewEnemy2" type="RigidBody2D" parent="."]
-position = Vector2(2518, 893)
-collision_layer = 2
-linear_damp = 1.0
-angular_damp = 1000.0
-script = ExtResource("1_6iywq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NewEnemy2"]
-shape = SubResource("RectangleShape2D_gjmx1")
-
-[node name="Sprite2D" type="Sprite2D" parent="NewEnemy2"]
-texture_filter = 1
-texture = ExtResource("1_2uw6j")
-
-[node name="NewEnemy3" type="RigidBody2D" parent="."]
-position = Vector2(2725, 1323)
-collision_layer = 2
-linear_damp = 1.0
-angular_damp = 1000.0
-script = ExtResource("1_6iywq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NewEnemy3"]
-shape = SubResource("RectangleShape2D_gjmx1")
-
-[node name="Sprite2D" type="Sprite2D" parent="NewEnemy3"]
-texture_filter = 1
-texture = ExtResource("1_2uw6j")
-
-[node name="NewEnemy4" type="RigidBody2D" parent="."]
-position = Vector2(1933, 1661)
-collision_layer = 2
-linear_damp = 1.0
-angular_damp = 1000.0
-script = ExtResource("1_6iywq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NewEnemy4"]
-shape = SubResource("RectangleShape2D_gjmx1")
-
-[node name="Sprite2D" type="Sprite2D" parent="NewEnemy4"]
 texture_filter = 1
 texture = ExtResource("1_2uw6j")
 
@@ -163,6 +125,69 @@ grow_horizontal = 2
 theme = ExtResource("2_g36tr")
 text = "Quit Game"
 
+[node name="Control" type="Control" parent="Player"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 0
+script = ExtResource("6_68pg1")
+
+[node name="Panel" type="Panel" parent="Player/Control"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ofps5")
+
+[node name="ItemList" type="ItemList" parent="Player/Control/Panel"]
+z_index = 5
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -450.0
+offset_right = 225.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+item_count = 1
+item_0/text = "Item!"
+
+[node name="AddButton" type="Button" parent="Player/Control/Panel"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 41.0
+offset_right = 136.0
+offset_bottom = 49.0
+text = "ADD BANANA
+"
+
+[node name="RemoveItemButton" type="Button" parent="Player/Control/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -172.0
+offset_top = -59.0
+offset_right = -61.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Remove Item"
+
 [node name="Generation" type="TileMapLayer" parent="."]
 z_index = -5
 texture_filter = 1
@@ -215,4 +240,6 @@ text = "PLAYER :"
 [connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player" method="pauseMenu"]
 [connection signal="pressed" from="Player/PauseMenu/MainMenuBtn" to="Player" method="mainMenu"]
 [connection signal="pressed" from="Player/PauseMenu/QuitBtn" to="Player" method="quitGame"]
+[connection signal="pressed" from="Player/Control/Panel/AddButton" to="Player/Control" method="add_item"]
+[connection signal="pressed" from="Player/Control/Panel/RemoveItemButton" to="Player/Control" method="remove_item"]
 [connection signal="pressed" from="BattleCamera/Button" to="Player" method="battleWin"]
