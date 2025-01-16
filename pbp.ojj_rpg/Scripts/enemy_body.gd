@@ -13,6 +13,7 @@ var detection_range = 8
 var inFight = false
 var enemies = []
 @onready var map_tile_set = $"../World Terrain"
+var moveset = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,9 +25,24 @@ func _ready() -> void:
 	
 	scale = Vector2(tile_size/texture.get_width(), tile_size/texture.get_height())
 	
+	#enemy moves setup
+	moveset.resize(4)
+	moveset[0] = attack.new()
+	moveset[0].setAttack("Basic Attack", 10, 0, 0, "pierce", 0)
+	moveset[1] = attack.new()
+	moveset[1].setAttack("Basic Fire", 10, 0, 2, "fire", 0)
+	moveset[0] = attack.new()
+	moveset[0].setAttack("Basic Light", 10, 0, 2, "light", 0)
+	moveset[0] = attack.new()
+	moveset[0].setAttack("Basic Dark", 10, 0, 0, "dark", 0)
+	
+	#enemy setup
 	enemies.append(Enemy.new())
+	enemies[0].setEnemy("ma,e", 20, 20, ["fire, ice"], moveset)
 	enemies.append(Enemy.new())
+	enemies[1].setEnemy("goku", 20, 20, ["fire, ice"], moveset)
 	enemies.append(Enemy.new())
+	enemies[2].setEnemy("dante", 20, 20, ["fire, ice"], moveset)
 
 func move(point : Vector2, delta : float):
 	if(movement_cooldown <= 0):

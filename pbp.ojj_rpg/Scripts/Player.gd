@@ -25,6 +25,7 @@ var level: float
 var exp: float
 var required_exp: float
 var moveset: Array
+var count: float
 
 #Players Class
 var player_Class: PlayerClass
@@ -66,9 +67,11 @@ func _ready() -> void:
 						PlayerStats.selected_player_class.getWeakness())
 	
 	#Start Moveset
-	moveset.resize(10)
-	moveset[0] = attack.new()
-	moveset[0] = player_Class.getLearnset()[0]
+	count = 0 
+	moveset.append(attack.new())
+	moveset[count] = player_Class.getLearnset()[count]
+	count += 1
+	
 
 
 ## EVERY FRAME #####################################################################################
@@ -167,7 +170,12 @@ func battleWin():
 		levelUp()
 
 func battleLose():
-	get_tree().quit()
+	PlayerStats.enemy.free()
+	inFight = false
+	switchBattleCamera()
+	
+func _on_fight_btn_pressed() -> void:
+	$"../BattleCamera/Attacks".visible = true
 
 func switchBattleCamera():
 	if(player_camera.is_current()):
@@ -182,5 +190,8 @@ func levelUp():
 	level += 1
 	exp = exp - required_exp
 	required_exp += 100
+	if level == player_Class.getLearnset()[count].getLearnLevel():
+		moveset.append(attack.new())
+		moveset[count] = player_Class.getLearnset()[count]
+		count += 1
 	
-## CLASS METHODS ##################################################################################
