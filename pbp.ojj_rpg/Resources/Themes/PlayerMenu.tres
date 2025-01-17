@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://d8wjfefy1skg"]
+
+[resource]
+Button/font_sizes/font_size = 24
+Button/styles/normal = null
+ItemList/font_sizes/font_size = 32
+TabBar/font_sizes/font_size = 24
