@@ -26,6 +26,7 @@ var exp: float
 var required_exp: float
 var moveset: Array
 var count: float
+var check: bool
 
 #Players Class
 var player_Class: PlayerClass
@@ -68,6 +69,7 @@ func _ready() -> void:
 	
 	#Start Moveset
 	count = 0 
+	moveset.resize(0)
 	moveset.append(attack.new())
 	moveset[count] = player_Class.getLearnset()[count]
 	count += 1
@@ -160,6 +162,13 @@ func battle(enemy_group : EnemyBody):
 	inFight = true
 	battle_camera.readyBattle(enemy_group)
 	switchBattleCamera()
+	
+	$"../BattleCamera/Attacks/AttackList".clear()
+	count = 0
+	while(count < moveset.size()):
+		$"../BattleCamera/Attacks/AttackList".add_item(moveset[count].getName(), null, true)
+		count += 1
+
 
 func battleWin():
 	PlayerStats.enemy.free()
@@ -173,9 +182,14 @@ func battleLose():
 	PlayerStats.enemy.free()
 	inFight = false
 	switchBattleCamera()
-	
+
 func _on_fight_btn_pressed() -> void:
-	$"../BattleCamera/Attacks".visible = true
+	if check == false:
+		$"../BattleCamera/Attacks".visible = true
+		check = true
+	else:
+		$"../BattleCamera/Attacks".visible = false
+		check = false
 
 func switchBattleCamera():
 	if(player_camera.is_current()):
@@ -184,6 +198,23 @@ func switchBattleCamera():
 	else:
 		player_camera.make_current()
 		battle_camera.visible = false
+
+func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+	count = 0
+	while(count<moveset.size()):
+		if(moveset[count].getName() == $"../BattleCamera/Attacks/AttackList".get_item_text(count)):
+			print("found")
+			break
+		else:
+			pass
+
+func damage(movePosition: int):
+	var tempEnemyHP = 100
+	tempEnemyHP -= moveset[movePosition].getDamage() * getEffectiveness(movePosition)
+
+func getEffectiveness(movePosition: int):
+	match(moveset[movePosition].getType()):
+		pass
 
 ## LEVELING METHODS ##################################################################################
 func levelUp():
