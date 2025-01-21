@@ -162,10 +162,11 @@ offset_bottom = 478.0
 
 [node name="EnemyChoice" type="ItemList" parent="BattleCamera/Attacks/AttackList"]
 visible = false
-offset_left = -190.0
-offset_top = 4.0
-offset_right = -16.0
-offset_bottom = 134.0
+z_index = 100
+layout_mode = 0
+offset_top = 394.0
+offset_right = 281.0
+offset_bottom = 477.0
 
 [node name="ItemsBtn" type="Button" parent="BattleCamera"]
 z_index = 1
@@ -196,3 +197,4 @@ script = ExtResource("7_dr5p8")
 [connection signal="pressed" from="BattleCamera/RunBtn" to="Player" method="battleLose"]
 [connection signal="pressed" from="BattleCamera/FightBtn" to="Player" method="_on_fight_btn_pressed"]
 [connection signal="item_clicked" from="BattleCamera/Attacks/AttackList" to="Player" method="_on_attack_list_item_clicked"]
+[connection signal="item_clicked" from="BattleCamera/Attacks/AttackList/EnemyChoice" to="Player" method="_on_enemy_choice_item_clicked"]

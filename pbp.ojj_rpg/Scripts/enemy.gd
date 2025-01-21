@@ -27,5 +27,11 @@ func setEnemy(tName: String, tHealth: float, tMana: float, tWeakness: Array, tMo
 		moveset[count] = tMoveset[count]
 		count += 1
 
+func getName():
+	return eName
+func getHealth():
+	return health
+func getWeakness(pos: int):
+	return weakness[pos]
 func stringInfo() -> String:
 	return eName + "\n" + str(health) + "\n" + str(mana) + "\n"
