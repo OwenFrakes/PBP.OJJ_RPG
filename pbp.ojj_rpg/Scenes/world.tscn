@@ -1,6 +1,5 @@
-[gd_scene load_steps=19 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=21 format=4 uid="uid://d4gy4cuq2fxdt"]
 
-[ext_resource type="Texture2D" uid="uid://cgc33x27pb7f0" path="res://Resources/Tiles/TilePictures/GrassyTile-64.png.png" id="1_2uw6j"]
 [ext_resource type="Script" path="res://Scripts/enemy_2.gd" id="1_6iywq"]
 [ext_resource type="Script" path="res://Scripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
@@ -8,16 +7,18 @@
 [ext_resource type="TileSet" uid="uid://bslv4e41bebif" path="res://Resources/Tiles/SuperTileAtlas.tres" id="2_rkuw8"]
 [ext_resource type="Texture2D" uid="uid://bcvg07sc80vv" path="res://Resources/Tiles/TilePictures/GrassyTile.png" id="3_7myob"]
 [ext_resource type="Script" path="res://Scripts/generation.gd" id="4_31yte"]
+[ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="4_ikl6f"]
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="5_awuil"]
 [ext_resource type="Script" path="res://Scenes/inventory.gd" id="6_68pg1"]
 [ext_resource type="Script" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
 [ext_resource type="Theme" uid="uid://d8wjfefy1skg" path="res://Resources/Themes/PlayerMenu.tres" id="9_m6iir"]
+[ext_resource type="Script" path="res://Scripts/wall.gd" id="13_xntkt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjmx1"]
-size = Vector2(64, 64)
+[sub_resource type="CircleShape2D" id="CircleShape2D_imiv7"]
+radius = 32.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgvv3"]
-size = Vector2(64, 64)
+[sub_resource type="CircleShape2D" id="CircleShape2D_jpw16"]
+radius = 32.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ofps5"]
 bg_color = Color(0.690236, 0.584584, 0.393931, 1)
@@ -36,6 +37,9 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_i3ao1")
 sources/1 = SubResource("TileSetAtlasSource_5s2pl")
+
+[sub_resource type="QuadMesh" id="QuadMesh_pays5"]
+size = Vector2(100, 100)
 
 [node name="Node2D" type="Node2D"]
 
@@ -63,11 +67,12 @@ angular_damp = 1000.0
 script = ExtResource("1_6iywq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NewEnemy"]
-shape = SubResource("RectangleShape2D_gjmx1")
+shape = SubResource("CircleShape2D_imiv7")
 
 [node name="Sprite2D" type="Sprite2D" parent="NewEnemy"]
 texture_filter = 1
-texture = ExtResource("1_2uw6j")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_ikl6f")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(2239, 1267)
@@ -76,7 +81,7 @@ script = ExtResource("1_sauk2")
 picture = "res://Resources/Character/dante.png"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("RectangleShape2D_cgvv3")
+shape = SubResource("CircleShape2D_jpw16")
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 z_index = 25
@@ -258,6 +263,18 @@ offset_top = 78.0
 offset_right = 580.0
 offset_bottom = 101.0
 text = "PLAYER :"
+
+[node name="Wall" type="MeshInstance2D" parent="."]
+position = Vector2(2469, 966)
+scale = Vector2(7.65, 1.89)
+mesh = SubResource("QuadMesh_pays5")
+script = ExtResource("13_xntkt")
+
+[node name="Wall2" type="MeshInstance2D" parent="."]
+position = Vector2(2697.25, 1257.75)
+scale = Vector2(4.065, 6.995)
+mesh = SubResource("QuadMesh_pays5")
+script = ExtResource("13_xntkt")
 
 [connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player" method="pauseMenu"]
 [connection signal="pressed" from="Player/PauseMenu/MainMenuBtn" to="Player" method="mainMenu"]
