@@ -91,6 +91,9 @@ func _process(delta: float) -> void:
 	#Actually move it.
 	moveAnimation(desired_position, delta)
 
+func move2():
+	pass
+
 func inCloseRange(given_player_position) -> bool:
 	# Get distance from enemy to player.
 	var player_distance = (given_player_position - position).abs()

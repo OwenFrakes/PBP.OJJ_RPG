@@ -1,6 +1,21 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bslv4e41bebif"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://bslv4e41bebif"]
 
 [ext_resource type="Texture2D" uid="uid://b0537pto2k12k" path="res://Resources/Tiles/TilePictures/8x8GodotAtlas.png" id="1_ae84u"]
+[ext_resource type="Texture2D" uid="uid://dx2bgwlylq5oc" path="res://Resources/Tiles/TilePictures/New8x8.png" id="1_tw5v4"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hxny4"]
+texture = ExtResource("1_tw5v4")
+separation = Vector2i(1, 1)
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:1/0 = 0
+6:0/0 = 0
+6:1/0 = 0
+7:0/0 = 0
+7:1/0 = 0
+7:2/0 = 0
+2:0/0 = 0
+7:3/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhvoa"]
 texture = ExtResource("1_ae84u")
@@ -18,4 +33,5 @@ texture_region_size = Vector2i(64, 64)
 
 [resource]
 tile_size = Vector2i(64, 64)
-sources/0 = SubResource("TileSetAtlasSource_jhvoa")
+sources/2 = SubResource("TileSetAtlasSource_jhvoa")
+sources/0 = SubResource("TileSetAtlasSource_hxny4")
