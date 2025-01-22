@@ -22,6 +22,7 @@ var inFight = false
 var enemies: EnemyBody
 var movePos: int
 var enemyPos: int
+var playerHP
 
 #Leveling Variables
 var level: float
@@ -166,6 +167,7 @@ func battle(enemy_group : EnemyBody):
 	inFight = true
 	battle_camera.readyBattle(enemy_group)
 	switchBattleCamera()
+	playerHP = player_Class.getHealth()
 	
 	$"../BattleCamera/Attacks/AttackList".clear()
 	count = 0
@@ -212,6 +214,11 @@ func switchBattleCamera():
 func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	count = 0
 	
+	$"../BattleCamera/Attacks/AttackList/EnemyChoice".clear()
+	while(count < enemies.enemies.size()):
+		$"../BattleCamera/Attacks/AttackList/EnemyChoice".add_item(enemies.enemies[count].getName(), null, true)
+		count += 1
+	
 	$"../BattleCamera/Attacks/AttackList/EnemyChoice".visible = true
 	while(count<moveset.size()):
 		if(moveset[count].getName() == $"../BattleCamera/Attacks/AttackList".get_item_text(count)):
@@ -224,15 +231,29 @@ func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button
 func _on_enemy_choice_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	enemyPos = index
 	damage()
+	$"../BattleCamera/Attacks".visible = false
+	$"../BattleCamera/Attacks/AttackList/EnemyChoice".visible = false
 
 func damage():
 	var enemyHP = enemies.enemies[enemyPos].getHealth()
 	enemyHP -= moveset[movePos].getDamage() * getEffectiveness()
 	enemies.enemies[enemyPos].health = enemyHP
+	playerHP -= moveset[movePos].getHealthCost()
+	
+	if enemyHP <= 0:
+		enemies.enemies.remove_at(enemyPos)
+	if enemies.enemies.size() == 0:
+		battleWin()
+	
+	$"../BattleCamera/PlayerLabel".text = "Player: \n"
+	$"../BattleCamera/PlayerLabel".text += (str(player_Class.getName()) + "\n" + str(playerHP) + "\n" +  str(player_Class.getStamina()) + "\n" + str(player_Class.getMana()))
+	$"../BattleCamera/EnemiesLabel".text = "Enemies: \n"
+	for enemy in enemies.enemies:
+		$"../BattleCamera/EnemiesLabel".text += (enemy.stringInfo())
 
 func getEffectiveness():
 	count = 0
-	while(count < enemies.enemies[enemyPos].moveset.size()):
+	while(count < enemies.enemies[enemyPos].weakness.size()):
 		if(moveset[movePos].getType() == enemies.enemies[enemyPos].getWeakness(count)):
 			return 2
 			break
