@@ -230,13 +230,13 @@ func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button
 
 func _on_enemy_choice_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	enemyPos = index
-	damage()
+	playerAttack()
 	$"../BattleCamera/Attacks".visible = false
 	$"../BattleCamera/Attacks/AttackList/EnemyChoice".visible = false
 
-func damage():
+func playerAttack():
 	var enemyHP = enemies.enemies[enemyPos].getHealth()
-	enemyHP -= moveset[movePos].getDamage() * getEffectiveness()
+	enemyHP -= moveset[movePos].getDamage() * getPlayerAttackEffectiveness()
 	enemies.enemies[enemyPos].health = enemyHP
 	playerHP -= moveset[movePos].getHealthCost()
 	
@@ -251,7 +251,35 @@ func damage():
 	for enemy in enemies.enemies:
 		$"../BattleCamera/EnemiesLabel".text += (enemy.stringInfo())
 
-func getEffectiveness():
+func enemyAttack():
+	count = 0
+	var eAttack: attack
+	for enemy in enemies.enemies:
+		eAttack = getEnemyAttack(enemies.enemies[count])
+		playerHP -= eAttack.getDamage() * getEnemyAttackEffectiveness(eAttack.getType())
+		count += 1
+		
+
+func getEnemyAttack(enemyPos: int):
+	var aCount = 0
+	while (count < player_Class.getWeakness().size()):
+		aCount = 0
+		for attack in enemies.enemies.moveset:
+			if (enemies.enemies[enemyPos].moveset[aCount].getType() == player_Class.getWeakness()[count]):
+				return enemies.enemies[enemyPos].moveset[aCount]
+			else:
+				aCount += 1
+		count += 1
+	return enemies.enemies[enemyPos].moveset[0]
+
+
+func getEnemyAttackEffectiveness(attackType: String):
+	if(attackType == enemies.enemies[enemyPos].getWeakness(count)):
+		return 2
+	else:
+		return 1
+
+func getPlayerAttackEffectiveness():
 	count = 0
 	while(count < enemies.enemies[enemyPos].weakness.size()):
 		if(moveset[movePos].getType() == enemies.enemies[enemyPos].getWeakness(count)):
