@@ -22,7 +22,8 @@ var inFight = false
 var enemies: EnemyBody
 var movePos: int
 var enemyPos: int
-var playerHP
+var playerHP: float
+var playerMana: float
 
 #Leveling Variables
 var level: float
@@ -168,6 +169,7 @@ func battle(enemy_group : EnemyBody):
 	battle_camera.readyBattle(enemy_group)
 	switchBattleCamera()
 	playerHP = player_Class.getHealth()
+	playerMana = player_Class.getMana()
 	
 	$"../BattleCamera/Attacks/AttackList".clear()
 	count = 0
@@ -231,6 +233,7 @@ func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button
 func _on_enemy_choice_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	enemyPos = index
 	playerAttack()
+	enemyAttack()
 	$"../BattleCamera/Attacks".visible = false
 	$"../BattleCamera/Attacks/AttackList/EnemyChoice".visible = false
 
@@ -239,7 +242,7 @@ func playerAttack():
 	enemyHP -= moveset[movePos].getDamage() * getPlayerAttackEffectiveness()
 	enemies.enemies[enemyPos].health = enemyHP
 	playerHP -= moveset[movePos].getHealthCost()
-	
+	playerMana -= moveset[movePos].getManaCost()
 	if enemyHP <= 0:
 		enemies.enemies.remove_at(enemyPos)
 	if enemies.enemies.size() == 0:
@@ -255,29 +258,39 @@ func enemyAttack():
 	count = 0
 	var eAttack: attack
 	for enemy in enemies.enemies:
-		eAttack = getEnemyAttack(enemies.enemies[count])
+		eAttack = getEnemyAttack()
 		playerHP -= eAttack.getDamage() * getEnemyAttackEffectiveness(eAttack.getType())
 		count += 1
 		
 
-func getEnemyAttack(enemyPos: int):
+#this local variable of enemyPos is being fed an int from enemyAttack()
+func getEnemyAttack():
 	var aCount = 0
+	count = 0
 	while (count < player_Class.getWeakness().size()):
 		aCount = 0
-		for attack in enemies.enemies.moveset:
+		for eAttack in enemies.enemies[count].moveset:
+			print(enemyPos)
+			print(aCount)
+			print(count)
 			if (enemies.enemies[enemyPos].moveset[aCount].getType() == player_Class.getWeakness()[count]):
 				return enemies.enemies[enemyPos].moveset[aCount]
 			else:
 				aCount += 1
+			print("For2")
+		print("While1")
 		count += 1
 	return enemies.enemies[enemyPos].moveset[0]
 
 
 func getEnemyAttackEffectiveness(attackType: String):
-	if(attackType == enemies.enemies[enemyPos].getWeakness(count)):
-		return 2
-	else:
-		return 1
+	count = 0
+	while (count < enemies.enemies[enemyPos].weakness.size()):
+		if(attackType == enemies.enemies[enemyPos].getWeakness(count)):
+			return 2
+		else:
+			count += 1
+	return 1
 
 func getPlayerAttackEffectiveness():
 	count = 0

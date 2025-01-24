@@ -19,10 +19,8 @@ func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana:
 	pWeapon.setWeapon(tempWName, tempWDamage, tempWSpeed, tempWType)
 	weakness.resize(tempWeak.size())
 	
-	count = 0
-	while count < tempWeak.size():
-		weakness[count] = tempWeak[count]
-		count += 1
+	weakness = tempWeak
+
 	
 	learnset.resize(10)
 	learnset[0] = attack.new()
