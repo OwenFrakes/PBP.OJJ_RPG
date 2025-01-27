@@ -233,7 +233,12 @@ func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button
 func _on_enemy_choice_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	enemyPos = index
 	playerAttack()
-	enemyAttack()
+	
+	count = 0
+	while (count <= enemies.enemies.size()):
+		enemyAttack(count)
+		count += 1
+	
 	$"../BattleCamera/Attacks".visible = false
 	$"../BattleCamera/Attacks/AttackList/EnemyChoice".visible = false
 
@@ -251,45 +256,44 @@ func playerAttack():
 	$"../BattleCamera/PlayerLabel".text = "Player: \n"
 	$"../BattleCamera/PlayerLabel".text += (str(player_Class.getName()) + "\n" + str(playerHP) + "\n" +  str(player_Class.getStamina()) + "\n" + str(player_Class.getMana()))
 	$"../BattleCamera/EnemiesLabel".text = "Enemies: \n"
+	count = 0 
 	for enemy in enemies.enemies:
 		$"../BattleCamera/EnemiesLabel".text += (enemy.stringInfo())
 
-func enemyAttack():
-	count = 0
-	var eAttack: attack
-	for enemy in enemies.enemies:
-		eAttack = getEnemyAttack()
-		playerHP -= eAttack.getDamage() * getEnemyAttackEffectiveness(eAttack.getType())
-		count += 1
-		
+func enemyAttack(enemyLoc: int):
+	var tempAttack = getEnemyAttack(enemyLoc)
+	playerHP -= tempAttack.getDamage() * getEnemyAttackEffectiveness(tempAttack.getType(), enemyLoc)
 
 #this local variable of enemyPos is being fed an int from enemyAttack()
-func getEnemyAttack():
-	var aCount = 0
+func getEnemyAttack(enemyLoc: int):
 	count = 0
-	while (count < player_Class.getWeakness().size()):
-		aCount = 0
-		for eAttack in enemies.enemies[count].moveset:
-			print(enemyPos)
-			print(aCount)
-			print(count)
-			if (enemies.enemies[enemyPos].moveset[aCount].getType() == player_Class.getWeakness()[count]):
-				return enemies.enemies[enemyPos].moveset[aCount]
+	var weakCount = 0
+	#for each of the players weaknesses, check if an enemy move matches typing.
+	while(weakCount < player_Class.getWeakness().size()):
+		#for each move of the selected enemy
+		while(count < enemies.enemies[enemyLoc].moveset.size()):
+			#If an enemy's move matches a player weakness, return that move. Else iterate
+			if enemies.enemies[enemyLoc].moveset[count].getType() == player_Class.getWeakness()[weakCount]:
+				return enemies.enemies[enemyLoc].moveset[count]
 			else:
-				aCount += 1
-			print("For2")
-		print("While1")
-		count += 1
-	return enemies.enemies[enemyPos].moveset[0]
+				count += 1
+		weakCount += 1
+	return enemies.enemies[enemyLoc].moveset[0]
 
 
-func getEnemyAttackEffectiveness(attackType: String):
+func getEnemyAttackEffectiveness(attackType: String, enemyLoc: int):
 	count = 0
-	while (count < enemies.enemies[enemyPos].weakness.size()):
-		if(attackType == enemies.enemies[enemyPos].getWeakness(count)):
-			return 2
-		else:
-			count += 1
+	var weakCount = 0
+	#for each of the players weaknesses, check if an enemy move matches typing.
+	while(weakCount < player_Class.getWeakness().size()):
+		#for each move of the selected enemy
+		while(count < enemies.enemies[enemyLoc].moveset.size()):
+			#If an enemy's move matches a player weakness, return that move. Else iterate
+			if enemies.enemies[enemyLoc].moveset[count].getType() == player_Class.getWeakness()[weakCount]:
+				return 2
+			else:
+				count += 1
+		weakCount += 1
 	return 1
 
 func getPlayerAttackEffectiveness():
