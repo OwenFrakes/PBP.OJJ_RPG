@@ -9,19 +9,24 @@ func _ready() -> void:
 	classes.resize(5)
 	
 	#Brawler
-	classes[0] = PlayerClass.new("Brawler", 100, 20,20, "Fists", 40, 50)
+	classes[0] = PlayerClass.new()
+	classes[0].setClass("Brawler", 100, 20,20, "Fists", 40, 50, "bash", ["electric", "ice"])
 	
 	#Swordsman
-	classes[1] = PlayerClass.new("Swordsman", 50, 10,6, "Sword", 40, 50)
+	classes[1] = PlayerClass.new()
+	classes[1].setClass("Swordsman", 50, 10,6, "Sword", 40, 50, "slash", ["dark", "fire"])
 	
 	#Gun Slinger
-	classes[2] = PlayerClass.new("Gun Slinger", 100, 20,8, "Revolver", 40, 50)
+	classes[2] = PlayerClass.new()
+	classes[2].setClass("Gun Slinger", 100, 20,8, "Revolver", 40, 50, "pierce", ["pierce", "light"])
 	
 	#Engineer
-	classes[3] = PlayerClass.new("Engineer", 100, 20,20, "Wrench", 40, 50)
+	classes[3] = PlayerClass.new()
+	classes[3].setClass("Engineer", 100, 20,20, "Wrench", 40, 50, "bash", ["slash", "dark"])
 	
 	#Marksman
-	classes[4] = PlayerClass.new("Marksman", 100, 20,20, "Sniper", 40, 50)
+	classes[4] = PlayerClass.new()
+	classes[4].setClass("Marksman", 100, 20,20, "Sniper", 40, 50, "pierce", ["light, fire"])
 	
 	#Change text to tell player what they have selected.
 	pClass = classes[0]
