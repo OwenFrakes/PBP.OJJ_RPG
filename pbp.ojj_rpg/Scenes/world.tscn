@@ -149,6 +149,7 @@ text = "Quit Game"
 
 [node name="PlayerMenu" type="Control" parent="Player"]
 process_mode = 3
+z_index = 100
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
