@@ -8,7 +8,6 @@ extends Control
 func _ready() -> void:
 	hide()
 	item_list.item_selected.connect(activate_buttons)
-	PlayerStats.player_item_list = item_list.get_path()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

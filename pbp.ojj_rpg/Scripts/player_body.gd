@@ -19,7 +19,6 @@ var inFight = false
 
 ## START UP ########################################################################################
 func _ready() -> void:
-	PlayerStats.player_node_path = get_path()
 	
 	#Give the player their sprite body.
 	player_sprite = Sprite2D.new()
