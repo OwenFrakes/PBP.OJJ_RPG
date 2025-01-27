@@ -198,12 +198,10 @@ func battleLose():
 	switchBattleCamera()
 
 func _on_fight_btn_pressed() -> void:
-	if check == false:
+	if $"../BattleCamera/Attacks".visible == false:
 		$"../BattleCamera/Attacks".visible = true
-		check = true
 	else:
 		$"../BattleCamera/Attacks".visible = false
-		check = false
 
 func switchBattleCamera():
 	if(player_camera.is_current()):
@@ -232,13 +230,12 @@ func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button
 
 func _on_enemy_choice_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	enemyPos = index
+	if enemies.enemies.size() >= 0:
+		count = 0
+		while (count <= enemies.enemies.size()):
+			enemyAttack(count)
+			count += 1
 	playerAttack()
-	
-	count = 0
-	while (count <= enemies.enemies.size()):
-		enemyAttack(count)
-		count += 1
-	
 	$"../BattleCamera/Attacks".visible = false
 	$"../BattleCamera/Attacks/AttackList/EnemyChoice".visible = false
 
@@ -250,15 +247,16 @@ func playerAttack():
 	playerMana -= moveset[movePos].getManaCost()
 	if enemyHP <= 0:
 		enemies.enemies.remove_at(enemyPos)
+		$"../BattleCamera/PlayerLabel".text = "Player: \n"
+		$"../BattleCamera/PlayerLabel".text += (str(player_Class.getName()) + "\n" + str(playerHP) + "\n" +  str(player_Class.getStamina()) + "\n" + str(player_Class.getMana()))
+		$"../BattleCamera/EnemiesLabel".text = "Enemies: \n"
+		count = 0 
+		for enemy in enemies.enemies:
+			$"../BattleCamera/EnemiesLabel".text += (enemy.stringInfo())
 	if enemies.enemies.size() == 0:
 		battleWin()
-	
-	$"../BattleCamera/PlayerLabel".text = "Player: \n"
-	$"../BattleCamera/PlayerLabel".text += (str(player_Class.getName()) + "\n" + str(playerHP) + "\n" +  str(player_Class.getStamina()) + "\n" + str(player_Class.getMana()))
-	$"../BattleCamera/EnemiesLabel".text = "Enemies: \n"
-	count = 0 
-	for enemy in enemies.enemies:
-		$"../BattleCamera/EnemiesLabel".text += (enemy.stringInfo())
+		
+
 
 func enemyAttack(enemyLoc: int):
 	var tempAttack = getEnemyAttack(enemyLoc)
