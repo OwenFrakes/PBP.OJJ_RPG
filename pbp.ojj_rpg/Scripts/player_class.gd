@@ -4,7 +4,7 @@ var cName
 var health
 var stamina
 var mana
-var pWeapon: Weapon
+var pWeapon: PlayerWeapon
 var weakness: Array
 var learnset: Array
 var count = 0 
@@ -15,7 +15,7 @@ func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana:
 	health = temphealth
 	stamina = tempstamina
 	mana = tempmana
-	pWeapon = Weapon.new()
+	pWeapon = PlayerWeapon.new()
 	pWeapon.setWeapon(tempWName, tempWDamage, tempWSpeed, tempWType)
 	weakness.resize(tempWeak.size())
 	
