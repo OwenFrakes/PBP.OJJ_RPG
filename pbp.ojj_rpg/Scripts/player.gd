@@ -1,4 +1,4 @@
-class_name Player
+class_name PlayerOld
 extends CharacterBody2D
 
 #Sprite / Tile size

@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/generation.gd" id="4_31yte"]
 [ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="4_ikl6f"]
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="5_awuil"]
-[ext_resource type="Script" path="res://Scenes/inventory.gd" id="6_68pg1"]
+[ext_resource type="Script" path="res://Scripts/inventory.gd" id="6_68pg1"]
 [ext_resource type="Script" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
 [ext_resource type="Theme" uid="uid://d8wjfefy1skg" path="res://Resources/Themes/PlayerMenu.tres" id="9_m6iir"]
 [ext_resource type="Script" path="res://Scripts/wall.gd" id="13_xntkt"]
@@ -326,4 +326,3 @@ script = ExtResource("13_xntkt")
 [connection signal="pressed" from="BattleCamera/FightBtn" to="Player" method="_on_fight_btn_pressed"]
 [connection signal="item_clicked" from="BattleCamera/Attacks/AttackList" to="Player" method="_on_attack_list_item_clicked"]
 [connection signal="item_clicked" from="BattleCamera/Attacks/AttackList/EnemyChoice" to="Player" method="_on_enemy_choice_item_clicked"]
-
