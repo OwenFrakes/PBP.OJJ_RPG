@@ -12,10 +12,26 @@ var desired_position = position
 @export var picture : String
 var inFight = false
 
+#Leveling Variables
+var level: float
+var exp: float
+var required_exp: float
+var moveset: Array
+var count: float
+var check: bool
+
 #Battle Variables
 @onready var battle_camera = $"../BattleCamera"
 @onready var player_camera = $PlayerCamera
 @onready var enemy_label = $"../BattleCamera/EnemiesLabel"
+var enemies: EnemyBody
+var movePos: int
+var enemyPos: int
+var playerHP: float
+var playerMana: float
+
+#Players Class
+var player_Class: PlayerClass
 
 ## START UP ########################################################################################
 func _ready() -> void:
@@ -39,6 +55,25 @@ func _ready() -> void:
 	#rectangle_shape.size = Vector2(sprite_size_x / 2, sprite_size_y / 2)
 	#player_collision.shape = rectangle_shape
 	#add_child(player_collision)
+	
+	#Add Class to Player
+	player_Class = PlayerClass.new()
+	player_Class.setClass(PlayerStats.selected_player_class.getName(), \
+						PlayerStats.selected_player_class.getHealth(), \
+						PlayerStats.selected_player_class.getStamina(), \
+						PlayerStats.selected_player_class.getMana(), \
+						PlayerStats.selected_player_weapon.getName(), \
+						PlayerStats.selected_player_weapon.getDamage(), \
+						PlayerStats.selected_player_weapon.getAttackSpeed(), \
+						PlayerStats.selected_player_weapon.getType(), \
+						PlayerStats.selected_player_class.getWeakness())
+	
+	#Start Moveset
+	count = 0 
+	moveset.resize(0)
+	moveset.append(attack.new())
+	moveset[count] = player_Class.getLearnset()[count]
+	count += 1
 	
 
 ## EVERY FRAME #####################################################################################
@@ -69,6 +104,14 @@ func battle(enemy_group):
 	battle_camera.readyBattle(enemy_group)
 	set_collision_mask_value(2, false)
 	switchBattleCamera(true)
+	playerHP = player_Class.getHealth()
+	playerMana = player_Class.getMana()
+
+func setInFight(boolean: bool):
+	if(boolean):
+		inFight = true
+	else:
+		inFight = false
 
 func battleWin():
 	PlayerStats.enemy.free()
@@ -86,3 +129,31 @@ func switchBattleCamera(battle_cam_yes : bool):
 	else:
 		player_camera.make_current()
 		battle_camera.visible = false
+
+#######################Level-Related Methods#############################################
+
+func levelUp():
+	level += 1
+	exp = exp - required_exp
+	required_exp += 100
+	if level == player_Class.getLearnset()[count].getLearnLevel():
+		moveset.append(attack.new())
+		moveset[count] = player_Class.getLearnset()[count]
+		count += 1
+
+func addPlayerExperience(xp_amount : float):
+	exp += xp_amount
+	if (exp >= required_exp):
+		levelUp()
+
+func getPlayerMoveset():
+	return moveset
+
+func getPlayerHealth():
+	return playerHP
+
+func getPlayerMana():
+	return playerMana
+
+func getPlayerClass():
+	return player_Class
