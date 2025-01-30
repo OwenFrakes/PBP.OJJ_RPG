@@ -5,7 +5,7 @@ extends Node
 #Variables
 var enemy_group
 var enemies
-@onready var debug_label = $EnemiesLabel
+@onready var enemy_label = $EnemiesLabel
 @onready var player_label = $PlayerLabel
 @onready var player_reference = $"../Player"
 @onready var battle_camera = self
@@ -36,7 +36,7 @@ func readyBattle(new_enemy):
 	enemy_group = PlayerStats.enemy
 	enemies = enemy_group.enemies
 	for enemy in enemy_group.enemies:
-		debug_label.text += (enemy.stringInfo())
+		enemy_label.text += (enemy.stringInfo())
 	
 	player_label.text += PlayerStats.stringInfo()
 	
@@ -66,12 +66,14 @@ func battleLose():
 	player_reference.setInFight(false)
 	player_reference.switchBattleCamera(false)
 
+#Toggle Attack Container Visibility
 func _on_fight_btn_pressed() -> void:
 	if attack_container.visible:
 		attack_container.visible = false
 	else:
 		attack_container.visible = true
 
+#Show the available enemies, and then get the position of the correct attack from the player's moveset.
 func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	count = 0
 	
@@ -90,6 +92,8 @@ func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button
 		else:
 			count += 1
 
+#Applies damage to the enemy, goes through enemy attacks on the player, 
+#and makes player menus invisible for the enemy's turn.
 func _on_enemy_choice_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	enemy_position = index
 	if enemies.size() >= 0:
@@ -101,6 +105,7 @@ func _on_enemy_choice_item_clicked(index: int, at_position: Vector2, mouse_butto
 	attack_container.visible = false
 	enemy_choice.visible = false
 
+#Removes enemy health, subtracts attack costs, removes enemies if dead, and checks to win the battle.
 func playerAttack():
 	var enemyHP = enemies[enemy_position].getHealth()
 	enemyHP -= player_moveset[move_position].getDamage() * getPlayerAttackEffectiveness()
@@ -109,17 +114,17 @@ func playerAttack():
 	player_mana -= player_moveset[move_position].getManaCost()
 	if enemyHP <= 0:
 		enemies.remove_at(move_position)
-		$"../BattleCamera/PlayerLabel".text = "Player: \n"
-		$"../BattleCamera/PlayerLabel".text += (str(player_class.getName()) + "\n" + str(player_health) + "\n" +  str(player_class.getStamina()) + "\n" + str(player_class.getMana()))
-		$"../BattleCamera/EnemiesLabel".text = "Enemies: \n"
+		player_label.text = "Player: \n"
+		player_label.text += (str(player_class.getName()) + "\n" + str(player_health) + "\n" +  str(player_class.getStamina()) + "\n" + str(player_class.getMana()))
+		enemy_label.text = "Enemies: \n"
 		count = 0 
 		for enemy in enemies:
-			$"../BattleCamera/EnemiesLabel".text += (enemy.stringInfo())
+			enemy_label.text += (enemy.stringInfo())
 	if enemies.size() == 0:
 		battleWin()
 		
 
-
+#Subtracts from player health.
 func enemyAttack(enemy_location: int):
 	var tempAttack = getEnemyAttack(enemy_location)
 	player_health -= tempAttack.getDamage() * getEnemyAttackEffectiveness(tempAttack.getType(), enemy_location)
@@ -138,10 +143,9 @@ func getEnemyAttack(enemy_location: int):
 			else:
 				count += 1
 		weakCount += 1
-	#print(enemies[enemy_location].moveset)
 	return enemies[enemy_location].moveset[0]
 
-
+#Goes through all of the player's weakness looking for matches.
 func getEnemyAttackEffectiveness(attackType: String, enemyLoc: int):
 	count = 0
 	var weakCount = 0
@@ -162,7 +166,6 @@ func getPlayerAttackEffectiveness():
 	while(count < enemies[enemy_position].weakness.size()):
 		if(player_moveset[move_position].getType() == enemies[enemy_position].getWeakness(count)):
 			return 2
-			break
 		else:
 			count += 1
 	return 1
