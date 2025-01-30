@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=4 uid="uid://d4gy4cuq2fxdt"]
 
-[ext_resource type="Script" path="res://Scripts/enemy_2.gd" id="1_6iywq"]
+[ext_resource type="Script" path="res://Scripts/enemy_body.gd" id="1_6iywq"]
 [ext_resource type="Script" path="res://Scripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
 [ext_resource type="Theme" uid="uid://jb6cfq2h0xhb" path="res://Resources/Themes/PauseMenu.tres" id="2_g36tr"]

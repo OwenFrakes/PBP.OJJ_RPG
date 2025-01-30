@@ -24,7 +24,6 @@ var check: bool
 @onready var battle_camera = $"../BattleCamera"
 @onready var player_camera = $PlayerCamera
 @onready var enemy_label = $"../BattleCamera/EnemiesLabel"
-var enemies: EnemyBody
 var movePos: int
 var enemyPos: int
 var playerHP: float
@@ -101,11 +100,11 @@ func move():
 func battle(enemy_group):
 	PlayerStats.enemy = enemy_group
 	inFight = true
-	battle_camera.readyBattle(enemy_group)
 	set_collision_mask_value(2, false)
 	switchBattleCamera(true)
 	playerHP = player_Class.getHealth()
 	playerMana = player_Class.getMana()
+	battle_camera.readyBattle(enemy_group)
 
 func setInFight(boolean: bool):
 	if(boolean):
