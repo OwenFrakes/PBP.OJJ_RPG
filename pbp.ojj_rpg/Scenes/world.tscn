@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=20 format=4 uid="uid://d4gy4cuq2fxdt"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_body.gd" id="1_6iywq"]
 [ext_resource type="Script" path="res://Scripts/player_body.gd" id="1_sauk2"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Scripts/inventory.gd" id="6_68pg1"]
 [ext_resource type="Script" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
 [ext_resource type="Theme" uid="uid://d8wjfefy1skg" path="res://Resources/Themes/PlayerMenu.tres" id="9_m6iir"]
+[ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="10_8inel"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_imiv7"]
 radius = 32.0
@@ -56,7 +57,7 @@ script = ExtResource("4_31yte")
 size = 100
 
 [node name="NewEnemy" type="RigidBody2D" parent="."]
-position = Vector2(2544, 1055)
+position = Vector2(3191, 612)
 collision_layer = 2
 linear_damp = 1.0
 angular_damp = 1000.0
@@ -227,6 +228,9 @@ text = "Use Item"
 layout_mode = 2
 theme = ExtResource("9_m6iir")
 text = "Remove Item"
+
+[node name="PlayerAnimatedSprite" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = ExtResource("10_8inel")
 
 [node name="BattleCamera" type="Camera2D" parent="."]
 texture_filter = 1

@@ -1,14 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2edha6ave3td"]
 
-[ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="1_vct6o"]
 [ext_resource type="Script" path="res://Scripts/class_select.gd" id="2_dexyt"]
+[ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="2_pa5da"]
 
 [node name="ClassSelect" type="Node2D"]
-
-[node name="Character" type="Sprite2D" parent="."]
-position = Vector2(320, 533.99)
-scale = Vector2(4.71875, 7.87515)
-texture = ExtResource("1_vct6o")
 
 [node name="CharacterStats" type="Label" parent="."]
 offset_left = 671.0
@@ -54,6 +49,12 @@ script = ExtResource("2_dexyt")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(363, 496)
+scale = Vector2(10, 10)
+sprite_frames = ExtResource("2_pa5da")
 
 [connection signal="pressed" from="PreviousButton" to="NextButton" method="_on_previous_button_pressed"]
 [connection signal="pressed" from="SelectButton" to="NextButton" method="_on_select_button_pressed"]

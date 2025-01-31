@@ -9,8 +9,9 @@ var weakness: Array
 var learnset: Array
 var count = 0 
 var tAttack = attack.new()
+var sprite_set
 
-func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana: float, tempWName: String, tempWDamage: float, tempWSpeed: float, tempWType: String, tempWeak: Array):
+func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana: float, tempWName: String, tempWDamage: float, tempWSpeed: float, tempWType: String, tempWeak: Array, temp_sprite_set):
 	cName = tempName
 	health = temphealth
 	stamina = tempstamina
@@ -18,6 +19,7 @@ func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana:
 	pWeapon = PlayerWeapon.new()
 	pWeapon.setWeapon(tempWName, tempWDamage, tempWSpeed, tempWType)
 	weakness.resize(tempWeak.size())
+	sprite_set = temp_sprite_set
 	
 	weakness = tempWeak
 
@@ -63,6 +65,8 @@ func getLearnset():
 	return learnset
 func getWeakness():
 	return weakness
+func getSpriteSet():
+	return sprite_set
 
 #set the Variables
 func setName(tempName: String):
@@ -79,3 +83,5 @@ func setWeaponDamage(tempDamage: float):
 	pWeapon.setDamage(tempDamage)
 func setWeaponSpeed(tempSpeed: float):
 	pWeapon.setAttackSpeed(tempSpeed)
+func setSpriteSet(temp_set):
+	sprite_set = temp_set

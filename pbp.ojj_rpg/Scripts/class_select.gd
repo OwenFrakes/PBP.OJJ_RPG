@@ -3,6 +3,14 @@ var pClass : PlayerClass
 var classes : Array
 var place: int
 
+@onready var animated_sprite_node = $"../AnimatedSprite2D"
+## Sprite Sets ##
+var brawler_sprite_set = load("res://Resources/Character/SpriteSets/brawler_set.tres")
+var swordsman_sprite_set = load("res://Resources/Character/SpriteSets/swordsman_set.tres")
+var gunslinger_sprite_set = load("res://Resources/Character/SpriteSets/gunslinger_set.tres")
+var engineer_sprite_set = load("res://Resources/Character/SpriteSets/engineer_set.tres")
+var marksman_sprite_set = load("res://Resources/Character/SpriteSets/marksman_set.tres")
+
 func _ready() -> void:
 	pClass = PlayerClass.new()
 	classes = []
@@ -10,23 +18,23 @@ func _ready() -> void:
 	
 	#Brawler
 	classes[0] = PlayerClass.new()
-	classes[0].setClass("Brawler", 100, 20,20, "Fists", 40, 50, "bash", ["electric", "ice"])
+	classes[0].setClass("Brawler", 100, 20,20, "Fists", 40, 50, "bash", ["electric", "ice"], brawler_sprite_set)
 	
 	#Swordsman
 	classes[1] = PlayerClass.new()
-	classes[1].setClass("Swordsman", 50, 10,6, "Sword", 40, 50, "slash", ["dark", "fire"])
+	classes[1].setClass("Swordsman", 50, 10,6, "Sword", 40, 50, "slash", ["dark", "fire"], swordsman_sprite_set)
 	
 	#Gun Slinger
 	classes[2] = PlayerClass.new()
-	classes[2].setClass("Gun Slinger", 100, 20,8, "Revolver", 40, 50, "pierce", ["pierce", "light"])
+	classes[2].setClass("Gun Slinger", 100, 20,8, "Revolver", 40, 50, "pierce", ["pierce", "light"], gunslinger_sprite_set)
 	
 	#Engineer
 	classes[3] = PlayerClass.new()
-	classes[3].setClass("Engineer", 100, 20,20, "Wrench", 40, 50, "bash", ["slash", "dark"])
+	classes[3].setClass("Engineer", 100, 20,20, "Wrench", 40, 50, "bash", ["slash", "dark"], engineer_sprite_set)
 	
 	#Marksman
 	classes[4] = PlayerClass.new()
-	classes[4].setClass("Marksman", 100, 20,20, "Sniper", 40, 50, "pierce", ["light, fire"])
+	classes[4].setClass("Marksman", 100, 20,20, "Sniper", 40, 50, "pierce", ["light, fire"], marksman_sprite_set)
 	
 	#Change text to tell player what they have selected.
 	pClass = classes[0]
@@ -51,6 +59,7 @@ func _on_pressed() -> void:
 	"\nHealth: " + str(pClass.getHealth()) + \
 	"\nStamina:" + str(pClass.getStamina()) + \
 	"\nMana:" + str(pClass.getMana()) 
+	animated_sprite_node.sprite_frames = pClass.getSpriteSet()
 	
 
 func _on_previous_button_pressed() -> void:
