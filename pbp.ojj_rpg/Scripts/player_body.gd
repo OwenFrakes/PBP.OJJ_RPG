@@ -98,13 +98,22 @@ func move():
 				if(!(player_animated_sprite.frame >= 24 && player_animated_sprite.frame <= 31)):
 					player_animated_sprite.frame = 24
 				elif(player_animated_sprite.frame == 31):
-					player_animated_sprite = 24
+					player_animated_sprite.frame = 24
 			Vector2(-1,0): ## Moving Left
-				player_animated_sprite.frame = 16
+				if(!(player_animated_sprite.frame >= 16 && player_animated_sprite.frame <= 24)):
+					player_animated_sprite.frame = 16
+				elif(player_animated_sprite.frame == 24):
+					player_animated_sprite.frame = 16
 			Vector2(0,1): ## Moving Down
-				player_animated_sprite.frame = 0
+				if(!(player_animated_sprite.frame >= 0 && player_animated_sprite.frame <= 8)):
+					player_animated_sprite.frame = 0
+				elif(player_animated_sprite.frame == 8):
+					player_animated_sprite.frame = 0
 			Vector2(0,-1): ## Moving Up
-				player_animated_sprite.frame = 8
+				if(!(player_animated_sprite.frame >= 8 && player_animated_sprite.frame <= 16)):
+					player_animated_sprite.frame = 8
+				elif(player_animated_sprite.frame == 16):
+					player_animated_sprite.frame = 8
 
 ## BATTLE METHODS ##################################################################################
 func battle(enemy_group):

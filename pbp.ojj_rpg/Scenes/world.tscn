@@ -234,7 +234,7 @@ sprite_frames = ExtResource("10_8inel")
 
 [node name="BattleCamera" type="Camera2D" parent="."]
 texture_filter = 1
-position = Vector2(-3106, -17)
+position = Vector2(-3106, 0)
 scale = Vector2(2, 2)
 anchor_mode = 0
 script = ExtResource("7_8l8pn")

@@ -1,3 +1,4 @@
+class_name EnemyBody
 extends RigidBody2D
 
 @onready var player_reference = $"../Player"
