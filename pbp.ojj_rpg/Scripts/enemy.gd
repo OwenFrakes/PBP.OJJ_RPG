@@ -7,7 +7,9 @@ var mana = 10
 var weakness: Array
 var moveset: Array
 var count = 0 
-
+var action_limit = 100
+var action_amount = 0
+var action_multiplier = 1
 
 # Called when the node enters the scene tree for the first time.
 func setEnemy(tName: String, tHealth: float, tMana: float, tWeakness: Array, tMoveset: Array):

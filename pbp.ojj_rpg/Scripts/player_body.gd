@@ -27,6 +27,9 @@ var movePos: int
 var enemyPos: int
 var playerHP: float
 var playerMana: float
+var player_action_limit = 50
+var player_action_amount = 0
+var player_action_multiplier = 1
 
 #Players Class
 var player_Class: PlayerClass
@@ -175,3 +178,12 @@ func getPlayerMana():
 
 func getPlayerClass():
 	return player_Class
+
+func getPlayerActionLimit():
+	return player_action_limit
+
+func getPlayerActionAmount():
+	return player_action_amount
+
+func getPlayerActionMultiplier():
+	return player_action_multiplier
