@@ -6,10 +6,10 @@ extends Node
 var turn_active = false
 var is_player_turn = true
 var enemy_group
-var enemies
-var entitiy_info_nodes = []
-@onready var enemy_label = $EnemiesLabel
-@onready var player_label = $PlayerLabel
+var enemies : Array
+var enemy_entity_info = []
+var player_group
+var player_entity_info = []
 @onready var player_reference = $"../Player"
 @onready var battle_camera = self
 
@@ -29,7 +29,7 @@ var player_action_multiplier
 @onready var attack_container = $Control/Attacks
 @onready var enemy_choice = $Control/Attacks/AttackList/EnemyChoice
 @onready var attack_list = $Control/Attacks/AttackList
-@onready var debug_marker = $Marker2D
+@onready var enemy_info_positions = [$EnemyPosition1, $EnemyPosition2, $EnemyPosition3, $EnemyPosition4]
 
 var count : float
 
@@ -42,7 +42,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	
-	#An entity is acting.
+	##An entity is acting.##
 	if(turn_active):
 		#If it's the player's turn, just make the controls visible, the player does the rest.
 		if(is_player_turn):
@@ -52,10 +52,9 @@ func _process(delta: float) -> void:
 		else:
 			controlsUsable(false)
 			await get_tree().create_timer(2).timeout
-			print("enemy acted")
 			turn_active = false
 		
-	#Since no entity is acting, check if one can, else pass time.
+	##Since no entity is acting, check if one can, else pass time.##
 	else:
 		#Check if the player can have an action.
 		if(player_action_amount >= player_action_limit):
@@ -64,22 +63,20 @@ func _process(delta: float) -> void:
 			player_action_amount = 0
 		
 		#Loop to check if an enemy can have an action.
-		var enemy_action_num = 0
-		while(enemy_action_num < enemies.size()):
-			if(enemies[enemy_action_num].action_amount >= enemies[enemy_action_num].action_limit):
+		for enemy_action in range(enemies.size()):
+			if(enemies[enemy_action].action_amount >= enemies[enemy_action].action_limit):
 				is_player_turn = false
 				turn_active = true
-				enemies[enemy_action_num].action_amount = 0
+				enemies[enemy_action].action_amount = 0
+				enemy_entity_info[enemy_action].changeAction(enemies[enemy_action].action_amount)
+				print(enemies[enemy_action].getName() + " acted")
 				break
-			enemy_action_num += 1
 		
 		if(!turn_active):
-			for enemy in enemies:
-				enemy.action_amount += delta * enemy.action_multiplier * 20
+			for i in range(enemies.size()):
+				enemies[i].action_amount += delta * enemies[i].action_multiplier * 20
+				enemy_entity_info[i].changeAction(enemies[i].action_amount)
 			player_action_amount += delta * player_action_multiplier * 20
-	debug_info.action_bar_node.value = enemies[0].action_amount
-
-var debug_info = EntityInfo.new(load("res://Resources/icon.svg"))
 
 #Give new variables for new battle.
 func readyBattle(new_enemy):
@@ -95,10 +92,7 @@ func readyBattle(new_enemy):
 	#Put enemy informtaion in the labels.
 	enemy_group = PlayerStats.enemy
 	enemies = enemy_group.enemies
-	for enemy in enemy_group.enemies:
-		enemy_label.text += (enemy.stringInfo())
 	
-	player_label.text += PlayerStats.stringInfo()
 	
 	attack_list.clear()
 	count = 0
@@ -115,10 +109,29 @@ func readyBattle(new_enemy):
 	controlsUsable(false)
 	process_mode = PROCESS_MODE_INHERIT
 	
-	debug_info.position = debug_marker.position
-	add_child(debug_info)
+	#Make the EntityInfo nodes for each participant.
+	for x in range(enemies.size()):
+		var enemy_info = EntityInfo.new(enemies[x].getName())
+		enemy_entity_info.append(enemy_info)
+		enemy_info.position = enemy_info_positions[x].position
+		enemy_info.setHealthBar(enemies[x].getHealth())
+		enemy_info.setActionBar(enemies[x].getActionLimit())
+		enemy_info.isEnemy()
+		add_child(enemy_info)
+	
+	debugCheckArray()
 
 ###############Control Nodes#################
+
+func debugCheckArray():
+	var string = "Enemies: "
+	for enemy in enemies:
+		string += enemy.getName() + " "
+	print(string)
+	string = "InfoNodes: "
+	for node in enemy_entity_info:
+		string += node.label_node.text + " "
+	print(string)
 
 func controlsUsable(boolean : bool):
 	if(boolean):
@@ -184,20 +197,22 @@ func playerAttack():
 	var enemyHP = enemies[enemy_position].getHealth()
 	enemyHP -= player_moveset[move_position].getDamage() * getPlayerAttackEffectiveness()
 	enemies[enemy_position].health = enemyHP
+	enemy_entity_info[enemy_position].changeHealth(enemies[enemy_position].health)
+	
 	player_health -= player_moveset[move_position].getHealthCost()
 	player_mana -= player_moveset[move_position].getManaCost()
+	
 	if enemyHP <= 0:
-		enemies.remove_at(move_position)
-		player_label.text = "Player: \n"
-		player_label.text += (str(player_class.getName()) + "\n" + str(player_health) + "\n" +  str(player_class.getStamina()) + "\n" + str(player_class.getMana()))
-		enemy_label.text = "Enemies: \n"
+		enemies.remove_at(enemy_position)
+		enemy_entity_info[enemy_position].free()
+		enemy_entity_info.remove_at(enemy_position)
 		count = 0 
-		for enemy in enemies:
-			enemy_label.text += (enemy.stringInfo())
 	if enemies.size() == 0:
 		battleWin()
+	
 	controlsUsable(false)
 	turn_active = false
+	debugCheckArray()
 
 #Subtracts from player health.
 func enemyAttack(enemy_location: int):

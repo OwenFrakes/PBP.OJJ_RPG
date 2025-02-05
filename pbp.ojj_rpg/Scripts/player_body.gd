@@ -22,7 +22,6 @@ var check: bool
 #Battle Variables
 @onready var battle_camera = $"../BattleCamera"
 @onready var player_camera = $PlayerCamera
-@onready var enemy_label = $"../BattleCamera/EnemiesLabel"
 var movePos: int
 var enemyPos: int
 var playerHP: float

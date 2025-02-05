@@ -27,11 +27,11 @@ func _ready() -> void:
 	
 	#Make the enemies and set them up.
 	enemies.append(Enemy.new())
-	enemies[0].setEnemy("ma,e", 20, 20, ["fire, ice"], moveset)
+	enemies[0].setEnemy("ma,e", 400, 20, ["fire, ice"], moveset)
 	enemies.append(Enemy.new())
 	enemies[1].setEnemy("goku", 20, 20, ["fire, ice"], moveset)
 	enemies.append(Enemy.new())
-	enemies[2].setEnemy("dante", 20, 20, ["fire, ice"], moveset)
+	enemies[2].setEnemy("dante", 30, 20, ["fire, ice"], moveset)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
