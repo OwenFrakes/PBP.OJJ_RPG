@@ -302,17 +302,20 @@ offset_top = 394.0
 offset_right = 281.0
 offset_bottom = 477.0
 
+[node name="PlayerPosition1" type="Marker2D" parent="BattleCamera"]
+position = Vector2(545, 265)
+
 [node name="EnemyPosition1" type="Marker2D" parent="BattleCamera"]
-position = Vector2(85.5, 64)
+position = Vector2(85.5, 98)
 
 [node name="EnemyPosition2" type="Marker2D" parent="BattleCamera"]
-position = Vector2(252, 176)
+position = Vector2(268, 148.5)
 
 [node name="EnemyPosition3" type="Marker2D" parent="BattleCamera"]
-position = Vector2(89, 343.5)
+position = Vector2(89, 368)
 
 [node name="EnemyPosition4" type="Marker2D" parent="BattleCamera"]
-position = Vector2(253, 432.5)
+position = Vector2(269, 405)
 
 [connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player" method="pauseMenu"]
 [connection signal="pressed" from="Player/PauseMenu/MainMenuBtn" to="Player" method="mainMenu"]

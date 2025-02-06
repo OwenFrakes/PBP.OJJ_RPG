@@ -8,7 +8,7 @@ var is_player_turn = true
 var enemy_group
 var enemies : Array
 var enemy_entity_info = []
-var player_group
+var player_group = []
 var player_entity_info = []
 @onready var player_reference = $"../Player"
 @onready var battle_camera = self
@@ -30,6 +30,7 @@ var player_action_multiplier
 @onready var enemy_choice = $Control/Attacks/AttackList/EnemyChoice
 @onready var attack_list = $Control/Attacks/AttackList
 @onready var enemy_info_positions = [$EnemyPosition1, $EnemyPosition2, $EnemyPosition3, $EnemyPosition4]
+@onready var player_info_positions = [$PlayerPosition1]
 
 var count : float
 
@@ -40,6 +41,7 @@ func _ready() -> void:
 	# And it's disabled when either win or lose function is used.
 	process_mode = PROCESS_MODE_DISABLED
 
+var last_enemy_action = 0
 func _process(delta: float) -> void:
 	
 	##An entity is acting.##
@@ -50,9 +52,10 @@ func _process(delta: float) -> void:
 		
 		#Enemies 'act' when it's their turn. TO BE DONE LATER.
 		else:
+			enemyAttack(last_enemy_action)
 			controlsUsable(false)
-			await get_tree().create_timer(2).timeout
 			turn_active = false
+			await get_tree().create_timer(1).timeout
 		
 	##Since no entity is acting, check if one can, else pass time.##
 	else:
@@ -70,13 +73,17 @@ func _process(delta: float) -> void:
 				enemies[enemy_action].action_amount = 0
 				enemy_entity_info[enemy_action].changeAction(enemies[enemy_action].action_amount)
 				print(enemies[enemy_action].getName() + " acted")
+				last_enemy_action = enemy_action
 				break
 		
 		if(!turn_active):
 			for i in range(enemies.size()):
 				enemies[i].action_amount += delta * enemies[i].action_multiplier * 20
 				enemy_entity_info[i].changeAction(enemies[i].action_amount)
-			player_action_amount += delta * player_action_multiplier * 20
+			
+			for i in range(player_info_positions.size()):
+				player_action_amount += delta * player_action_multiplier * 20
+				player_entity_info[i].changeAction(player_action_amount)
 
 #Give new variables for new battle.
 func readyBattle(new_enemy):
@@ -93,13 +100,19 @@ func readyBattle(new_enemy):
 	enemy_group = PlayerStats.enemy
 	enemies = enemy_group.enemies
 	
+	#Define player party.
+	player_group.append(player_reference)
 	
+	#Clears the attack list from a previous battle.
+	#Adds the new current attacks.
 	attack_list.clear()
 	count = 0
 	while(count < player_moveset.size()):
 		attack_list.add_item(player_moveset[count].getName(), null, true)
 		count += 1
 	
+	#Clears enemy choices,
+	#then gives the new, current enemies.
 	enemy_choice.clear()
 	count = 0
 	while(count < enemies.size()):
@@ -109,17 +122,28 @@ func readyBattle(new_enemy):
 	controlsUsable(false)
 	process_mode = PROCESS_MODE_INHERIT
 	
-	#Make the EntityInfo nodes for each participant.
-	for x in range(enemies.size()):
-		var enemy_info = EntityInfo.new(enemies[x].getName())
+	###Make the EntityInfo nodes for each participant.###
+	#Enemy side.
+	for enemy_num in range(enemies.size()):
+		var enemy_info = EntityInfo.new(enemies[enemy_num].getName())
 		enemy_entity_info.append(enemy_info)
-		enemy_info.position = enemy_info_positions[x].position
-		enemy_info.setHealthBar(enemies[x].getHealth())
-		enemy_info.setActionBar(enemies[x].getActionLimit())
+		enemy_info.position = enemy_info_positions[enemy_num].position
+		enemy_info.setHealthBar(enemies[enemy_num].getHealth())
+		enemy_info.setActionBar(enemies[enemy_num].getActionLimit())
 		enemy_info.isEnemy()
 		add_child(enemy_info)
 	
-	debugCheckArray()
+	#Player side.
+	for player_num in range(player_group.size()):
+		var player_info = EntityInfo.new("Player", player_reference.player_animated_sprite.sprite_frames)
+		player_entity_info.append(player_info)
+		player_info.position = player_info_positions[player_num].position
+		player_info.setHealthBar(player_health)
+		player_info.setActionBar(player_action_limit)
+		player_info.setManaBar(player_mana)
+		add_child(player_info)
+	
+	#debugCheckArray()
 
 ###############Control Nodes#################
 
@@ -130,7 +154,7 @@ func debugCheckArray():
 	print(string)
 	string = "InfoNodes: "
 	for node in enemy_entity_info:
-		string += node.label_node.text + " "
+		string += node.name_label_node.text + " "
 	print(string)
 
 func controlsUsable(boolean : bool):
@@ -173,7 +197,7 @@ func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button
 	count = 0
 	while(count<player_moveset.size()):
 		if(player_moveset[count].getName() == attack_list.get_item_text(count)):
-			print("found")
+			#print("found")
 			move_position = count
 			break
 		else:
@@ -183,11 +207,6 @@ func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button
 #and makes player menus invisible for the enemy's turn.
 func _on_enemy_choice_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	enemy_position = index
-	if enemies.size() >= 0:
-		count = 0
-		while (count <= enemies.size()):
-			enemyAttack(count)
-			count += 1
 	playerAttack()
 	attack_container.visible = false
 	enemy_choice.visible = false
@@ -201,6 +220,9 @@ func playerAttack():
 	
 	player_health -= player_moveset[move_position].getHealthCost()
 	player_mana -= player_moveset[move_position].getManaCost()
+	player_entity_info[0].changeHealth(player_health)
+	player_entity_info[0].changeMana(player_mana)
+	
 	
 	if enemyHP <= 0:
 		enemies.remove_at(enemy_position)
@@ -212,12 +234,14 @@ func playerAttack():
 	
 	controlsUsable(false)
 	turn_active = false
-	debugCheckArray()
+	#debugCheckArray()
 
 #Subtracts from player health.
 func enemyAttack(enemy_location: int):
 	var tempAttack = getEnemyAttack(enemy_location)
 	player_health -= tempAttack.getDamage() * getEnemyAttackEffectiveness(tempAttack.getType(), enemy_location)
+	print(tempAttack.getDamage() * getEnemyAttackEffectiveness(tempAttack.getType(), enemy_location))
+	player_entity_info[0].changeHealth(player_health)
 
 #this local variable of enemyPos is being fed an int from enemyAttack()
 func getEnemyAttack(enemy_location: int):
