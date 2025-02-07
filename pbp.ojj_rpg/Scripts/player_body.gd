@@ -10,6 +10,7 @@ var player_size : Vector2
 var desired_position = position
 @export var picture : String
 var inFight = false
+@onready var interaction_area = $InteractionArea
 
 #Leveling Variables
 var level: float
@@ -35,7 +36,7 @@ var player_Class: PlayerClass
 
 ## START UP ########################################################################################
 func _ready() -> void:
-	
+	PlayerStats.player_node_path = get_path()
 	##Give the player their sprite body.
 	#player_sprite = Sprite2D.new()
 	#player_sprite.texture = load(picture)
@@ -80,8 +81,9 @@ func _process(delta: float) -> void:
 	elif(inFight):
 		velocity = Vector2(0,0)
 	
-	#Actually move the player to the desired position.
-	#moveAnimation(desired_position, delta)
+	#Check to see if there are any nearby interactables.
+	if(Input.is_action_just_pressed("Interact")):
+		checkForInteract()
 	
 	move_and_slide()
 
@@ -116,6 +118,15 @@ func move():
 					player_animated_sprite.frame = 8
 				elif(player_animated_sprite.frame == 16):
 					player_animated_sprite.frame = 8
+
+## Interaction #####################################################################################
+
+func checkForInteract():
+	var bodies = interaction_area.get_overlapping_bodies()
+	
+	for body in bodies:
+		if(body is Interactable):
+			body.interact()
 
 ## BATTLE METHODS ##################################################################################
 func battle(enemy_group):

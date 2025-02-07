@@ -1,7 +1,7 @@
 class_name EnemyBody
 extends RigidBody2D
 
-@onready var player_reference = $"../Player"
+@onready var player_reference
 var player_position : Vector2
 var move_cooldown = 0.0
 var inFight = false
@@ -27,12 +27,13 @@ func _ready() -> void:
 	
 	#Make the enemies and set them up.
 	enemies.append(Enemy.new())
-	enemies[0].setEnemy("ma,e", 400, 20, ["fire, ice"], moveset)
+	enemies[0].setEnemy("ma,e", 40 * randi_range(1,3), 20, ["fire, ice"], moveset)
 	enemies.append(Enemy.new())
-	enemies[1].setEnemy("goku", 20, 20, ["fire, ice"], moveset)
+	enemies[1].setEnemy("goku", 40 * randi_range(1,3), 20, ["fire, ice"], moveset)
 	enemies.append(Enemy.new())
-	enemies[2].setEnemy("dante", 30, 20, ["fire, ice"], moveset)
-
+	enemies[2].setEnemy("dante", 40 * randi_range(1,3), 20, ["fire, ice"], moveset)
+	
+	player_reference = get_tree().root.get_node(PlayerStats.player_node_path)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

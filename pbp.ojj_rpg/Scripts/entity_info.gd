@@ -13,13 +13,16 @@ var action_bar_node = ProgressBar.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
+	texture_filter = TEXTURE_FILTER_NEAREST
+	
 	#Add Sprite First
 	add_child(image_node)
 	image_node.scale = Vector2(2,2)
+	
 	#VBoxContainer
-	vertical_container.position = Vector2(-image_node.sprite_frames.get_frame_texture("default", 0).get_size().x/2, \
-										   image_node.sprite_frames.get_frame_texture("default", 0).get_size().y/2)
-	vertical_container.size = Vector2(image_node.sprite_frames.get_frame_texture("default", 0).get_size().x, 0)
+	vertical_container.size = Vector2(image_node.sprite_frames.get_frame_texture("default", 0).get_size().x * 2, 10)
+	vertical_container.position = Vector2(-image_node.sprite_frames.get_frame_texture("default", 0).get_size().x, \
+										   image_node.sprite_frames.get_frame_texture("default", 0).get_size().y)
 	add_child(vertical_container)
 	
 	#Other Node edits.

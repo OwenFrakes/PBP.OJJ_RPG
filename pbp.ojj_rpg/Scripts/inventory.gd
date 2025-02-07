@@ -3,11 +3,15 @@ extends Control
 @onready var item_list = $Panel/ItemList
 @onready var remove_button = $Panel/ButtonContainer/RemoveItemButton
 @onready var use_button = $Panel/ButtonContainer/UseButton
+var item_master = ItemMaster.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hide()
 	item_list.item_selected.connect(activate_buttons)
+	add_child(item_master)
+	item_master.item_list_reference = item_list
+	item_master.player_reference = $".."
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -33,8 +37,6 @@ func use_item():
 	use_button.disabled = true
 	
 	# Make the item master and have it work its magic.
-	var item_master = ItemMaster.new()
-	add_child(item_master)
 	item_master.find_item(item_name)
 
 func remove_item():

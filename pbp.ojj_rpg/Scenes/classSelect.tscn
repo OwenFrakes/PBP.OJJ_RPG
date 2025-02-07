@@ -1,16 +1,90 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2edha6ave3td"]
+[gd_scene load_steps=5 format=3 uid="uid://d2edha6ave3td"]
 
+[ext_resource type="Theme" uid="uid://dp3x3xta2yuh4" path="res://Resources/Themes/ClassMenu.tres" id="1_4dvgp"]
 [ext_resource type="Script" path="res://Scripts/class_select.gd" id="2_dexyt"]
 [ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="2_pa5da"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ir3e6"]
+
 [node name="ClassSelect" type="Node2D"]
 
-[node name="CharacterStats" type="Label" parent="."]
-offset_left = 671.0
-offset_top = 5.0
-offset_right = 1897.0
-offset_bottom = 842.0
-theme_override_font_sizes/font_size = 100
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="CharacterPanel" type="Panel" parent="Control"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 724.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ir3e6")
+
+[node name="TextPanel" type="Panel" parent="Control"]
+custom_minimum_size = Vector2(1196, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/TextPanel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -155.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/TextPanel/CenterContainer"]
+layout_mode = 2
+
+[node name="PreviousButton" type="Button" parent="Control/TextPanel/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("1_4dvgp")
+theme_override_font_sizes/font_size = 40
+text = "Previous Class
+"
+
+[node name="SelectButton" type="Button" parent="Control/TextPanel/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("1_4dvgp")
+theme_override_font_sizes/font_size = 40
+text = "Select
+"
+
+[node name="NextButton" type="Button" parent="Control/TextPanel/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("1_4dvgp")
+theme_override_font_sizes/font_size = 40
+text = "Next Class"
+script = ExtResource("2_dexyt")
+
+[node name="CharacterStats" type="Label" parent="Control/TextPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -613.0
+offset_top = 67.0
+offset_right = 613.0
+offset_bottom = 904.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 92
 text = "Name: Steve Jobs
 Weapon of Choice: Sword
 Character Statistics:
@@ -19,33 +93,6 @@ Endurance: xx
 Technology: xx
 "
 horizontal_alignment = 1
-
-[node name="PreviousButton" type="Button" parent="."]
-offset_left = 700.0
-offset_top = 861.0
-offset_right = 1061.0
-offset_bottom = 1048.0
-theme_override_font_sizes/font_size = 40
-text = "Previous Class
-"
-
-[node name="SelectButton" type="Button" parent="."]
-offset_left = 1100.0
-offset_top = 861.0
-offset_right = 1461.0
-offset_bottom = 1048.0
-theme_override_font_sizes/font_size = 40
-text = "Select
-"
-
-[node name="NextButton" type="Button" parent="."]
-offset_left = 1500.0
-offset_top = 861.0
-offset_right = 1861.0
-offset_bottom = 1048.0
-theme_override_font_sizes/font_size = 40
-text = "Next Class"
-script = ExtResource("2_dexyt")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -56,6 +103,6 @@ position = Vector2(363, 496)
 scale = Vector2(10, 10)
 sprite_frames = ExtResource("2_pa5da")
 
-[connection signal="pressed" from="PreviousButton" to="NextButton" method="_on_previous_button_pressed"]
-[connection signal="pressed" from="SelectButton" to="NextButton" method="_on_select_button_pressed"]
-[connection signal="pressed" from="NextButton" to="NextButton" method="_on_pressed"]
+[connection signal="pressed" from="Control/TextPanel/CenterContainer/HBoxContainer/PreviousButton" to="Control/TextPanel/CenterContainer/HBoxContainer/NextButton" method="_on_previous_button_pressed"]
+[connection signal="pressed" from="Control/TextPanel/CenterContainer/HBoxContainer/SelectButton" to="Control/TextPanel/CenterContainer/HBoxContainer/NextButton" method="_on_select_button_pressed"]
+[connection signal="pressed" from="Control/TextPanel/CenterContainer/HBoxContainer/NextButton" to="Control/TextPanel/CenterContainer/HBoxContainer/NextButton" method="_on_pressed"]

@@ -4,6 +4,8 @@ extends Node
 var selected_player_class : PlayerClass
 var selected_player_weapon
 var enemy
+@onready var player_item_list = "Player/PlayerMenu/Panel/ItemList"
+@onready var player_node_path
 
 func stringInfo() -> String:
 	return selected_player_class.getName() + "\n" + \

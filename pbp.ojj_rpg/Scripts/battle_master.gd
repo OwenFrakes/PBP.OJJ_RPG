@@ -41,39 +41,70 @@ func _ready() -> void:
 	# And it's disabled when either win or lose function is used.
 	process_mode = PROCESS_MODE_DISABLED
 
+var pause = false
+var last_player_action = 0
 var last_enemy_action = 0
 func _process(delta: float) -> void:
 	
+	##Pause for graphics##
+	if(pause):
+		pass
+	
 	##An entity is acting.##
-	if(turn_active):
+	elif(turn_active):
 		#If it's the player's turn, just make the controls visible, the player does the rest.
 		if(is_player_turn):
 			controlsUsable(true)
 		
 		#Enemies 'act' when it's their turn. TO BE DONE LATER.
 		else:
-			enemyAttack(last_enemy_action)
+			pause = true
 			controlsUsable(false)
 			turn_active = false
 			await get_tree().create_timer(1).timeout
-		
+			enemyAttack(last_enemy_action)
+			pause = false
+	
 	##Since no entity is acting, check if one can, else pass time.##
 	else:
-		#Check if the player can have an action.
-		if(player_action_amount >= player_action_limit):
-			is_player_turn = true
-			turn_active = true
-			player_action_amount = 0
+		####Check if the player can have an action.###
+		for player_act in range(player_group.size()):
+			if(player_action_amount >= player_action_limit):
+				#Get the variables for _process ready.
+				is_player_turn = true
+				turn_active = true
+				
+				#Reset the amount of action they have.
+				player_action_amount = 0
+				
+				#Save who acted last good data and other stuff, don't read too much into it.
+				last_player_action = player_act
+				
+				#Emphasize the acting entity
+				entityGreyout(false, last_player_action)
+				
+				#Break the Loop
+				break
 		
-		#Loop to check if an enemy can have an action.
+		####Loop to check if an enemy can have an action.###
 		for enemy_action in range(enemies.size()):
 			if(enemies[enemy_action].action_amount >= enemies[enemy_action].action_limit):
+				#Get the variables for _process ready.
 				is_player_turn = false
 				turn_active = true
+				
+				#Reset the amount of action they have.
 				enemies[enemy_action].action_amount = 0
 				enemy_entity_info[enemy_action].changeAction(enemies[enemy_action].action_amount)
 				print(enemies[enemy_action].getName() + " acted")
+				
+				#Save who acted last for the attack function.
 				last_enemy_action = enemy_action
+				
+				#Emphasize the acting entity
+				entityGreyout(true, last_enemy_action)
+				
+				#Break the Loop
 				break
 		
 		if(!turn_active):
@@ -87,6 +118,7 @@ func _process(delta: float) -> void:
 
 #Give new variables for new battle.
 func readyBattle(new_enemy):
+	turn_active = false
 	#Refresh Local Player Variables
 	player_moveset = player_reference.getPlayerMoveset()
 	player_health = player_reference.getPlayerHealth()
@@ -101,6 +133,7 @@ func readyBattle(new_enemy):
 	enemies = enemy_group.enemies
 	
 	#Define player party.
+	player_group.clear()
 	player_group.append(player_reference)
 	
 	#Clears the attack list from a previous battle.
@@ -110,6 +143,7 @@ func readyBattle(new_enemy):
 	while(count < player_moveset.size()):
 		attack_list.add_item(player_moveset[count].getName(), null, true)
 		count += 1
+	
 	
 	#Clears enemy choices,
 	#then gives the new, current enemies.
@@ -146,6 +180,22 @@ func readyBattle(new_enemy):
 	#debugCheckArray()
 
 ###############Control Nodes#################
+var greyout_color = Color(0.5, 0.5, 0.5)
+func entityGreyout(is_enemy : bool, entity_number : int):
+	for num in range(player_group.size()):
+		if(is_enemy || entity_number != last_player_action):
+			player_entity_info[num].image_node.self_modulate = greyout_color
+	
+	#Make all but the acting enemy grey.
+	for num in range(enemies.size()):
+		if(!is_enemy || last_enemy_action != num):
+			enemy_entity_info[num].image_node.self_modulate = greyout_color
+
+func resetGreyout():
+	for num in range(player_group.size()):
+		player_entity_info[num].image_node.self_modulate = Color(1, 1, 1)
+	for num in range(enemies.size()):
+		enemy_entity_info[num].image_node.self_modulate = Color(1, 1, 1)
 
 func debugCheckArray():
 	var string = "Enemies: "
@@ -169,6 +219,14 @@ func battleWin():
 	player_reference.setInFight(false)
 	player_reference.switchBattleCamera(false)
 	player_reference.addPlayerExperience(20.0)
+	player_reference.levelUp()
+	player_reference.levelUp()
+	for info in player_entity_info:
+		info.free()
+	player_entity_info.clear()
+	for info in enemy_entity_info:
+		info.free()
+	enemy_entity_info.clear()
 	process_mode = PROCESS_MODE_DISABLED
 
 func battleLose():
@@ -231,10 +289,11 @@ func playerAttack():
 		count = 0 
 	if enemies.size() == 0:
 		battleWin()
-	
-	controlsUsable(false)
-	turn_active = false
-	#debugCheckArray()
+	else:
+		controlsUsable(false)
+		turn_active = false
+		resetGreyout()
+		#debugCheckArray()
 
 #Subtracts from player health.
 func enemyAttack(enemy_location: int):
@@ -242,6 +301,7 @@ func enemyAttack(enemy_location: int):
 	player_health -= tempAttack.getDamage() * getEnemyAttackEffectiveness(tempAttack.getType(), enemy_location)
 	print(tempAttack.getDamage() * getEnemyAttackEffectiveness(tempAttack.getType(), enemy_location))
 	player_entity_info[0].changeHealth(player_health)
+	resetGreyout()
 
 #this local variable of enemyPos is being fed an int from enemyAttack()
 func getEnemyAttack(enemy_location: int):

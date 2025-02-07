@@ -3,7 +3,8 @@ var pClass : PlayerClass
 var classes : Array
 var place: int
 
-@onready var animated_sprite_node = $"../AnimatedSprite2D"
+@onready var character_text = $"../../../CharacterStats"
+@onready var animated_sprite_node = $"../../../../../AnimatedSprite2D"
 ## Sprite Sets ##
 var brawler_sprite_set = load("res://Resources/Character/SpriteSets/brawler_set.tres")
 var swordsman_sprite_set = load("res://Resources/Character/SpriteSets/swordsman_set.tres")
@@ -38,7 +39,7 @@ func _ready() -> void:
 	
 	#Change text to tell player what they have selected.
 	pClass = classes[0]
-	$"../CharacterStats".text = "Name: " + pClass.getName() + \
+	character_text.text = "Name: " + pClass.getName() + \
 	"\nWeapon: " + pClass.getWeaponName() + \
 	"\nHealth: " + str(pClass.getHealth()) + \
 	"\nStamina:" + str(pClass.getStamina()) + \
@@ -50,11 +51,10 @@ func _on_pressed() -> void:
 		place = 0
 	else:
 		place += 1
-	print("next")
 	
 	#Change text to tell player what they have selected.
 	pClass = classes[place]
-	$"../CharacterStats".text = "Name: " + pClass.getName() + \
+	character_text.text = "Name: " + pClass.getName() + \
 	"\nWeapon: " + pClass.getWeaponName() + \
 	"\nHealth: " + str(pClass.getHealth()) + \
 	"\nStamina:" + str(pClass.getStamina()) + \
@@ -68,15 +68,15 @@ func _on_previous_button_pressed() -> void:
 		place = 4
 	else:
 		place -= 1
-	print("previous") 
 	
 	#Change text to tell player what they have selected.
 	pClass = classes[place]
-	$"../CharacterStats".text = "Name: " + pClass.getName() + \
+	character_text.text = "Name: " + pClass.getName() + \
 	"\nWeapon: " + pClass.getWeaponName() + \
 	"\nHealth: " + str(pClass.getHealth()) + \
 	"\nStamina:" + str(pClass.getStamina()) + \
 	"\nMana:" + str(pClass.getMana()) 
+	animated_sprite_node.sprite_frames = pClass.getSpriteSet()
 
 func _on_select_button_pressed() -> void:
 	#Make the global singleton have these stats.

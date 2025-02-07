@@ -5,8 +5,9 @@ extends Node
 @onready var player_reference
 
 func _ready() -> void:
-	item_list_reference = get_node(PlayerStats.player_item_list)
-	player_reference = get_node(PlayerStats.player_node_path)
+	#item_list_reference = get_node(PlayerStats.player_item_list)
+	#player_reference = get_node(PlayerStats.player_node_path)
+	pass
 
 func find_item(item_name : String):
 	item_name = item_name.to_lower()
@@ -18,4 +19,4 @@ func find_item(item_name : String):
 		match(item_name):
 			"banana":
 				print("ANANAAAAA")
-				player_reference.player_sprite.modulate = Color(0,1,0)
+				player_reference.player_animated_sprite.modulate = Color(0,1,0)
