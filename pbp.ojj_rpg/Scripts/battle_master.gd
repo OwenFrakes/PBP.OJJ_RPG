@@ -254,8 +254,8 @@ func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button
 	enemy_choice.visible = true
 	count = 0
 	while(count<player_moveset.size()):
-		if(player_moveset[count].getName() == attack_list.get_item_text(count)):
-			#print("found")
+		if(player_moveset[count].getName() == attack_list.get_item_text(index)):
+			print(player_moveset[count].getName())
 			move_position = count
 			break
 		else:
@@ -278,6 +278,8 @@ func playerAttack():
 	
 	player_health -= player_moveset[move_position].getHealthCost()
 	player_mana -= player_moveset[move_position].getManaCost()
+	print(player_moveset[move_position].getManaCost())
+	print(player_mana)
 	player_entity_info[0].changeHealth(player_health)
 	player_entity_info[0].changeMana(player_mana)
 	

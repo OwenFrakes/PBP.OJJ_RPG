@@ -32,10 +32,12 @@ func _ready() -> void:
 	
 	health_bar_node.self_modulate = Color(1,0,0)
 	health_bar_node.show_percentage = false
+	health_bar_node.custom_minimum_size = Vector2(0,20)
 	health_label_node.self_modulate = Color(1,0,0)
 	
 	mana_bar_node.self_modulate = Color(0,0,1)
 	mana_bar_node.show_percentage = false
+	mana_bar_node.custom_minimum_size = Vector2(0,20)
 	mana_label_node.self_modulate = Color(0,0,1)
 	
 	action_bar_node.self_modulate = Color(0,1,0)

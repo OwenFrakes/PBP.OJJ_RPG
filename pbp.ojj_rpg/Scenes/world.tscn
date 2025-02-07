@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=22 format=4 uid="uid://d4gy4cuq2fxdt"]
 
 [ext_resource type="Script" path="res://Scripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
 [ext_resource type="Theme" uid="uid://d8wjfefy1skg" path="res://Resources/Themes/PlayerMenu.tres" id="9_m6iir"]
 [ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="10_8inel"]
+[ext_resource type="Script" path="res://Scenes/background_music.gd" id="15_hd86r"]
 [ext_resource type="Script" path="res://Scripts/Interactables/enemy_spawner.gd" id="15_mep6t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jpw16"]
@@ -307,7 +308,7 @@ position = Vector2(85.5, 98)
 position = Vector2(268, 148.5)
 
 [node name="EnemyPosition3" type="Marker2D" parent="BattleCamera"]
-position = Vector2(89, 368)
+position = Vector2(89, 359.5)
 
 [node name="EnemyPosition4" type="Marker2D" parent="BattleCamera"]
 position = Vector2(269, 405)
@@ -326,6 +327,9 @@ horizontal_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="EnemySpawnerInteractable"]
 texture = ExtResource("4_ikl6f")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+script = ExtResource("15_hd86r")
 
 [connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player" method="pauseMenu"]
 [connection signal="pressed" from="Player/PauseMenu/MainMenuBtn" to="Player" method="mainMenu"]
