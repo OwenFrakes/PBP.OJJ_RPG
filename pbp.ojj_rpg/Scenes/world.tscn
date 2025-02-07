@@ -338,7 +338,7 @@ script = ExtResource("15_hd86r")
 [connection signal="pressed" from="Player/PlayerMenu/Panel/ButtonContainer/AddButton" to="Player/PlayerMenu" method="add_item"]
 [connection signal="pressed" from="Player/PlayerMenu/Panel/ButtonContainer/UseButton" to="Player/PlayerMenu" method="use_item"]
 [connection signal="pressed" from="Player/PlayerMenu/Panel/ButtonContainer/RemoveItemButton" to="Player/PlayerMenu" method="remove_item"]
-[connection signal="pressed" from="BattleCamera/Control/RunBtn" to="Player" method="battleLose"]
+[connection signal="pressed" from="BattleCamera/Control/RunBtn" to="BattleCamera" method="battleLose"]
 [connection signal="pressed" from="BattleCamera/Control/FightBtn" to="BattleCamera" method="_on_fight_btn_pressed"]
 [connection signal="item_clicked" from="BattleCamera/Control/Attacks/AttackList" to="BattleCamera" method="_on_attack_list_item_clicked"]
 [connection signal="item_clicked" from="BattleCamera/Control/Attacks/AttackList/EnemyChoice" to="BattleCamera" method="_on_enemy_choice_item_clicked"]

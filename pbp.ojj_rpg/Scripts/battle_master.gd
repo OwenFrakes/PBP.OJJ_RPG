@@ -221,6 +221,7 @@ func battleWin():
 	player_reference.addPlayerExperience(20.0)
 	player_reference.levelUp()
 	player_reference.levelUp()
+	player_reference.set_collision_mask_value(2, true)
 	for info in player_entity_info:
 		info.free()
 	player_entity_info.clear()
@@ -230,10 +231,11 @@ func battleWin():
 	process_mode = PROCESS_MODE_DISABLED
 
 func battleLose():
-	PlayerStats.enemy.free()
-	player_reference.setInFight(false)
-	player_reference.switchBattleCamera(false)
-	process_mode = PROCESS_MODE_DISABLED
+	#PlayerStats.enemy.free()
+	#player_reference.setInFight(false)
+	#player_reference.switchBattleCamera(false)
+	#process_mode = PROCESS_MODE_DISABLED
+	battleWin()
 
 #Toggle Attack Container Visibility
 func _on_fight_btn_pressed() -> void:
