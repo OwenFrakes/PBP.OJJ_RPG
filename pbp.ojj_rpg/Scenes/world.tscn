@@ -265,6 +265,7 @@ text = "FIGHT!
 "
 
 [node name="ItemsBtn" type="Button" parent="BattleCamera/Control"]
+visible = false
 z_index = 1
 texture_filter = 1
 layout_mode = 0

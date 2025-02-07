@@ -151,7 +151,7 @@ func battleWin():
 	set_collision_mask_value(2, true)
 
 func battleLose():
-	get_tree().quit()
+	battleWin()
 
 func switchBattleCamera(battle_cam_yes : bool):
 	if(battle_cam_yes):

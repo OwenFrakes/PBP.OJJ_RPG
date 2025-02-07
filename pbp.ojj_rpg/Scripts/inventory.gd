@@ -4,6 +4,7 @@ extends Control
 @onready var remove_button = $Panel/ButtonContainer/RemoveItemButton
 @onready var use_button = $Panel/ButtonContainer/UseButton
 var item_master = ItemMaster.new()
+@onready var player_reference = $".."
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,7 +17,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	if(Input.is_action_just_pressed("Inventory")):
+	if(Input.is_action_just_pressed("Inventory") && !player_reference.inFight):
+		print("Byapss")
 		if(self.visible == true):
 			hide()
 			get_tree().paused = false
