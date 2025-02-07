@@ -332,9 +332,9 @@ texture = ExtResource("4_ikl6f")
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 script = ExtResource("15_hd86r")
 
-[connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player" method="pauseMenu"]
-[connection signal="pressed" from="Player/PauseMenu/MainMenuBtn" to="Player" method="mainMenu"]
-[connection signal="pressed" from="Player/PauseMenu/QuitBtn" to="Player" method="quitGame"]
+[connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player/PauseMenu" method="resumeGame"]
+[connection signal="pressed" from="Player/PauseMenu/MainMenuBtn" to="Player/PauseMenu" method="mainMenu"]
+[connection signal="pressed" from="Player/PauseMenu/QuitBtn" to="Player/PauseMenu" method="quitGame"]
 [connection signal="pressed" from="Player/PlayerMenu/Panel/ButtonContainer/AddButton" to="Player/PlayerMenu" method="add_item"]
 [connection signal="pressed" from="Player/PlayerMenu/Panel/ButtonContainer/UseButton" to="Player/PlayerMenu" method="use_item"]
 [connection signal="pressed" from="Player/PlayerMenu/Panel/ButtonContainer/RemoveItemButton" to="Player/PlayerMenu" method="remove_item"]
