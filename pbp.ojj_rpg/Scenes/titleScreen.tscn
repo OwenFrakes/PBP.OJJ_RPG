@@ -64,7 +64,7 @@ text = "Quit Game"
 offset_left = 581.0
 offset_top = 353.0
 offset_right = 1323.0
-offset_bottom = 821.0
+offset_bottom = 883.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_bc8je")
 
 [node name="Label" type="Label" parent="Panel"]
@@ -77,12 +77,22 @@ theme_override_font_sizes/font_size = 24
 text = "Press this key to exit fullscreen.
 To enter fullscreen make sure to have the search bar selected."
 
+[node name="Label2" type="Label" parent="Panel"]
+layout_mode = 2
+offset_left = 9.0
+offset_top = 439.0
+offset_right = 729.0
+offset_bottom = 510.0
+theme_override_font_sizes/font_size = 24
+text = "Or if you're on a windows based device, use F11, or F4. 
+The same search bar selection advice remains."
+
 [node name="Sprite2D" type="Sprite2D" parent="Panel"]
 position = Vector2(385, 258)
 scale = Vector2(3, 3)
 texture = ExtResource("4_to4t5")
 
-[node name="Label2" type="Label" parent="Panel"]
+[node name="GiantRedO" type="Label" parent="Panel"]
 layout_mode = 0
 offset_left = 517.0
 offset_top = 148.0
