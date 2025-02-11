@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
 [ext_resource type="Theme" uid="uid://d8wjfefy1skg" path="res://Resources/Themes/PlayerMenu.tres" id="9_m6iir"]
 [ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="10_8inel"]
-[ext_resource type="Script" path="res://Scenes/background_music.gd" id="15_hd86r"]
+[ext_resource type="Script" path="res://Scripts/background_music.gd" id="15_hd86r"]
 [ext_resource type="Script" path="res://Scripts/Interactables/enemy_spawner.gd" id="15_mep6t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jpw16"]
