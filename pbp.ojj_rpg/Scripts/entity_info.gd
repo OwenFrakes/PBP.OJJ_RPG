@@ -1,14 +1,27 @@
 class_name EntityInfo
 extends Control
 
+####Top to bottom, what's shown.####
+
+#Image First
 var image_node = AnimatedSprite2D.new()
+
+##Start Vertical Box##
 var vertical_container = VBoxContainer.new()
+
+#Entity Name
 var name_label_node = Label.new()
+
 var health_bar_node = ProgressBar.new()
 var health_label_node = Label.new()
+
 var mana_bar_node = ProgressBar.new()
 var mana_label_node = Label.new()
+
+#Action Bar Stuff
 var action_bar_node = ProgressBar.new()
+
+##End Vertical Box##
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,6 +31,8 @@ func _ready() -> void:
 	#Add Sprite First
 	add_child(image_node)
 	image_node.scale = Vector2(2,2)
+	
+	var sprite_x_size = image_node.sprite_frames.get_frame_texture("default", 0).get_size().x
 	
 	#VBoxContainer
 	vertical_container.size = Vector2(image_node.sprite_frames.get_frame_texture("default", 0).get_size().x * 2, 10)
@@ -30,16 +45,20 @@ func _ready() -> void:
 	health_label_node.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	mana_label_node.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	
+	#Health
 	health_bar_node.self_modulate = Color(1,0,0)
 	health_bar_node.show_percentage = false
-	health_bar_node.custom_minimum_size = Vector2(0,20)
-	health_label_node.self_modulate = Color(1,0,0)
+	health_bar_node.custom_minimum_size = Vector2(sprite_x_size,20)
+	health_label_node.self_modulate = Color(1,1,1)
+	#health_label_node.set_anchor()
 	
+	#Mana
 	mana_bar_node.self_modulate = Color(0,0,1)
 	mana_bar_node.show_percentage = false
-	mana_bar_node.custom_minimum_size = Vector2(0,20)
-	mana_label_node.self_modulate = Color(0,0,1)
+	mana_bar_node.custom_minimum_size = Vector2(sprite_x_size,20)
+	mana_label_node.self_modulate = Color(1,1,1)
 	
+	#Action
 	action_bar_node.self_modulate = Color(0,1,0)
 	
 	###Add the bars to the container###
@@ -47,10 +66,10 @@ func _ready() -> void:
 	vertical_container.add_child(name_label_node)
 	#Health
 	vertical_container.add_child(health_bar_node)
-	vertical_container.add_child(health_label_node)
+	health_bar_node.add_child(health_label_node)
 	#Mana
 	vertical_container.add_child(mana_bar_node)
-	vertical_container.add_child(mana_label_node)
+	mana_bar_node.add_child(mana_label_node)
 	#Action
 	vertical_container.add_child(action_bar_node)
 	
@@ -74,7 +93,7 @@ func setHealthBar(new_max, current_value = new_max):
 
 func changeHealth(new_value):
 	health_bar_node.value = new_value
-	health_label_node.text = "Mana: " + str(new_value) + "/" + str(health_bar_node.max_value)
+	health_label_node.text = "Health: " + str(new_value) + "/" + str(health_bar_node.max_value)
 
 ##Mana###################################################
 func setManaBar(new_max, current_value = new_max):
