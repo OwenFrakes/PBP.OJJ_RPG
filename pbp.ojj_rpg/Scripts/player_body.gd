@@ -82,6 +82,7 @@ func _process(delta: float) -> void:
 		velocity = Vector2(0,0)
 	
 	#Check to see if there are any nearby interactables.
+	checkForHighlights()
 	if(Input.is_action_just_pressed("Interact")):
 		checkForInteract()
 	
@@ -120,6 +121,32 @@ func move():
 					player_animated_sprite.frame = 8
 
 ## Interaction #####################################################################################
+var dehighlights = []
+func checkForHighlights():
+	var bodies = interaction_area.get_overlapping_bodies()
+	
+	for body in bodies:
+		if(body is Interactable):
+			body.highlight(true)
+	
+	#Check each body for a potential de-highlight.
+	for old_body in dehighlights:
+		#Guardian variable for next for statement.
+		var still_here = false
+		
+		#Iterate each body currently in the player's reach
+		for current_body in bodies:
+			#If a potenial dehighlight matches a body in the player's reach, 
+			#change the guardian variable, and break the loop for efficiency.
+			if(old_body == current_body):
+				still_here = true
+				break
+		
+		#If the body matches no current bodies, dehighlight it.
+		if(!still_here):
+			old_body.highlight(false)
+	
+	dehighlights = bodies
 
 func checkForInteract():
 	var bodies = interaction_area.get_overlapping_bodies()

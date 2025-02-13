@@ -12,9 +12,13 @@ var vertical_container = VBoxContainer.new()
 #Entity Name
 var name_label_node = Label.new()
 
+#Health
+var health_center_container = CenterContainer.new()
 var health_bar_node = ProgressBar.new()
 var health_label_node = Label.new()
 
+#Mana
+var mana_center_container = CenterContainer.new()
 var mana_bar_node = ProgressBar.new()
 var mana_label_node = Label.new()
 
@@ -48,14 +52,15 @@ func _ready() -> void:
 	#Health
 	health_bar_node.self_modulate = Color(1,0,0)
 	health_bar_node.show_percentage = false
-	health_bar_node.custom_minimum_size = Vector2(sprite_x_size,20)
+	health_bar_node.custom_minimum_size = Vector2(sprite_x_size * 2,20)
 	health_label_node.self_modulate = Color(1,1,1)
+	health_label_node.position = Vector2(health_bar_node.size.x/2, health_bar_node.size.y/2)
 	#health_label_node.set_anchor()
 	
 	#Mana
 	mana_bar_node.self_modulate = Color(0,0,1)
 	mana_bar_node.show_percentage = false
-	mana_bar_node.custom_minimum_size = Vector2(sprite_x_size,20)
+	mana_bar_node.custom_minimum_size = Vector2(sprite_x_size * 2,20)
 	mana_label_node.self_modulate = Color(1,1,1)
 	
 	#Action
@@ -65,11 +70,13 @@ func _ready() -> void:
 	#Name
 	vertical_container.add_child(name_label_node)
 	#Health
-	vertical_container.add_child(health_bar_node)
-	health_bar_node.add_child(health_label_node)
+	vertical_container.add_child(health_center_container)
+	health_center_container.add_child(health_bar_node)
+	health_center_container.add_child(health_label_node)
 	#Mana
-	vertical_container.add_child(mana_bar_node)
-	mana_bar_node.add_child(mana_label_node)
+	vertical_container.add_child(mana_center_container)
+	mana_center_container.add_child(mana_bar_node)
+	mana_center_container.add_child(mana_label_node)
 	#Action
 	vertical_container.add_child(action_bar_node)
 	
