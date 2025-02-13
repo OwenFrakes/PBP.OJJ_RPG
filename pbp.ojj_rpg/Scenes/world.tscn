@@ -330,6 +330,7 @@ horizontal_alignment = 1
 texture = ExtResource("4_ikl6f")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 script = ExtResource("15_hd86r")
 
 [connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player/PauseMenu" method="resumeGame"]
