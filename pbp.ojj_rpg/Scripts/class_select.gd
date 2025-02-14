@@ -17,25 +17,35 @@ func _ready() -> void:
 	classes = []
 	classes.resize(5)
 	
+	## 3 Main Aspects, Damage, Health, and Speed.
+	# Best to Worst
+	# Great, Good, Okay, Average, Bad, Terrible, Worst.
+	
+	# Okay damage, good health, speed is bad. Brusier.
 	#Brawler
 	classes[0] = PlayerClass.new()
-	classes[0].setClass("Brawler", 100, 20,20, "Fists", 40, 50, "bash", ["electric", "ice"], brawler_sprite_set)
+	classes[0].setClass("Brawler", 200, 20, 20, "Fists", 40, 0.75, "bash", ["electric", "ice"], brawler_sprite_set)
 	
+	# Good slash damage, okay health, is average speed.
 	#Swordsman
 	classes[1] = PlayerClass.new()
-	classes[1].setClass("Swordsman", 50, 10,6, "Sword", 40, 50, "slash", ["dark", "fire"], swordsman_sprite_set)
+	classes[1].setClass("Swordsman", 150, 10, 6, "Sword", 60, 1, "slash", ["dark", "fire"], swordsman_sprite_set)
 	
+	# Good pierce damage, bad health, is pretty fast.
 	#Gun Slinger
 	classes[2] = PlayerClass.new()
-	classes[2].setClass("Gun Slinger", 100, 20,8, "Revolver", 40, 50, "pierce", ["pierce", "light"], gunslinger_sprite_set)
+	classes[2].setClass("Gun Slinger", 100, 20, 8, "Revolver", 60, 1.5, "pierce", ["pierce", "light"], gunslinger_sprite_set)
 	
+	# Okay damage, decent health, average speed.
+	#Should have more utility based options.
 	#Engineer
 	classes[3] = PlayerClass.new()
-	classes[3].setClass("Engineer", 100, 20,20, "Wrench", 40, 50, "bash", ["slash", "dark"], engineer_sprite_set)
+	classes[3].setClass("Engineer", 150, 20, 20, "Wrench", 40, 1, "bash", ["slash", "dark"], engineer_sprite_set)
 	
+	# Great Pierce Damage, Terrible Health, Bad speed.
 	#Marksman
 	classes[4] = PlayerClass.new()
-	classes[4].setClass("Marksman", 100, 20,20, "Sniper", 40, 50, "pierce", ["light, fire"], marksman_sprite_set)
+	classes[4].setClass("Marksman", 75, 20, 20, "Sniper", 80, 0.5, "pierce", ["light, fire"], marksman_sprite_set)
 	
 	#Change text to tell player what they have selected.
 	pClass = classes[0]
