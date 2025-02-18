@@ -1,10 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2edha6ave3td"]
+[gd_scene load_steps=7 format=3 uid="uid://d2edha6ave3td"]
 
 [ext_resource type="Theme" uid="uid://dp3x3xta2yuh4" path="res://Resources/Themes/ClassMenu.tres" id="1_4dvgp"]
 [ext_resource type="Script" path="res://Scripts/class_select.gd" id="2_dexyt"]
 [ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="2_pa5da"]
+[ext_resource type="Script" path="res://Scenes/animation_code_label.gd" id="4_qly2d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ir3e6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njlbc"]
+bg_color = Color(0, 0, 0, 1)
 
 [node name="ClassSelect" type="Node2D"]
 
@@ -102,6 +106,35 @@ texture_filter = 1
 position = Vector2(363, 496)
 scale = Vector2(10, 10)
 sprite_frames = ExtResource("2_pa5da")
+
+[node name="StartUpAnimation" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Panel" type="Panel" parent="StartUpAnimation"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_njlbc")
+
+[node name="Label" type="Label" parent="StartUpAnimation"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 556.0
+offset_right = 666.0
+offset_bottom = 1028.0
+theme_override_colors/font_color = Color(0.301961, 0.843137, 0.309804, 1)
+theme_override_font_sizes/font_size = 64
+text = "> Start Up Sequence
+> Updating Canidate Database
+> Evaluating Canidates"
+vertical_alignment = 2
+script = ExtResource("4_qly2d")
 
 [connection signal="pressed" from="Control/TextPanel/CenterContainer/HBoxContainer/PreviousButton" to="Control/TextPanel/CenterContainer/HBoxContainer/NextButton" method="_on_previous_button_pressed"]
 [connection signal="pressed" from="Control/TextPanel/CenterContainer/HBoxContainer/SelectButton" to="Control/TextPanel/CenterContainer/HBoxContainer/NextButton" method="_on_select_button_pressed"]
