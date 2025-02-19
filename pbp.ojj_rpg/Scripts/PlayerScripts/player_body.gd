@@ -69,6 +69,7 @@ func _ready() -> void:
 	
 	player_animated_sprite.sprite_frames = player_Class.getSpriteSet()
 	
+	player_action_multiplier = PlayerStats.selected_player_class.getWeaponSpeed()
 
 ## EVERY FRAME #####################################################################################
 # Called every frame. 'delta' is the elapsed time since the previous frame.

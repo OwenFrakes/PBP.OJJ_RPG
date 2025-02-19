@@ -2,10 +2,13 @@ class_name EnemyBody
 extends RigidBody2D
 
 @onready var player_reference
+@onready var battle_area = $BattleArea
 var player_position : Vector2
 var move_cooldown = 0.0
 var inFight = false
 var enemies = []
+
+@export var enemy_movement_disabled : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,11 +30,11 @@ func _ready() -> void:
 	
 	#Make the enemies and set them up.
 	enemies.append(Enemy.new())
-	enemies[0].setEnemy("ma,e", 40 * randi_range(1,3), 20, ["fire, ice"], moveset)
+	enemies[0].setEnemy("Blue Robot 1", 40 * randi_range(1,3), 20, ["fire", "ice"], moveset)
 	enemies.append(Enemy.new())
-	enemies[1].setEnemy("goku", 40 * randi_range(1,3), 20, ["fire, ice"], moveset)
+	enemies[1].setEnemy("Blue Robot 2", 40 * randi_range(1,3), 20, ["fire", "ice"], moveset)
 	enemies.append(Enemy.new())
-	enemies[2].setEnemy("dante", 40 * randi_range(1,3), 20, ["fire, ice"], moveset)
+	enemies[2].setEnemy("Blue Robot 3", 40 * randi_range(1,3), 20, ["fire", "ice"], moveset)
 	
 	player_reference = get_tree().root.get_node(PlayerStats.player_node_path)
 
@@ -41,7 +44,7 @@ func _process(delta: float) -> void:
 	player_position = player_reference.position
 	
 	#Get bodies touching this one.
-	var collisions = get_colliding_bodies()
+	var collisions = battle_area.get_overlapping_bodies()
 	
 	#If the player is touching, do stuff.
 	for body in collisions:
@@ -52,7 +55,7 @@ func _process(delta: float) -> void:
 			apply_central_impulse((position - player_position) * 5)
 	
 	#If infight, then can't move.
-	if(!inFight && !player_reference.inFight):
+	if(!inFight && !player_reference.inFight && !enemy_movement_disabled):
 		#How far the enemy is from the player.
 		var player_distance_vector = (player_position - position).abs()
 		var player_distance = sqrt(pow(player_distance_vector.x, 2) + pow(player_distance_vector.y, 2))

@@ -1,8 +1,7 @@
 class_name EnemySpawnerInteractable
-extends "res://Scripts/interactable.gd"
+extends "res://Scripts/Interactables/interactable.gd"
 
 var enemy_to_spawn = preload("res://Scenes/Enemies/enemy1.tscn")
-var highlighted = false
 @onready var sprite = $Sprite2D
 
 #Overridden Function

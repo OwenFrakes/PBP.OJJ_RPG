@@ -18,7 +18,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	if(Input.is_action_just_pressed("Inventory") && !player_reference.inFight):
-		print("Byapss")
 		if(self.visible == true):
 			hide()
 			get_tree().paused = false

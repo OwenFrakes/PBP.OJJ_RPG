@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://mn0g3e7wixmj"]
+[gd_scene load_steps=5 format=3 uid="uid://mn0g3e7wixmj"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_body.gd" id="1_gkhll"]
 [ext_resource type="SpriteFrames" uid="uid://iyhgjtepsu8o" path="res://Resources/Character/SpriteSets/blue_robot_set.tres" id="2_nyo6f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_en24b"]
 radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_la5a8"]
+radius = 36.0
 
 [node name="NewEnemy" type="RigidBody2D"]
 collision_layer = 2
@@ -17,3 +20,8 @@ shape = SubResource("CircleShape2D_en24b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_nyo6f")
+
+[node name="BattleArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleArea"]
+shape = SubResource("CircleShape2D_la5a8")
