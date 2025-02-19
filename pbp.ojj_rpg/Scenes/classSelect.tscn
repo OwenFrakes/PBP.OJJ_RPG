@@ -1,10 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2edha6ave3td"]
+[gd_scene load_steps=11 format=3 uid="uid://d2edha6ave3td"]
 
 [ext_resource type="Theme" uid="uid://dp3x3xta2yuh4" path="res://Resources/Themes/ClassMenu.tres" id="1_4dvgp"]
 [ext_resource type="Script" path="res://Scripts/class_select.gd" id="2_dexyt"]
 [ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="2_pa5da"]
+[ext_resource type="Script" path="res://Scripts/CutSceneScripts/cut_scene_label.gd" id="4_qly2d"]
+[ext_resource type="AudioStream" uid="uid://boq8opagbskiu" path="res://Resources/Sound Effects/OldPCBootSound.mp3" id="5_xchjy"]
+[ext_resource type="Texture2D" uid="uid://b3geq27nj0ebp" path="res://Resources/Dust-Textures-2.jpg" id="6_mb58c"]
+[ext_resource type="Script" path="res://Scripts/CutSceneScripts/cut_scene_panel.gd" id="6_yt0mq"]
+[ext_resource type="Script" path="res://Scripts/CutSceneScripts/cut_scene_controller.gd" id="7_s2r4v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ir3e6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njlbc"]
+bg_color = Color(0, 0, 0, 1)
 
 [node name="ClassSelect" type="Node2D"]
 
@@ -102,6 +110,105 @@ texture_filter = 1
 position = Vector2(363, 496)
 scale = Vector2(10, 10)
 sprite_frames = ExtResource("2_pa5da")
+
+[node name="CutSceneController" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("7_s2r4v")
+start_delay = 3.0
+children_time_gap = 1.5
+
+[node name="Text1" type="Label" parent="CutSceneController"]
+z_index = 1
+layout_mode = 0
+offset_left = 43.0
+offset_top = 556.0
+offset_right = 979.0
+offset_bottom = 1028.0
+theme_override_colors/font_color = Color(0.301961, 0.843137, 0.309804, 1)
+theme_override_font_sizes/font_size = 64
+text = "> AI Countermeasure #7
+> Start Up Sequence
+> Updating Canidate Database
+> Evaluating Canidates"
+vertical_alignment = 2
+script = ExtResource("4_qly2d")
+line_delay = 0.75
+text_delay = 0.075
+kill_text_after = true
+kill_delay = 1.0
+
+[node name="Text3" type="Label" parent="CutSceneController"]
+z_index = 1
+layout_mode = 0
+offset_left = 43.0
+offset_top = 556.0
+offset_right = 979.0
+offset_bottom = 1028.0
+theme_override_colors/font_color = Color(0.301961, 0.843137, 0.309804, 1)
+theme_override_font_sizes/font_size = 64
+text = "> ..."
+vertical_alignment = 2
+script = ExtResource("4_qly2d")
+line_delay = 0.75
+text_delay = 0.1
+kill_text_after = true
+kill_delay = 0.5
+
+[node name="Text2" type="Label" parent="CutSceneController"]
+z_index = 1
+layout_mode = 0
+offset_left = 43.0
+offset_top = 556.0
+offset_right = 979.0
+offset_bottom = 1028.0
+theme_override_colors/font_color = Color(0.301961, 0.843137, 0.309804, 1)
+theme_override_font_sizes/font_size = 64
+text = "> 5 Available Canidates Found
+> Commencing User Input"
+vertical_alignment = 2
+script = ExtResource("4_qly2d")
+line_delay = 0.75
+text_delay = 0.075
+kill_text_after = true
+kill_delay = 1.0
+
+[node name="Panel" type="Panel" parent="CutSceneController"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_njlbc")
+script = ExtResource("6_yt0mq")
+fade = true
+fade_time = 0.5
+
+[node name="SkipLabel" type="Label" parent="CutSceneController/Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.374139, 0.374139, 0.374139, 1)
+text = "Press the Space Bar to skip."
+horizontal_alignment = 1
+
+[node name="DustyScreenEffect" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.0392157)
+scale = Vector2(0.96, 0.72)
+texture = ExtResource("6_mb58c")
+centered = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_xchjy")
+autoplay = true
 
 [connection signal="pressed" from="Control/TextPanel/CenterContainer/HBoxContainer/PreviousButton" to="Control/TextPanel/CenterContainer/HBoxContainer/NextButton" method="_on_previous_button_pressed"]
 [connection signal="pressed" from="Control/TextPanel/CenterContainer/HBoxContainer/SelectButton" to="Control/TextPanel/CenterContainer/HBoxContainer/NextButton" method="_on_select_button_pressed"]

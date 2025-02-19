@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://boq8opagbskiu"
+path="res://.godot/imported/OldPCBootSound.mp3-30a53ab063c4d0f88fffefdd43b3dbf1.mp3str"
+
+[deps]
+
+source_file="res://Resources/Sound Effects/OldPCBootSound.mp3"
+dest_files=["res://.godot/imported/OldPCBootSound.mp3-30a53ab063c4d0f88fffefdd43b3dbf1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
