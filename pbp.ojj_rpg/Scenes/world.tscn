@@ -223,6 +223,7 @@ text = "Remove Item"
 
 [node name="PlayerAnimatedSprite" type="AnimatedSprite2D" parent="Player"]
 sprite_frames = ExtResource("10_8inel")
+animation = &"walking_up"
 
 [node name="InteractionArea" type="Area2D" parent="Player"]
 collision_mask = 4

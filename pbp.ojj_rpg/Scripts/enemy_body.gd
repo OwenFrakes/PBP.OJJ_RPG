@@ -8,6 +8,12 @@ var move_cooldown = 0.0
 var inFight = false
 var enemies = []
 
+##Enumerations##
+enum {
+	ENEMY_IS_BIPED,
+	ENEMY_IS_SPIDER
+}
+
 @export var enemy_movement_disabled : bool = false
 
 # Called when the node enters the scene tree for the first time.
@@ -36,10 +42,13 @@ func _ready() -> void:
 	enemies.append(Enemy.new())
 	enemies[2].setEnemy("Blue Robot 3", 40 * randi_range(1,3), 20, ["fire", "ice"], moveset)
 	
+	#Find the player for distance measurements.
 	player_reference = get_tree().root.get_node(PlayerStats.player_node_path)
+	
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	#get the player's current position for this process
 	player_position = player_reference.position
 	
@@ -76,8 +85,20 @@ func _process(delta: float) -> void:
 				apply_impulse((player_position - position) * jump_power)
 				move_cooldown = 1.75
 		
+		
 		#If outside range, or on cooldown, remove time from the cool down timer.
 		else:
 			move_cooldown -= delta
 	
+
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	
+	var player_distance_vector = (player_position - position).abs()
+	var player_distance = sqrt(pow(player_distance_vector.x, 2) + pow(player_distance_vector.y, 2))
+	
+	#Far from the player
+	if(move_cooldown < 0.05 && move_cooldown > 0 && player_distance > 400):
+		set_linear_velocity(Vector2(0,0))
+	elif(move_cooldown < 0.05 && move_cooldown > 0):
+		set_linear_velocity(Vector2((get_linear_velocity().x * 0.9),(get_linear_velocity().y * 0.9)))
+		

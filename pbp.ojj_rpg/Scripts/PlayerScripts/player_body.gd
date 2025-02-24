@@ -95,31 +95,22 @@ func move():
 	velocity = move_magnitude * 250
 	
 	if(move_magnitude == Vector2(0,0)):
-		player_animated_sprite.frame = 0
-		player_animated_sprite.pause()
+		player_animated_sprite.play("idle")
 	else:
 		player_animated_sprite.play()
 		match(move_magnitude):
 			Vector2(1,0): ## Moving Right
-				if(!(player_animated_sprite.frame >= 24 && player_animated_sprite.frame <= 31)):
-					player_animated_sprite.frame = 24
-				elif(player_animated_sprite.frame == 31):
-					player_animated_sprite.frame = 24
+				if(!(player_animated_sprite.animation == "walking_right")):
+					player_animated_sprite.play("walking_right")
 			Vector2(-1,0): ## Moving Left
-				if(!(player_animated_sprite.frame >= 16 && player_animated_sprite.frame <= 24)):
-					player_animated_sprite.frame = 16
-				elif(player_animated_sprite.frame == 24):
-					player_animated_sprite.frame = 16
+				if(!(player_animated_sprite.animation == "walking_left")):
+					player_animated_sprite.play("walking_left")
 			Vector2(0,1): ## Moving Down
-				if(!(player_animated_sprite.frame >= 0 && player_animated_sprite.frame <= 8)):
-					player_animated_sprite.frame = 0
-				elif(player_animated_sprite.frame == 8):
-					player_animated_sprite.frame = 0
+				if(!(player_animated_sprite.animation == "walking_down")):
+					player_animated_sprite.play("walking_down")
 			Vector2(0,-1): ## Moving Up
-				if(!(player_animated_sprite.frame >= 8 && player_animated_sprite.frame <= 16)):
-					player_animated_sprite.frame = 8
-				elif(player_animated_sprite.frame == 16):
-					player_animated_sprite.frame = 8
+				if(!(player_animated_sprite.animation == "walking_up")):
+					player_animated_sprite.play("walking_up")
 
 ## Interaction #####################################################################################
 var dehighlights = []
