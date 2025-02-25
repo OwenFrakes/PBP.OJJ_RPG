@@ -159,7 +159,7 @@ func readyBattle(new_enemy):
 	###Make the EntityInfo nodes for each participant.###
 	#Enemy side.
 	for enemy_num in range(enemies.size()):
-		var enemy_info = EntityInfo.new(enemies[enemy_num].getName())
+		var enemy_info = EntityInfo.new(enemies[enemy_num].getName(), enemies[enemy_num].enemy_sprite_frames)
 		enemy_entity_info.append(enemy_info)
 		enemy_info.position = enemy_info_positions[enemy_num].position
 		enemy_info.setHealthBar(enemies[enemy_num].getHealth())

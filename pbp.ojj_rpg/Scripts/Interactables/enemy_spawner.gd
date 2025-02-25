@@ -9,6 +9,7 @@ func interact():
 	#Should spawn an enemy.
 	var enemy_instance = enemy_to_spawn.instantiate()
 	enemy_instance.position = position + Vector2(800, 0)
+	enemy_instance.enemy_type = EnemyBody.ENEMY_IS_SPIDER
 	get_tree().root.add_child(enemy_instance)
 
 func highlight(boolean : bool):

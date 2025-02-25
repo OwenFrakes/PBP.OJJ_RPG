@@ -110,6 +110,7 @@ texture_filter = 1
 position = Vector2(363, 496)
 scale = Vector2(10, 10)
 sprite_frames = ExtResource("2_pa5da")
+animation = &"idle"
 
 [node name="CutSceneController" type="Control" parent="."]
 layout_mode = 3
