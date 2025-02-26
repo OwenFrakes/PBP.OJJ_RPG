@@ -12,6 +12,10 @@ var desired_position = position
 var inFight = false
 @onready var interaction_area = $InteractionArea
 
+#Guard Variables
+@onready var guard_area = $GuardArea/CollisionShape2D
+var faced_direction = Vector2(0,1)
+
 #Leveling Variables
 var level: float
 var exp: float
@@ -86,7 +90,9 @@ func _process(delta: float) -> void:
 	checkForHighlights()
 	if(Input.is_action_just_pressed("Interact")):
 		checkForInteract()
-	
+	#await guard_area.ready
+	#faceGuard()
+	guard_area.position = Vector2(500,500)
 	move_and_slide()
 
 ## MOVEMENT METHODS ################################################################################
@@ -95,20 +101,25 @@ func move():
 	velocity = move_magnitude * 250
 	
 	if(move_magnitude == Vector2(0,0)):
-		player_animated_sprite.play("idle")
+		player_animated_sprite.stop()
+		player_animated_sprite.frame = 0
 	else:
 		player_animated_sprite.play()
 		match(move_magnitude):
 			Vector2(1,0): ## Moving Right
+				faced_direction = Vector2(1,0)
 				if(!(player_animated_sprite.animation == "walking_right")):
 					player_animated_sprite.play("walking_right")
 			Vector2(-1,0): ## Moving Left
+				faced_direction = Vector2(-1,0)
 				if(!(player_animated_sprite.animation == "walking_left")):
 					player_animated_sprite.play("walking_left")
 			Vector2(0,1): ## Moving Down
+				faced_direction = Vector2(0,1)
 				if(!(player_animated_sprite.animation == "walking_down")):
 					player_animated_sprite.play("walking_down")
 			Vector2(0,-1): ## Moving Up
+				faced_direction = Vector2(0,-1)
 				if(!(player_animated_sprite.animation == "walking_up")):
 					player_animated_sprite.play("walking_up")
 
@@ -195,6 +206,13 @@ func addPlayerExperience(xp_amount : float):
 	exp += xp_amount
 	if (exp >= required_exp):
 		levelUp()
+
+## Extra Methods #########################################################################
+
+func faceGuard():
+	guard_area.position = faced_direction * 500
+
+## Get Methods ###########################################################################
 
 func getPlayerMoveset():
 	return moveset

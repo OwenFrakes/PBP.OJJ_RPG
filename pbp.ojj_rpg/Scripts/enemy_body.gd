@@ -8,14 +8,7 @@ var player_position : Vector2
 var move_cooldown = 0.0
 var inFight = false
 var enemies = []
-
-##Enumerations##
-enum {
-	ENEMY_IS_BIPED,
-	ENEMY_IS_SPIDER
-}
-var enemy_type = ENEMY_IS_BIPED
-
+@export var enemy_sprite_frames : SpriteFrames = load("res://Resources/Character/SpriteSets/blue_robot_set.tres")
 @export var enemy_movement_disabled : bool = false
 
 # Called when the node enters the scene tree for the first time.
@@ -25,8 +18,7 @@ func _ready() -> void:
 	max_contacts_reported = 5
 	
 	#Sprite Frames for different enemies.
-	if(enemy_type == ENEMY_IS_SPIDER):
-		sprite_reference.sprite_frames = load("res://Resources/Character/SpriteSets/spider_set.tres")
+	sprite_reference.sprite_frames = enemy_sprite_frames
 	
 	#Make the enemies' moveset
 	var moveset = []
@@ -111,3 +103,9 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 func body_animation():
 	pass
 	#if(get_linear_velocity.)
+
+func set_sprite_frames(new_frames : SpriteFrames):
+	enemy_sprite_frames = new_frames
+
+func get_sprite_frames() -> SpriteFrames:
+	return enemy_sprite_frames

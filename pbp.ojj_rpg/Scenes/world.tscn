@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=29 format=4 uid="uid://d4gy4cuq2fxdt"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerScripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
 [ext_resource type="Theme" uid="uid://d8wjfefy1skg" path="res://Resources/Themes/PlayerMenu.tres" id="9_m6iir"]
 [ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="10_8inel"]
+[ext_resource type="SpriteFrames" uid="uid://cslhcme85i43c" path="res://Resources/Character/SpriteSets/spider_set.tres" id="14_3364f"]
 [ext_resource type="Script" path="res://Scripts/background_music.gd" id="15_hd86r"]
 [ext_resource type="Script" path="res://Scripts/Interactables/enemy_spawner.gd" id="15_mep6t"]
 [ext_resource type="PackedScene" uid="uid://mn0g3e7wixmj" path="res://Scenes/Enemies/enemy1.tscn" id="16_iwr0i"]
@@ -28,6 +29,12 @@ bg_color = Color(0.690236, 0.584584, 0.393931, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mwjq7"]
 radius = 92.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orwvv"]
+size = Vector2(64, 40)
+
+[sub_resource type="QuadMesh" id="QuadMesh_vi5v7"]
+size = Vector2(64, 40)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i3ao1"]
 texture = ExtResource("2_3e5v3")
@@ -231,6 +238,15 @@ collision_mask = 4
 [node name="InteractShape" type="CollisionShape2D" parent="Player/InteractionArea"]
 shape = SubResource("CircleShape2D_mwjq7")
 
+[node name="GuardArea" type="Area2D" parent="Player"]
+position = Vector2(37, -16)
+
+[node name="GuardShape" type="CollisionShape2D" parent="Player/GuardArea"]
+shape = SubResource("RectangleShape2D_orwvv")
+
+[node name="GuardSignalMesh" type="MeshInstance2D" parent="Player/GuardArea"]
+mesh = SubResource("QuadMesh_vi5v7")
+
 [node name="BattleCamera" type="Camera2D" parent="."]
 texture_filter = 1
 position = Vector2(-3106, 0)
@@ -322,6 +338,7 @@ position = Vector2(269, 405)
 [node name="EnemySpawnerInteractable" type="StaticBody2D" parent="."]
 position = Vector2(2343, 2393)
 script = ExtResource("15_mep6t")
+sprite_frames = ExtResource("14_3364f")
 
 [node name="Label" type="Label" parent="EnemySpawnerInteractable"]
 offset_left = -248.0
@@ -331,6 +348,7 @@ offset_bottom = -64.0
 theme_override_font_sizes/font_size = 24
 text = "Interact With me to spawn more Enemies"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="EnemySpawnerInteractable"]
 texture = ExtResource("4_ikl6f")
@@ -347,6 +365,7 @@ offset_top = 2260.0
 offset_right = 735.0
 offset_bottom = 2283.0
 text = "Move with the WASD keys, or the Arrow Keys."
+metadata/_edit_use_anchors_ = true
 
 [node name="CombatLabel" type="Label" parent="TutorialNode"]
 offset_left = 1023.0
@@ -360,6 +379,7 @@ After each battle, the player recieves new moves to use.
 "
 horizontal_alignment = 1
 autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="InventoryLabel" type="Label" parent="TutorialNode"]
 offset_left = 1405.0
@@ -371,6 +391,7 @@ text = "You have access to an inventory by pressing the TAB key. The inventory c
 There's a banana button for fun too. (Guess what using it does.)"
 horizontal_alignment = 1
 autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="InteractablesLabel" type="Label" parent="TutorialNode"]
 offset_left = 1022.0
@@ -381,6 +402,7 @@ text = "Interactables are objects that get highlighted in green when the player 
 Example Below:"
 horizontal_alignment = 1
 autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="PauseMenuLabel" type="Label" parent="TutorialNode"]
 offset_left = 1408.0
@@ -391,6 +413,7 @@ text = "To go back to the main menu, or to quit the game, press the ESC button i
 This also pauses the game."
 horizontal_alignment = 1
 autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="NewEnemy" parent="." instance=ExtResource("16_iwr0i")]
 position = Vector2(1180, 2158)
