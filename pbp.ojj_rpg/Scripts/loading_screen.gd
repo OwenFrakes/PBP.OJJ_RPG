@@ -34,3 +34,4 @@ func _input(_event):
 	if(Input.is_action_just_pressed("SpaceBar")):
 		get_tree().paused = false
 		get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(scene_to_be_loaded))
+		free()

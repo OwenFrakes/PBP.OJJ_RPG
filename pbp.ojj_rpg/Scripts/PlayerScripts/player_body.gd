@@ -13,7 +13,7 @@ var inFight = false
 @onready var interaction_area = $InteractionArea
 
 #Guard Variables
-@onready var guard_area = $GuardArea/CollisionShape2D
+@onready var guard_area
 var faced_direction = Vector2(0,1)
 
 #Leveling Variables
