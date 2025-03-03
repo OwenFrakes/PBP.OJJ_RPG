@@ -113,7 +113,6 @@ sprite_frames = ExtResource("2_pa5da")
 animation = &"idle"
 
 [node name="CutSceneController" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
