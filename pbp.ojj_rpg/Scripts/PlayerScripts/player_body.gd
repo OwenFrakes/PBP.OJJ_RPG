@@ -92,7 +92,6 @@ func _process(delta: float) -> void:
 		checkForInteract()
 	#await guard_area.ready
 	#faceGuard()
-	guard_area.position = Vector2(500,500)
 	move_and_slide()
 
 ## MOVEMENT METHODS ################################################################################

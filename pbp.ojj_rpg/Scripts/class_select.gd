@@ -93,4 +93,6 @@ func _on_select_button_pressed() -> void:
 	PlayerStats.selected_player_class = classes[place]
 	PlayerStats.selected_player_weapon = classes[place].pWeapon
 	#Go to next scene.
-	get_tree().change_scene_to_file("res://Scenes/world.tscn")
+	var loading_screen = preload("res://Scenes/loadingScreen.tscn").instantiate()
+	loading_screen.scene_to_be_loaded = "res://Scenes/world.tscn"
+	get_tree().root.add_child(loading_screen)
