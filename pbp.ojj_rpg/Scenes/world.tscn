@@ -1,24 +1,24 @@
 [gd_scene load_steps=26 format=4 uid="uid://d4gy4cuq2fxdt"]
 
-[ext_resource type="Script" path="res://Scripts/PlayerScripts/player_body.gd" id="1_sauk2"]
+[ext_resource type="Script" uid="uid://cijkcmdj1bj1k" path="res://Scripts/PlayerScripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
 [ext_resource type="Theme" uid="uid://jb6cfq2h0xhb" path="res://Resources/Themes/PauseMenu.tres" id="2_g36tr"]
 [ext_resource type="TileSet" uid="uid://bslv4e41bebif" path="res://Resources/Tiles/SuperTileAtlas.tres" id="2_rkuw8"]
 [ext_resource type="Texture2D" uid="uid://bcvg07sc80vv" path="res://Resources/Tiles/TilePictures/GrassyTile.png" id="3_7myob"]
-[ext_resource type="Script" path="res://Scripts/generation.gd" id="4_31yte"]
+[ext_resource type="Script" uid="uid://c0p1biuu0xv6c" path="res://Scripts/generation.gd" id="4_31yte"]
 [ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="4_ikl6f"]
-[ext_resource type="Script" path="res://Scripts/PlayerScripts/pause_menu.gd" id="5_awuil"]
-[ext_resource type="Script" path="res://Scripts/PlayerScripts/inventory.gd" id="6_68pg1"]
-[ext_resource type="Script" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
+[ext_resource type="Script" uid="uid://ck7g2jnhvpva5" path="res://Scripts/PlayerScripts/pause_menu.gd" id="5_awuil"]
+[ext_resource type="Script" uid="uid://67j5kt0vq3o1" path="res://Scripts/PlayerScripts/inventory.gd" id="6_68pg1"]
+[ext_resource type="Script" uid="uid://xfjocewlrtdk" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
 [ext_resource type="Theme" uid="uid://d8wjfefy1skg" path="res://Resources/Themes/PlayerMenu.tres" id="9_m6iir"]
 [ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="10_8inel"]
 [ext_resource type="SpriteFrames" uid="uid://cslhcme85i43c" path="res://Resources/Character/SpriteSets/spider_set.tres" id="14_3364f"]
-[ext_resource type="Script" path="res://Scripts/background_music.gd" id="15_hd86r"]
-[ext_resource type="Script" path="res://Scripts/Interactables/enemy_spawner.gd" id="15_mep6t"]
+[ext_resource type="Script" uid="uid://ddw65ycj872j6" path="res://Scripts/background_music.gd" id="15_hd86r"]
+[ext_resource type="Script" uid="uid://c3hq0752p1f0k" path="res://Scripts/Interactables/enemy_spawner.gd" id="15_mep6t"]
 [ext_resource type="PackedScene" uid="uid://mn0g3e7wixmj" path="res://Scenes/Enemies/enemy1.tscn" id="16_iwr0i"]
 [ext_resource type="Texture2D" uid="uid://bxuo1neobyssw" path="res://Resources/Character/dante.png" id="17_iccox"]
 [ext_resource type="SpriteFrames" uid="uid://8y65id60d2c3" path="res://Resources/ChestSpriteFrames.tres" id="17_t8pba"]
-[ext_resource type="Script" path="res://Scripts/Interactables/tutorial_button.gd" id="18_cdgm0"]
+[ext_resource type="Script" uid="uid://b1t1f4ugwvl38" path="res://Scripts/Interactables/tutorial_button.gd" id="18_cdgm0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jpw16"]
 radius = 30.0
@@ -410,9 +410,9 @@ script = ExtResource("18_cdgm0")
 z_index = 1
 emitting = false
 amount = 3
+texture = ExtResource("17_iccox")
 lifetime = 1.5
 one_shot = true
-texture = ExtResource("17_iccox")
 direction = Vector2(0, -1)
 gravity = Vector2(0, 1960)
 initial_velocity_min = 600.0

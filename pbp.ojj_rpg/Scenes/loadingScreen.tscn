@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://db1pfykq4j11y"]
 
-[ext_resource type="Script" path="res://Scripts/loading_screen.gd" id="1_lvaio"]
+[ext_resource type="Script" uid="uid://deqg1irf38l2i" path="res://Scripts/loading_screen.gd" id="1_lvaio"]
 [ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="2_tale8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vyxml"]
