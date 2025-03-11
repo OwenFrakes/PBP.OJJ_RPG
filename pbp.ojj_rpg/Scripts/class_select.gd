@@ -1,10 +1,15 @@
 extends Node
 var pClass : PlayerClass
 var classes : Array
-var place: int
+var selected_class: int
 
-@onready var character_text = $"../../../CharacterStats"
-@onready var animated_sprite_node = $"../../../../../AnimatedSprite2D"
+signal selected_class_changed()
+
+@onready var character_title: Label = $CharacterSelect/CharacterTitle
+@onready var character_description: RichTextLabel = $CharacterSelect/CharacterDescription
+@onready var attack_description: RichTextLabel = $CharacterSelect/AttackDescription
+@onready var character_sprite: AnimatedSprite2D = $CharacterSelect/CryoPod/CharacterSprite
+
 ## Sprite Sets ##
 var brawler_sprite_set = load("res://Resources/Character/SpriteSets/brawler_set.tres")
 var swordsman_sprite_set = load("res://Resources/Character/SpriteSets/swordsman_set.tres")
@@ -49,50 +54,44 @@ func _ready() -> void:
 	
 	#Change text to tell player what they have selected.
 	pClass = classes[0]
-	character_text.text = "Name: " + pClass.getName() + \
+	character_description.text = "Name: " + pClass.getName() + \
 	"\nWeapon: " + pClass.getWeaponName() + \
 	"\nHealth: " + str(pClass.getHealth()) + \
 	"\nStamina:" + str(pClass.getStamina()) + \
 	"\nMana:" + str(pClass.getMana()) 
+	
+	selected_class_changed.connect(updateClassDescriptions)
 
-func _on_pressed() -> void:
-	#Cycle if more than 4, otherwise go to next class.
-	if place == 4:
-		place = 0
-	else:
-		place += 1
-	
-	#Change text to tell player what they have selected.
-	pClass = classes[place]
-	character_text.text = "Name: " + pClass.getName() + \
-	"\nWeapon: " + pClass.getWeaponName() + \
-	"\nHealth: " + str(pClass.getHealth()) + \
-	"\nStamina:" + str(pClass.getStamina()) + \
-	"\nMana:" + str(pClass.getMana()) 
-	animated_sprite_node.sprite_frames = pClass.getSpriteSet()
-	
-
-func _on_previous_button_pressed() -> void:
-	#Cycle backwards to 4 if more than 0, otherwise go to previous class.
-	if place == 0:
-		place = 4
-	else:
-		place -= 1
-	
-	#Change text to tell player what they have selected.
-	pClass = classes[place]
-	character_text.text = "Name: " + pClass.getName() + \
-	"\nWeapon: " + pClass.getWeaponName() + \
-	"\nHealth: " + str(pClass.getHealth()) + \
-	"\nStamina:" + str(pClass.getStamina()) + \
-	"\nMana:" + str(pClass.getMana()) 
-	animated_sprite_node.sprite_frames = pClass.getSpriteSet()
+func updateClassDescriptions() -> void:
+	character_title.text = pClass.cName
 
 func _on_select_button_pressed() -> void:
 	#Make the global singleton have these stats.
-	PlayerStats.selected_player_class = classes[place]
-	PlayerStats.selected_player_weapon = classes[place].pWeapon
+	PlayerStats.selected_player_class = classes[selected_class]
+	PlayerStats.selected_player_weapon = classes[selected_class].pWeapon
 	#Go to next scene.
 	var loading_screen = preload("res://Scenes/loadingScreen.tscn").instantiate()
 	loading_screen.scene_to_be_loaded = "res://Scenes/world.tscn"
 	get_tree().root.add_child(loading_screen)
+
+## Class Switch Methods ##
+
+func setSelectedClass(class_num : int) -> void:
+	selected_class = class_num
+	pClass = classes[selected_class]
+	selected_class_changed.emit()
+
+func setToBrawler() -> void:
+	setSelectedClass(0)
+
+func setToSwordsman() -> void:
+	setSelectedClass(1)
+
+func setToGunslinger() -> void:
+	setSelectedClass(2)
+
+func setToEngineer() -> void:
+	setSelectedClass(3)
+
+func setToSniper() -> void:
+	setSelectedClass(4)
