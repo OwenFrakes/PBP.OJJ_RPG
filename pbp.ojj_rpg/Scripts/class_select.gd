@@ -11,11 +11,19 @@ signal selected_class_changed()
 @onready var character_sprite: AnimatedSprite2D = $CharacterSelect/CryoPod/CharacterSprite
 
 ## Sprite Sets ##
-var brawler_sprite_set = load("res://Resources/Character/SpriteSets/brawler_set.tres")
-var swordsman_sprite_set = load("res://Resources/Character/SpriteSets/swordsman_set.tres")
-var gunslinger_sprite_set = load("res://Resources/Character/SpriteSets/gunslinger_set.tres")
-var engineer_sprite_set = load("res://Resources/Character/SpriteSets/engineer_set.tres")
-var marksman_sprite_set = load("res://Resources/Character/SpriteSets/marksman_set.tres")
+var brawler_sprite_set = "res://Resources/Character/SpriteSets/brawler_set.tres"
+var swordsman_sprite_set = "res://Resources/Character/SpriteSets/swordsman_set.tres"
+var gunslinger_sprite_set = "res://Resources/Character/SpriteSets/gunslinger_set.tres"
+var engineer_sprite_set = "res://Resources/Character/SpriteSets/engineer_set.tres"
+var marksman_sprite_set = "res://Resources/Character/SpriteSets/marksman_set.tres"
+
+const class_description = {
+	"Brawler" : "res://Resources/TxtFiles/CharacterDescriptions/BrawlerClassText.txt",
+	"Swordsman" : "res://Resources/TxtFiles/CharacterDescriptions/SwordsmanClassText.txt",
+	"Gun Slinger" : "res://Resources/TxtFiles/CharacterDescriptions/GunslingerClassText.txt",
+	"Engineer" : "res://Resources/TxtFiles/CharacterDescriptions/EngineerClassText.txt", 
+	"Marksman" : "res://Resources/TxtFiles/CharacterDescriptions/SniperClassText.txt"
+}
 
 func _ready() -> void:
 	pClass = PlayerClass.new()
@@ -53,19 +61,29 @@ func _ready() -> void:
 	classes[4].setClass("Marksman", 75, 20, 20, "Sniper", 80, 0.5, "pierce", ["light, fire"], marksman_sprite_set)
 	
 	#Change text to tell player what they have selected.
-	pClass = classes[0]
-	character_description.text = "Name: " + pClass.getName() + \
-	"\nWeapon: " + pClass.getWeaponName() + \
-	"\nHealth: " + str(pClass.getHealth()) + \
-	"\nStamina:" + str(pClass.getStamina()) + \
-	"\nMana:" + str(pClass.getMana()) 
+	setSelectedClass(0)
+	updateClassDescriptions()
 	
 	selected_class_changed.connect(updateClassDescriptions)
 
 func updateClassDescriptions() -> void:
+	## Class Description Nodes ##
+	# CharacterTitle
 	character_title.text = pClass.cName
+	
+	# CharacterDescription
+	character_description.text = getStringFromFile(class_description[pClass.cName])
+	
+	# AttackDescription
+	attack_description.text = "Attack Stuff"
+	
+	# CharacterSprite
+	character_sprite.sprite_frames = pClass.getSpriteSet()
+	character_sprite.animation = "idle"
+	character_sprite.frame = 0
+	character_sprite.stop()
 
-func _on_select_button_pressed() -> void:
+func selectClass() -> void:
 	#Make the global singleton have these stats.
 	PlayerStats.selected_player_class = classes[selected_class]
 	PlayerStats.selected_player_weapon = classes[selected_class].pWeapon
@@ -95,3 +113,8 @@ func setToEngineer() -> void:
 
 func setToSniper() -> void:
 	setSelectedClass(4)
+
+func getStringFromFile(file_path : String) -> String:
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	var text = file.get_as_text()
+	return text

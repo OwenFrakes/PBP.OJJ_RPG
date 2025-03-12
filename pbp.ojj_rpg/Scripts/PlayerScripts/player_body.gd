@@ -62,7 +62,7 @@ func _ready() -> void:
 						PlayerStats.selected_player_weapon.getAttackSpeed(), \
 						PlayerStats.selected_player_weapon.getType(), \
 						PlayerStats.selected_player_class.getWeakness(), \
-						PlayerStats.selected_player_class.getSpriteSet())
+						PlayerStats.selected_player_class.getSpriteSetString())
 	
 	#Start Moveset
 	count = 0 
