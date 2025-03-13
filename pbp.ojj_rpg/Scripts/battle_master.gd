@@ -245,22 +245,27 @@ func _on_fight_btn_pressed() -> void:
 		attack_container.visible = true
 
 #Show the available enemies, and then get the position of the correct attack from the player's moveset.
-func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+func onAttackSelected(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	
+	#Ready the enemy selection
 	enemy_choice.clear()
 	for num1 in range(enemies.size()):
 		enemy_choice.add_item(enemies[num1].getName(), null, true)
 	
+	#Show the enemy selection
 	enemy_choice.visible = true
+	
+	#Iterate through each player attack
+	#If the name of the player attack matches the selected attack, say it's the selected attack.
+	#Then stop.
 	for num2 in range(player_moveset.size()):
 		if(player_moveset[num2].getName() == attack_list.get_item_text(index)):
-			print(player_moveset[num2].getName())
 			move_position = num2
 			break
 
 #Applies damage to the enemy, goes through enemy attacks on the player, 
 #and makes player menus invisible for the enemy's turn.
-func _on_enemy_choice_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+func onEnemySelected(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	enemy_position = index
 	playerAttack()
 	attack_container.visible = false
@@ -268,20 +273,15 @@ func _on_enemy_choice_item_clicked(index: int, at_position: Vector2, mouse_butto
 
 #Removes enemy health, subtracts attack costs, removes enemies if dead, and checks to win the battle.
 func playerAttack():
-	var enemyHP = enemies[enemy_position].getHealth()
-	enemyHP -= player_moveset[move_position].getDamage() * getPlayerAttackEffectiveness()
-	enemies[enemy_position].health = enemyHP
-	enemy_entity_info[enemy_position].changeHealth(enemies[enemy_position].health)
+	enemies[enemy_position].damage(player_moveset[move_position].getDamage() * getPlayerAttackEffectiveness())
+	enemy_entity_info[enemy_position].changeHealth(enemies[enemy_position].getHealth())
 	
 	player_health -= player_moveset[move_position].getHealthCost()
 	player_mana -= player_moveset[move_position].getManaCost()
-	print(player_moveset[move_position].getManaCost())
-	print(player_mana)
 	player_entity_info[0].changeHealth(player_health)
 	player_entity_info[0].changeMana(player_mana)
 	
-	
-	if enemyHP <= 0:
+	if enemies[enemy_position].getHealth() <= 0:
 		enemies.remove_at(enemy_position)
 		enemy_entity_info[enemy_position].free()
 		enemy_entity_info.remove_at(enemy_position)
@@ -304,18 +304,11 @@ func enemyAttack(enemy_location: int):
 
 #this local variable of enemyPos is being fed an int from enemyAttack()
 func getEnemyAttack(enemy_location: int):
-	count = 0
-	var weakCount = 0
 	#for each of the players weaknesses, check if an enemy move matches typing.
-	while(weakCount < player_class.getWeakness().size()):
-		#for each move of the selected enemy
-		while(count < enemies[enemy_location].moveset.size()):
-			#If an enemy's move matches a player weakness, return that move. Else iterate
-			if enemies[enemy_location].moveset[count].getType() == player_class.getWeakness()[weakCount]:
-				return enemies[enemy_location].moveset[count]
-			else:
-				count += 1
-		weakCount += 1
+	for player_weakness in player_class.getWeakness():
+		for enemy_attack in enemies[enemy_location].moveset:
+			if enemy_attack.getType() == player_weakness:
+				return enemy_attack
 	return enemies[enemy_location].moveset[0]
 
 #Goes through all of the player's weakness looking for matches.

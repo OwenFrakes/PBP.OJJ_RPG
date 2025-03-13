@@ -32,6 +32,10 @@ func setEnemy(tName: String, tHealth: float, tMana: float, tWeakness: Array, tMo
 		count += 1
 	randomActionLimit()
 
+func damage(damage_amount: int) -> int:
+	health = health - damage_amount
+	return health
+
 func getName():
 	return eName
 func getHealth():
