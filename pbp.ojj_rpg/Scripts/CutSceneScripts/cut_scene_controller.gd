@@ -5,6 +5,7 @@ extends Control
 @export var children_time_gap : float = 0
 
 func _ready():
+	show()
 	var children_effects = get_children()
 	
 	await get_tree().create_timer(start_delay).timeout

@@ -36,12 +36,12 @@ func _ready() -> void:
 	add_child(image_node)
 	image_node.scale = Vector2(2,2)
 	
-	var sprite_x_size = image_node.sprite_frames.get_frame_texture("default", 0).get_size().x
+	var sprite_x_size = image_node.sprite_frames.get_frame_texture("idle", 0).get_size().x
 	
 	#VBoxContainer
-	vertical_container.size = Vector2(image_node.sprite_frames.get_frame_texture("default", 0).get_size().x * 2, 10)
-	vertical_container.position = Vector2(-image_node.sprite_frames.get_frame_texture("default", 0).get_size().x, \
-										   image_node.sprite_frames.get_frame_texture("default", 0).get_size().y)
+	vertical_container.size = Vector2(image_node.sprite_frames.get_frame_texture("idle", 0).get_size().x * 2, 10)
+	vertical_container.position = Vector2(-image_node.sprite_frames.get_frame_texture("idle", 0).get_size().x, \
+										   image_node.sprite_frames.get_frame_texture("idle", 0).get_size().y)
 	add_child(vertical_container)
 	
 	#Other Node edits.
@@ -83,6 +83,7 @@ func _ready() -> void:
 
 func _init(new_label : String, new_texture : SpriteFrames = load("res://Resources/Character/SpriteSets/blue_robot_set.tres")) -> void:
 	image_node.sprite_frames = new_texture
+	image_node.play("idle")
 	image_node.stop()
 	image_node.frame = 0
 	name_label_node.text = new_label

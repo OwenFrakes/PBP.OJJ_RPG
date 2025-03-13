@@ -10,14 +10,16 @@ var count = 0
 var action_limit = 100
 var action_amount = 0
 var action_multiplier = 1
+var enemy_sprite_frames = load("res://Resources/Character/SpriteSets/blue_robot_set.tres")
 
 # Called when the node enters the scene tree for the first time.
-func setEnemy(tName: String, tHealth: float, tMana: float, tWeakness: Array, tMoveset: Array):
+func setEnemy(tName: String, tHealth: float, tMana: float, tWeakness: Array, tMoveset: Array, new_frames: SpriteFrames = load("res://Resources/Character/SpriteSets/blue_robot_set.tres")):
 	eName = tName
 	health = tHealth
 	mana = tMana
 	weakness.resize(tWeakness.size())
 	moveset.resize(tMoveset.size())
+	enemy_sprite_frames = new_frames
 	
 	count = 0
 	while count < tWeakness.size():

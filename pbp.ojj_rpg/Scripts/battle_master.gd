@@ -159,7 +159,7 @@ func readyBattle(new_enemy):
 	###Make the EntityInfo nodes for each participant.###
 	#Enemy side.
 	for enemy_num in range(enemies.size()):
-		var enemy_info = EntityInfo.new(enemies[enemy_num].getName())
+		var enemy_info = EntityInfo.new(enemies[enemy_num].getName(), enemies[enemy_num].enemy_sprite_frames)
 		enemy_entity_info.append(enemy_info)
 		enemy_info.position = enemy_info_positions[enemy_num].position
 		enemy_info.setHealthBar(enemies[enemy_num].getHealth())
@@ -246,22 +246,17 @@ func _on_fight_btn_pressed() -> void:
 
 #Show the available enemies, and then get the position of the correct attack from the player's moveset.
 func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
-	count = 0
 	
 	enemy_choice.clear()
-	while(count < enemies.size()):
-		enemy_choice.add_item(enemies[count].getName(), null, true)
-		count += 1
+	for num1 in range(enemies.size()):
+		enemy_choice.add_item(enemies[num1].getName(), null, true)
 	
 	enemy_choice.visible = true
-	count = 0
-	while(count<player_moveset.size()):
-		if(player_moveset[count].getName() == attack_list.get_item_text(index)):
-			print(player_moveset[count].getName())
-			move_position = count
+	for num2 in range(player_moveset.size()):
+		if(player_moveset[num2].getName() == attack_list.get_item_text(index)):
+			print(player_moveset[num2].getName())
+			move_position = num2
 			break
-		else:
-			count += 1
 
 #Applies damage to the enemy, goes through enemy attacks on the player, 
 #and makes player menus invisible for the enemy's turn.
