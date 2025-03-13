@@ -3,10 +3,10 @@
 [ext_resource type="Theme" uid="uid://dp3x3xta2yuh4" path="res://Resources/Themes/ClassMenu.tres" id="1_4dvgp"]
 [ext_resource type="Script" uid="uid://c7a5mrd5j5cyq" path="res://Scripts/class_select.gd" id="2_dexyt"]
 [ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="2_pa5da"]
-[ext_resource type="Script" uid="uid://1fu8c3pidrpr" path="res://Scripts/CutSceneScripts/cut_scene_label.gd" id="4_qly2d"]
+[ext_resource type="Script" uid="uid://dkgujka6h1nx1" path="res://Scripts/CutSceneScripts/cut_scene_label.gd" id="4_qly2d"]
 [ext_resource type="AudioStream" uid="uid://boq8opagbskiu" path="res://Resources/Sound Effects/OldPCBootSound.mp3" id="5_xchjy"]
 [ext_resource type="Texture2D" uid="uid://b3geq27nj0ebp" path="res://Resources/Dust-Textures-2.jpg" id="6_mb58c"]
-[ext_resource type="Script" uid="uid://cw0u3ys7ui3ud" path="res://Scripts/CutSceneScripts/cut_scene_panel.gd" id="6_yt0mq"]
+[ext_resource type="Script" uid="uid://didhf5s8ek4gk" path="res://Scripts/CutSceneScripts/cut_scene_panel.gd" id="6_yt0mq"]
 [ext_resource type="Script" uid="uid://bn1um1wojyrnh" path="res://Scripts/CutSceneScripts/cut_scene_controller.gd" id="7_s2r4v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ir3e6"]
