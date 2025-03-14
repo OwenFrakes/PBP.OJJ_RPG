@@ -27,6 +27,10 @@ var action_bar_node = ProgressBar.new()
 
 ##End Vertical Box##
 
+##Other Variables##
+const greyout_color = Color(0.8, 0.8, 0.8)
+var is_greyed_out = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
@@ -92,27 +96,37 @@ func isEnemy():
 	mana_bar_node.hide()
 	mana_label_node.hide()
 
+##Image Functions#########################################
+func greyout(boolean : bool) -> void:
+	if boolean:
+		image_node.self_modulate = greyout_color
+	else:
+		image_node.self_modulate = Color(1,1,1)
+
+func getGreyedOut() -> bool:
+	return is_greyed_out
+
 ##Health###################################################
 func setHealthBar(new_max, current_value = new_max):
 	health_bar_node.max_value = new_max
 	health_bar_node.value = current_value
 	
-	health_label_node.text = "Health: " + str(current_value) + "/" + str(new_max)
+	health_label_node.text = "Health: " + str(int(current_value)) + "/" + str(int(new_max))
 
 func changeHealth(new_value):
 	health_bar_node.value = new_value
-	health_label_node.text = "Health: " + str(new_value) + "/" + str(health_bar_node.max_value)
+	health_label_node.text = "Health: " + str(int(new_value)) + "/" + str(int(health_bar_node.max_value))
 
 ##Mana###################################################
 func setManaBar(new_max, current_value = new_max):
 	mana_bar_node.max_value = new_max
 	mana_bar_node.value = current_value
 	
-	mana_label_node.text = "Mana: " + str(current_value) + "/" + str(new_max)
+	mana_label_node.text = "Mana: " + str(int(current_value)) + "/" + str(int(new_max))
 
 func changeMana(new_value):
 	mana_bar_node.value = new_value
-	mana_label_node.text = "Mana: " + str(new_value) + "/" + str(mana_bar_node.max_value)
+	mana_label_node.text = "Mana: " + str(int(new_value)) + "/" + str(int(mana_bar_node.max_value))
 
 ##Action###################################################
 func setActionBar(new_max, current_value = 0):
