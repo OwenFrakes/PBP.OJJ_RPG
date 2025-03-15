@@ -34,7 +34,7 @@ func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana:
 	learnset[2] = attack.new()
 	learnset[2].setAttack("Moderate Attack", pWeapon.damage * 1.5, 4, 0, pWeapon.type, 5)
 	learnset[3] = attack.new()
-	learnset[3].setAttack("Moderate Ice", 40, 0, 3, "ice", 7)
+	learnset[3].setAttack("Moderate Ice", 40, 0, 3, "ice", 7, ActionCondition.new("Ice", 3, -0.25))
 	learnset[4] = attack.new()
 	learnset[4].setAttack("Moderate Electric", 40, 0, 3, "electric", 9)
 	learnset[5] = attack.new()
@@ -47,7 +47,18 @@ func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana:
 	learnset[8].setAttack("Massive Fire", 60, 0, 3, "fire", 16)
 	learnset[9] = attack.new()
 	learnset[9].setAttack("TMOA", pWeapon.damage * 5, 0, 50, pWeapon.type, 20)
-	
+
+func canLearnMove(current_level : int) -> bool:
+	for move in learnset:
+		if move.getLearnLevel() == current_level:
+			return true
+	return false
+
+func nextMove(current_level : int):
+	for move in learnset:
+		if move.getLearnLevel() == current_level:
+			return move
+
 #get the Variables
 func getName():
 	return cName

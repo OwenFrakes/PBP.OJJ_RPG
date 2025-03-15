@@ -11,6 +11,8 @@ var action_limit = 100
 var action_amount = 0
 var action_multiplier = 1
 var enemy_sprite_frames = load("res://Resources/Character/SpriteSets/blue_robot_set.tres")
+var action_conditions = []
+var damage_conditions = []
 
 # Called when the node enters the scene tree for the first time.
 func setEnemy(tName: String, tHealth: float, tMana: float, tWeakness: Array, tMoveset: Array, new_frames: SpriteFrames = load("res://Resources/Character/SpriteSets/blue_robot_set.tres")):
@@ -32,9 +34,34 @@ func setEnemy(tName: String, tHealth: float, tMana: float, tWeakness: Array, tMo
 		count += 1
 	randomActionLimit()
 
-func damage(damage_amount: int) -> int:
+func damage(damage_amount: int, condition) -> int:
 	health = health - damage_amount
+	
+	if condition is ActionCondition:
+		var pre_existing = false
+		for existing_condition in action_conditions:
+			if condition.getName() == existing_condition.getName():
+				pre_existing = true
+		if !pre_existing:
+			action_conditions.append(condition)
+		else:
+			print("Already has this condition")
+	
 	return health
+
+func totalActionConditions():
+	action_multiplier = 1
+	
+	for action_position in action_conditions.size():
+		if action_conditions[action_position].getDuration() <= 0:
+			action_conditions.remove_at(action_position)
+	
+	for action_condition in action_conditions:
+		action_multiplier += action_condition.getStrength()
+
+func passActionConditions():
+	for action_condition in action_conditions:
+		action_condition.passTurn()
 
 func getName():
 	return eName

@@ -23,16 +23,15 @@ var enemy_position
 var player_action_limit
 var player_action_amount
 var player_action_multiplier
+var player_action_conditions
+var player_damage_conditions
 
 ##Control Nodes####
 @onready var combat_control_node = $Control
-@onready var attack_container = $Control/Attacks
-@onready var enemy_choice = $Control/Attacks/AttackList/EnemyChoice
 @onready var attack_list = $Control/Attacks/AttackList
+@onready var enemy_choice = $Control/Attacks/AttackList/EnemyChoice
 @onready var enemy_info_positions = [$EnemyPosition1, $EnemyPosition2, $EnemyPosition3, $EnemyPosition4]
 @onready var player_info_positions = [$PlayerPosition1]
-
-var count : float
 
 func _ready() -> void:
 	# When the world is loaded, this section is too, this is disabled
@@ -54,10 +53,12 @@ func _process(delta: float) -> void:
 	elif(turn_active):
 		#If it's the player's turn, just make the controls visible, the player does the rest.
 		if(is_player_turn):
+			#totalActionMultipliers()
 			controlsUsable(true)
 		
 		#Enemies 'act' when it's their turn.
 		else:
+			enemies[acting_enemy].passActionConditions()
 			pause = true
 			turn_active = false
 			await get_tree().create_timer(1).timeout
@@ -95,7 +96,6 @@ func _process(delta: float) -> void:
 				#Reset the amount of action they have.
 				enemies[enemy_action].action_amount = 0
 				enemy_entity_info[enemy_action].changeAction(enemies[enemy_action].action_amount)
-				print(enemies[enemy_action].getName() + " acted")
 				
 				#Save who acted last for the attack function.
 				acting_enemy = enemy_action
@@ -106,8 +106,10 @@ func _process(delta: float) -> void:
 				#Break the Loop
 				break
 		
+		##Otherwise, just progress the action amounts.
 		if(!turn_active):
 			for i in range(enemies.size()):
+				enemies[i].totalActionConditions()
 				enemies[i].action_amount += delta * enemies[i].action_multiplier * 20
 				enemy_entity_info[i].changeAction(enemies[i].action_amount)
 			
@@ -138,19 +140,15 @@ func readyBattle(new_enemy):
 	#Clears the attack list from a previous battle.
 	#Adds the new current attacks.
 	attack_list.clear()
-	count = 0
-	while(count < player_moveset.size()):
-		attack_list.add_item(player_moveset[count].getName(), null, true)
-		count += 1
+	for player_move in player_moveset:
+		attack_list.add_item(player_move.getName(), null, true)
 	
 	
 	#Clears enemy choices,
 	#then gives the new, current enemies.
 	enemy_choice.clear()
-	count = 0
-	while(count < enemies.size()):
-		enemy_choice.add_item(enemies[count].getName(), null, true)
-		count += 1
+	for enemy in enemies:
+		enemy_choice.add_item(enemy.getName(), null, true)
 	
 	controlsUsable(false)
 	process_mode = PROCESS_MODE_INHERIT
@@ -251,12 +249,18 @@ func onEnemySelected(index: int, at_position: Vector2, mouse_button_index: int) 
 	playerAttack()
 	enemy_choice.visible = false
 
+func totalActionMultipliers():
+	player_action_multiplier = 1
+	
+	for condition in player_action_conditions:
+		pass
+
 ## PLAYER METHODS #####################################################
 
 #Removes enemy health, subtracts attack costs, removes enemies if dead, and checks to win the battle.
 func playerAttack():
 	#damage enemy
-	enemies[enemy_position].damage(getPlayerAttack())
+	enemies[enemy_position].damage(getPlayerAttack(), player_moveset[move_position].getActionCondition())
 	enemy_entity_info[enemy_position].changeHealth(enemies[enemy_position].getHealth())
 	
 	#subtract requirements
@@ -265,18 +269,21 @@ func playerAttack():
 	player_entity_info[0].changeHealth(player_health)
 	player_entity_info[0].changeMana(player_mana)
 	
+	#Remove Dead Enemies
 	if enemies[enemy_position].getHealth() <= 0:
 		enemies.remove_at(enemy_position)
 		enemy_entity_info[enemy_position].free()
 		enemy_entity_info.remove_at(enemy_position)
-		count = 0 
+	
+	#Check if victory is achieved.
 	if enemies.size() == 0:
 		battleWin()
+	
+	#Otherwise, continue combat.
 	else:
 		controlsUsable(false)
 		turn_active = false
 		resetGreyout()
-		#debugCheckArray()
 
 func getPlayerAttack() -> int:
 	for enemy_weakness in enemies[enemy_position].weakness:
