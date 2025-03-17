@@ -1,7 +1,9 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://bslv4e41bebif"]
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://bslv4e41bebif"]
 
 [ext_resource type="Texture2D" uid="uid://b0537pto2k12k" path="res://Resources/Tiles/TilePictures/8x8GodotAtlas.png" id="1_ae84u"]
 [ext_resource type="Texture2D" uid="uid://dx2bgwlylq5oc" path="res://Resources/Tiles/TilePictures/New8x8.png" id="1_tw5v4"]
+[ext_resource type="Texture2D" uid="uid://cr2lh0sjojpvt" path="res://Resources/download-4.png.png" id="2_eejv2"]
+[ext_resource type="Texture2D" uid="uid://cetytxydni4u" path="res://Resources/download-3.png.png" id="4_0ibvb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hxny4"]
 texture = ExtResource("1_tw5v4")
@@ -17,6 +19,11 @@ texture_region_size = Vector2i(64, 64)
 2:0/0 = 0
 7:3/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ibvb"]
+texture = ExtResource("2_eejv2")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhvoa"]
 texture = ExtResource("1_ae84u")
 separation = Vector2i(1, 1)
@@ -31,7 +38,14 @@ texture_region_size = Vector2i(64, 64)
 7:2/0 = 0
 7:3/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_otamn"]
+texture = ExtResource("4_0ibvb")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
 [resource]
 tile_size = Vector2i(64, 64)
 sources/2 = SubResource("TileSetAtlasSource_jhvoa")
 sources/0 = SubResource("TileSetAtlasSource_hxny4")
+sources/1 = SubResource("TileSetAtlasSource_0ibvb")
+sources/4 = SubResource("TileSetAtlasSource_otamn")
