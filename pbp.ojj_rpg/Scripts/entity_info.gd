@@ -9,6 +9,10 @@ var image_node = AnimatedSprite2D.new()
 ##Start Vertical Box##
 var vertical_container = VBoxContainer.new()
 
+##Grid Container for Conditions##
+var condition_container = GridContainer.new()
+var condition_dictionary = Dictionary()
+
 #Entity Name
 var name_label_node = Label.new()
 
@@ -42,6 +46,10 @@ func _ready() -> void:
 	
 	var sprite_x_size = image_node.sprite_frames.get_frame_texture("idle", 0).get_size().x
 	
+	#Grid Container
+	condition_container.columns=4
+	condition_container.theme = load("res://Resources/Themes/GridTheme.tres")
+	
 	#VBoxContainer
 	vertical_container.size = Vector2(image_node.sprite_frames.get_frame_texture("idle", 0).get_size().x * 2, 10)
 	vertical_container.position = Vector2(-image_node.sprite_frames.get_frame_texture("idle", 0).get_size().x, \
@@ -71,6 +79,7 @@ func _ready() -> void:
 	action_bar_node.self_modulate = Color(0,1,0)
 	
 	###Add the bars to the container###
+	vertical_container.add_child(condition_container)
 	#Name
 	vertical_container.add_child(name_label_node)
 	#Health
@@ -105,6 +114,15 @@ func greyout(boolean : bool) -> void:
 
 func getGreyedOut() -> bool:
 	return is_greyed_out
+
+func addCondition(condition_name : String):
+	if condition_dictionary.get(condition_name) == null:
+		var condition_sprite = TextureRect.new()
+		condition_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		condition_sprite.texture = load("res://Resources/Conditions/IceCondition.png")
+		condition_sprite.custom_minimum_size = Vector2(32,32)
+		condition_dictionary.get_or_add(condition_name, condition_sprite)
+		condition_container.add_child(condition_sprite)
 
 ##Health###################################################
 func setHealthBar(new_max, current_value = new_max):
