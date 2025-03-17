@@ -334,6 +334,12 @@ shape = SubResource("CircleShape2D_jpw16")
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 z_index = 25
 
+[node name="LorePannel" type="Panel" parent="Player/PlayerCamera"]
+offset_left = -251.0
+offset_top = 167.0
+offset_right = 200.0
+offset_bottom = 477.0
+
 [node name="PauseMenu" type="Panel" parent="Player"]
 process_mode = 3
 visible = false
