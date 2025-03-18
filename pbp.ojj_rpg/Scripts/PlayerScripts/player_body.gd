@@ -210,6 +210,9 @@ func addPlayerExperience(xp_amount : float):
 
 func faceGuard():
 	guard_area.position = faced_direction * 500
+	
+func _on_close_button_pressed() -> void:
+		$PlayerCamera/Control/LorePannel.hide()
 
 ## Get Methods ###########################################################################
 

@@ -334,11 +334,51 @@ shape = SubResource("CircleShape2D_jpw16")
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 z_index = 25
 
-[node name="LorePannel" type="Panel" parent="Player/PlayerCamera"]
-offset_left = -251.0
-offset_top = 167.0
-offset_right = 200.0
-offset_bottom = 477.0
+[node name="Control" type="Control" parent="Player/PlayerCamera"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+
+[node name="LorePannel" type="Panel" parent="Player/PlayerCamera/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseButton" type="Button" parent="Player/PlayerCamera/Control/LorePannel"]
+layout_mode = 0
+offset_left = 1755.0
+offset_top = 13.0
+offset_right = 1909.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 50
+text = "X"
+
+[node name="ItemName" type="Label" parent="Player/PlayerCamera/Control/LorePannel"]
+offset_left = 285.0
+offset_top = 142.0
+offset_right = 577.0
+offset_bottom = 279.0
+theme_override_font_sizes/font_size = 100
+text = "Dante"
+
+[node name="ItemPic" type="Sprite2D" parent="Player/PlayerCamera/Control/LorePannel"]
+position = Vector2(418.75, 621.25)
+scale = Vector2(3.05111, 2.97555)
+texture = ExtResource("17_iccox")
+
+[node name="ItemName2" type="Label" parent="Player/PlayerCamera/Control/LorePannel"]
+offset_left = 887.0
+offset_top = 121.0
+offset_right = 1791.0
+offset_bottom = 417.0
+theme_override_font_sizes/font_size = 100
+text = "blah blah blah lore"
 
 [node name="PauseMenu" type="Panel" parent="Player"]
 process_mode = 3
@@ -403,6 +443,7 @@ text = "Quit Game"
 
 [node name="PlayerMenu" type="Control" parent="Player"]
 process_mode = 3
+visible = false
 z_index = 100
 layout_mode = 3
 anchors_preset = 1
@@ -416,6 +457,7 @@ grow_horizontal = 0
 script = ExtResource("6_68pg1")
 
 [node name="Panel" type="Panel" parent="Player/PlayerMenu"]
+visible = false
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 1
 anchors_preset = 9
@@ -693,6 +735,7 @@ scale_amount_max = 0.5
 [node name="Animation" type="AnimatedSprite2D" parent="TutorialButton"]
 sprite_frames = ExtResource("17_t8pba")
 
+[connection signal="pressed" from="Player/PlayerCamera/Control/LorePannel/CloseButton" to="Player" method="_on_close_button_pressed"]
 [connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player/PauseMenu" method="resumeGame"]
 [connection signal="pressed" from="Player/PauseMenu/MainMenuBtn" to="Player/PauseMenu" method="mainMenu"]
 [connection signal="pressed" from="Player/PauseMenu/QuitBtn" to="Player/PauseMenu" method="quitGame"]
