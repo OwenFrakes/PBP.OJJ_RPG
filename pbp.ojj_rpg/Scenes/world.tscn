@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=61 format=4 uid="uid://d4gy4cuq2fxdt"]
 
 [ext_resource type="Script" uid="uid://cijkcmdj1bj1k" path="res://Scripts/PlayerScripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bxuo1neobyssw" path="res://Resources/Character/dante.png" id="17_iccox"]
 [ext_resource type="SpriteFrames" uid="uid://8y65id60d2c3" path="res://Resources/ChestSpriteFrames.tres" id="17_t8pba"]
 [ext_resource type="Script" uid="uid://b1t1f4ugwvl38" path="res://Scripts/Interactables/tutorial_button.gd" id="18_cdgm0"]
+[ext_resource type="Script" uid="uid://daicl20bpgmpo" path="res://Scripts/attack_button.gd" id="20_1cojt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jpw16"]
 radius = 30.0
@@ -667,6 +668,58 @@ scale_amount_max = 0.5
 
 [node name="Animation" type="AnimatedSprite2D" parent="TutorialButton"]
 sprite_frames = ExtResource("17_t8pba")
+
+[node name="PrototypeCombat" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -3106.0
+offset_top = 1278.0
+offset_right = -1186.0
+offset_bottom = 2366.0
+
+[node name="Panel" type="Panel" parent="PrototypeCombat"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="PrototypeCombat"]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Panel2" type="Panel" parent="PrototypeCombat/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PrototypeCombat/Control"]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -560.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="PrototypeCombat/Control/ScrollContainer"]
+layout_mode = 2
+theme = ExtResource("9_m6iir")
+theme_override_font_sizes/font_size = 48
+text = "Attack 1"
+script = ExtResource("20_1cojt")
 
 [connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player/PauseMenu" method="resumeGame"]
 [connection signal="pressed" from="Player/PauseMenu/MainMenuBtn" to="Player/PauseMenu" method="mainMenu"]

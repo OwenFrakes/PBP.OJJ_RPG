@@ -1,4 +1,4 @@
-class_name attack
+class_name Attack
 extends Node
 var aName: String
 var damage: float

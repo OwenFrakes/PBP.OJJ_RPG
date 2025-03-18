@@ -79,7 +79,9 @@ func _ready() -> void:
 	action_bar_node.self_modulate = Color(0,1,0)
 	
 	###Add the bars to the container###
+	#Conditions
 	vertical_container.add_child(condition_container)
+	addCondition("Freeze")
 	#Name
 	vertical_container.add_child(name_label_node)
 	#Health

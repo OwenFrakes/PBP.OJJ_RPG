@@ -143,7 +143,6 @@ func readyBattle(new_enemy):
 	for player_move in player_moveset:
 		attack_list.add_item(player_move.getName(), null, true)
 	
-	
 	#Clears enemy choices,
 	#then gives the new, current enemies.
 	enemy_choice.clear()

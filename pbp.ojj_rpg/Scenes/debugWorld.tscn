@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://caq5d8nmcqe1g"]
+
+[ext_resource type="Script" uid="uid://bhgvr3flcurpt" path="res://Scripts/debug_battle.gd" id="1_71au1"]
+
+[node name="DebugWorld" type="Node2D"]
+
+[node name="BattleControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("1_71au1")
+
+[node name="BattleBackground" type="Panel" parent="BattleControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollControl" type="Control" parent="BattleControl"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="BattleControl/ScrollControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BattleControl/ScrollControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AttacksContainer" type="VBoxContainer" parent="BattleControl/ScrollControl/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BattleControl"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 100
