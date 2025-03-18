@@ -343,6 +343,7 @@ offset_right = 960.0
 offset_bottom = 540.0
 
 [node name="LorePannel" type="Panel" parent="Player/PlayerCamera/Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -360,6 +361,7 @@ theme_override_font_sizes/font_size = 50
 text = "X"
 
 [node name="ItemName" type="Label" parent="Player/PlayerCamera/Control/LorePannel"]
+layout_mode = 0
 offset_left = 285.0
 offset_top = 142.0
 offset_right = 577.0
@@ -370,9 +372,10 @@ text = "Dante"
 [node name="ItemPic" type="Sprite2D" parent="Player/PlayerCamera/Control/LorePannel"]
 position = Vector2(418.75, 621.25)
 scale = Vector2(3.05111, 2.97555)
-texture = ExtResource("17_iccox")
+texture = ExtResource("4_ikl6f")
 
-[node name="ItemName2" type="Label" parent="Player/PlayerCamera/Control/LorePannel"]
+[node name="ItemInfo" type="Label" parent="Player/PlayerCamera/Control/LorePannel"]
+layout_mode = 0
 offset_left = 887.0
 offset_top = 121.0
 offset_right = 1791.0

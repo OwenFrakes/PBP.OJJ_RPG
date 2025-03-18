@@ -3,13 +3,19 @@ extends "res://Scripts/Interactables/interactable.gd"
 
 @onready var particles : CPUParticles2D = $CPUParticles2D
 @onready var animation : AnimatedSprite2D = $Animation 
-@onready var lore = $"../Player/PlayerCamera/Control/LorePannel"
+@onready var lorePan = $"../Player/PlayerCamera/Control/LorePannel"
+@onready var pic = $"../Player/PlayerCamera/Control/LorePannel/ItemPic"
+@onready var itemName = $"../Player/PlayerCamera/Control/LorePannel/ItemName"
+@onready var itemInfo = $"../Player/PlayerCamera/Control/LorePannel/ItemInfo"
 
 func interact():
-	if lore.visible:
-		lore.hide()
+	itemName.text = "working"
+	itemInfo.text = "nuh uh"
+	pic.texture = load("res://Resources/Character/dante.png")
+	if lorePan.visible:
+		lorePan.hide()
 	else:
-		lore.show()
+		lorePan.show()
 
 	if particles.emitting:
 		pass
