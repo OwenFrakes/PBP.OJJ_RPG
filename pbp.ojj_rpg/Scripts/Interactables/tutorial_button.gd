@@ -9,7 +9,7 @@ extends "res://Scripts/Interactables/interactable.gd"
 @onready var itemInfo = $"../Player/PlayerCamera/Control/LorePannel/ItemInfo"
 var count = 0
 var disks: Array
-var firstTime: bool
+var firstTime := true
 
 func setDisks():
 	disks.resize(10)
@@ -45,7 +45,7 @@ func interact():
 		count = 0
 		itemName.text = disks[count].dName
 		itemInfo.text = disks[count].discript
-		pic.texture = disks[count].pic
+		pic.texture = load(disks[count].pic)
 		if lorePan.visible:
 			lorePan.hide()
 		else:
@@ -54,7 +54,7 @@ func interact():
 	else:
 		itemName.text = disks[count].dName
 		itemInfo.text = disks[count].discript
-		pic.texture = disks[count].pic
+		pic.texture = load(disks[count].pic)
 		if lorePan.visible:
 			lorePan.hide()
 		else:
