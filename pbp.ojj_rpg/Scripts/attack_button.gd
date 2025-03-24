@@ -7,9 +7,9 @@ var stored_attack : Attack
 func _init(new_attack : Attack) -> void:
 	stored_attack = new_attack
 	text = stored_attack.getName() + " : " + stored_attack.getType()
-	pressed.connect(signalThing)
+	pressed.connect(sendAttackSignal)
 
-func signalThing():
+func sendAttackSignal():
 	emit_signal("send_attack", stored_attack)
 
 func getAttack():

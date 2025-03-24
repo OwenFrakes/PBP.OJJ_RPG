@@ -23,13 +23,13 @@ func _ready() -> void:
 	#Make the enemies' moveset
 	var moveset = []
 	moveset.resize(4)
-	moveset[0] = attack.new()
+	moveset[0] = Attack.new()
 	moveset[0].setAttack("Basic Attack", 10, 0, 0, "pierce", 0)
-	moveset[1] = attack.new()
+	moveset[1] = Attack.new()
 	moveset[1].setAttack("Basic Fire", 10, 0, 2, "fire", 0)
-	moveset[2] = attack.new()
+	moveset[2] = Attack.new()
 	moveset[2].setAttack("Basic Light", 10, 0, 2, "light", 0)
-	moveset[3] = attack.new()
+	moveset[3] = Attack.new()
 	moveset[3].setAttack("Basic Dark", 10, 0, 0, "dark", 0)
 	
 	#Make the enemies and set them up.

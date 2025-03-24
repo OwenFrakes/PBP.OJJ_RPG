@@ -58,6 +58,15 @@ func _process(delta: float) -> void:
 	#faceGuard()
 	move_and_slide()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if(Input.is_key_pressed(KEY_C) && !inFight):
+		var battle_scene = preload("res://Scenes/debugWorld.tscn").instantiate()
+		battle_scene.z_index = 10
+		battle_scene.position = player_camera.global_position
+		battle_scene.readyBattle(self, [Enemy.new()])
+		get_tree().root.add_child(battle_scene)
+		setInFight(true)
+
 ## MOVEMENT METHODS ################################################################################
 func move():
 	var move_magnitude = Input.get_vector("Left","Right","Up","Down")

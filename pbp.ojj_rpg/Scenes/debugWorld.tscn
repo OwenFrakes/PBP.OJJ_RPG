@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://bhgvr3flcurpt" path="res://Scripts/debug_battle.gd" id="1_71au1"]
 
 [node name="DebugWorld" type="Node2D"]
+script = ExtResource("1_71au1")
 
 [node name="BattleControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
-script = ExtResource("1_71au1")
 
 [node name="BattleBackground" type="Panel" parent="BattleControl"]
 layout_mode = 1
@@ -49,7 +49,24 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="Label" type="Label" parent="BattleControl"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 202.0
+offset_top = -68.5
+offset_right = 242.0
+offset_bottom = 68.5
+grow_vertical = 2
 theme_override_font_sizes/font_size = 100
+
+[node name="RunBtn" type="Button" parent="BattleControl"]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 78.0
+offset_right = 918.0
+offset_bottom = 185.0
+theme_override_font_sizes/font_size = 100
+text = "RUN"
+
+[connection signal="pressed" from="BattleControl/RunBtn" to="." method="runAway"]
