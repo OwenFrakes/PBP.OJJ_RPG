@@ -69,4 +69,19 @@ offset_bottom = 185.0
 theme_override_font_sizes/font_size = 100
 text = "RUN"
 
+[node name="PlayerMarker" type="Marker2D" parent="."]
+position = Vector2(1087, 583)
+
+[node name="EnemyMarker1" type="Marker2D" parent="."]
+position = Vector2(216, 565)
+
+[node name="EnemyMarker2" type="Marker2D" parent="."]
+position = Vector2(427, 368)
+
+[node name="EnemyMarker3" type="Marker2D" parent="."]
+position = Vector2(707, 532)
+
+[node name="EnemyMarker4" type="Marker2D" parent="."]
+position = Vector2(474, 744)
+
 [connection signal="pressed" from="BattleControl/RunBtn" to="." method="runAway"]

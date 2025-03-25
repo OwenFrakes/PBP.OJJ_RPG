@@ -73,5 +73,7 @@ func stringInfo() -> String:
 	return eName + "\n" + str(health) + "\n" + str(mana) + "\n"
 func getActionLimit():
 	return action_limit
+func getActionAmount():
+	return action_amount
 func randomActionLimit():
 	action_limit = action_limit + randi_range(-10,10)

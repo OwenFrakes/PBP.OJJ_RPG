@@ -41,7 +41,7 @@ func _ready() -> void:
 
 ## EVERY FRAME #####################################################################################
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	#If not in a fight, the player can move.
 	if(!inFight):
