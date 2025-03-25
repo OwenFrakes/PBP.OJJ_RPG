@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=59 format=4 uid="uid://d4gy4cuq2fxdt"]
 
 [ext_resource type="Script" uid="uid://cijkcmdj1bj1k" path="res://Scripts/PlayerScripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
@@ -16,9 +16,8 @@
 [ext_resource type="Script" uid="uid://ddw65ycj872j6" path="res://Scripts/background_music.gd" id="15_hd86r"]
 [ext_resource type="Script" uid="uid://c3hq0752p1f0k" path="res://Scripts/Interactables/enemy_spawner.gd" id="15_mep6t"]
 [ext_resource type="PackedScene" uid="uid://mn0g3e7wixmj" path="res://Scenes/Enemies/enemy1.tscn" id="16_iwr0i"]
-[ext_resource type="Texture2D" uid="uid://bxuo1neobyssw" path="res://Resources/Character/dante.png" id="17_iccox"]
 [ext_resource type="SpriteFrames" uid="uid://8y65id60d2c3" path="res://Resources/ChestSpriteFrames.tres" id="17_t8pba"]
-[ext_resource type="Script" uid="uid://b1t1f4ugwvl38" path="res://Scripts/Interactables/tutorial_button.gd" id="18_cdgm0"]
+[ext_resource type="Script" uid="uid://b1t1f4ugwvl38" path="res://Scripts/Interactables/disk_button.gd" id="18_cdgm0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jpw16"]
 radius = 30.0
@@ -371,7 +370,6 @@ text = "Dante"
 
 [node name="ItemPic" type="Sprite2D" parent="Player/PlayerCamera/Control/LorePannel"]
 position = Vector2(418.75, 621.25)
-scale = Vector2(3.05111, 2.97555)
 texture = ExtResource("4_ikl6f")
 
 [node name="ItemInfo" type="Label" parent="Player/PlayerCamera/Control/LorePannel"]
@@ -712,30 +710,12 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(1180, 2158)
 enemy_movement_disabled = true
 
-[node name="TutorialButton" type="StaticBody2D" parent="."]
-position = Vector2(1193, 2619)
+[node name="DiskButton" type="StaticBody2D" parent="."]
+position = Vector2(1177, 2635)
 script = ExtResource("18_cdgm0")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="TutorialButton"]
-z_index = 1
-emitting = false
-amount = 3
-texture = ExtResource("17_iccox")
-lifetime = 1.5
-one_shot = true
-direction = Vector2(0, -1)
-gravity = Vector2(0, 1960)
-initial_velocity_min = 600.0
-initial_velocity_max = 800.0
-linear_accel_min = 100.0
-linear_accel_max = 100.0
-damping_min = 500.0
-damping_max = 500.0
-angle_max = 360.0
-scale_amount_min = 0.5
-scale_amount_max = 0.5
-
-[node name="Animation" type="AnimatedSprite2D" parent="TutorialButton"]
+[node name="Animation" type="AnimatedSprite2D" parent="DiskButton"]
+scale = Vector2(0.133, 0.133)
 sprite_frames = ExtResource("17_t8pba")
 
 [connection signal="pressed" from="Player/PlayerCamera/Control/LorePannel/CloseButton" to="Player" method="_on_close_button_pressed"]
