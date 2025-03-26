@@ -24,12 +24,19 @@ var exp : int = 0
 var required_exp : int = 100
 var moveset := []
 
+## Signals ##
+signal health_change(new_health)
+signal mana_change(new_mana)
+signal action_change(new_action_amount)
+
 ## START UP ########################################################################################
 func _ready() -> void:
 	PlayerStats.player_node_path = get_path()
 	
 	#Set Player Class to what was chosen in the selection menu.
 	player_Class = PlayerStats.selected_player_class
+	playerHP = player_Class.getHealth()
+	playerMana = player_Class.getMana()
 	
 	#Start Moveset
 	moveset.append(null)
@@ -159,6 +166,22 @@ func switchBattleCamera(battle_cam_yes : bool):
 		player_camera.make_current()
 		battle_camera.visible = false
 
+func hurt(damage_amount):
+	playerHP -= damage_amount
+	emit_signal("health_change", playerHP)
+
+func manaCost(mana_cost):
+	playerMana -= mana_cost
+	emit_signal("mana_change", playerMana)
+
+func actionAmountChange(change_amount):
+	player_action_amount += change_amount
+	emit_signal("action_change", player_action_amount)
+
+func actionSetZero():
+	player_action_amount = 0
+	emit_signal("action_change", player_action_amount)
+
 #######################Level-Related Methods#############################################
 
 func addPlayerExperience(xp_amount : float):
@@ -208,3 +231,6 @@ func getPlayerActionAmount():
 
 func getPlayerActionMultiplier():
 	return player_action_multiplier
+
+func canPlayerAct() -> bool:
+	return getPlayerActionAmount() >= getPlayerActionLimit()

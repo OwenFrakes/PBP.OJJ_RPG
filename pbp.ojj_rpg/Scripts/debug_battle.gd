@@ -12,7 +12,6 @@ extends Node2D
 @onready var enemy_markers = [enemy_marker_1, enemy_marker_2, enemy_marker_3, enemy_marker_4]
 
 ##Variables##
-var selected_attack : Attack
 
 #Arrays of stuff pretty much
 var attacks = []
@@ -53,20 +52,37 @@ func readyAttackList(attack_list : Array = [Attack.new()]):
 func readyEnemyInfo(enemies : Array = [Enemy.new()]):
 	for enemy_number in range(enemies.size()):
 		var enemy_info_entity = EntityInfo.new(enemies[enemy_number].getName(), enemies[enemy_number].enemy_sprite_frames)
+		enemy_info.append(enemy_info_entity)
+		
+		# Set upper limits.
 		enemy_info_entity.setHealthBar(enemies[enemy_number].getHealth())
 		enemy_info_entity.setActionBar(enemies[enemy_number].getActionLimit())
 		enemy_info_entity.isEnemy()
+		
+		# Connect signals
+		#This is dumb, doent wont to work
+		enemies[0].health_change.connect(enemy_info[0].changeHealth)
+		enemies[enemy_number].action_change.connect(enemy_info_entity.changeAction)
+		
 		enemy_info_entity.position = enemy_markers[enemy_number].position
 		add_child(enemy_info_entity)
-		enemy_info.append(enemy_info_entity)
 
 # Makes the EntityInfo for the player.
 func readyPlayerInfo():
 	player_info = EntityInfo.new("Player", player_reference.player_animated_sprite.sprite_frames)
 	player_info.z_index = 100
+	
+	# Set upper limits.
 	player_info.setHealthBar(player_reference.getPlayerHealth())
-	player_info.setActionBar(player_reference.getPlayerActionLimit())
 	player_info.setManaBar(player_reference.getPlayerMana())
+	player_info.setActionBar(player_reference.getPlayerActionLimit())
+	
+	# Connect signals for whenever these change.
+	player_reference.health_change.connect(player_info.changeHealth)
+	player_reference.mana_change.connect(player_info.changeMana)
+	player_reference.action_change.connect(player_info.changeAction)
+	
+	#Set position so you can see it.
 	player_info.position = player_marker.position
 	add_child(player_info)
 
@@ -85,7 +101,8 @@ func _process(delta: float) -> void:
 	if actor != null:
 		if actor == player_reference:
 			#Make sure player can act.
-			print("PLAYER ACTING")
+			#print("PLAYER ACTING")
+			pass
 		else:
 			#Make sure the enemy can act.
 			print("ENEMY ACTING")
@@ -93,7 +110,8 @@ func _process(delta: float) -> void:
 	#Progress time
 	else:
 		#Player first
-		player_reference.player_action_amount += delta * player_reference.getPlayerActionMultiplier() * 20
+		player_reference.actionAmountChange(delta * player_reference.getPlayerActionMultiplier() * 20)
+		#player_info.changeAction(player_reference.player_action_amount)
 		
 		#Then each Enemy
 
@@ -110,6 +128,11 @@ func checkForActions():
 	
 	return null
 
+func playerAttack(player_attack):
+	enemy_group[0].damage(player_attack.getDamage())
+	player_reference.hurt(1)
+	player_reference.manaCost(1)
+
 ##### ACTION FUNCTIONS #####################################
 
 # Placeholder for now
@@ -122,5 +145,7 @@ func runAway():
 
 # Connected signal for selecting an AttackButton.
 func setSelectedAttack(new_attack : Attack) -> void:
-	selected_attack = new_attack
-	label.text = selected_attack.getName()
+	if player_reference.canPlayerAct():
+		label.text = new_attack.getName()
+		player_reference.actionSetZero()
+		playerAttack(new_attack)
