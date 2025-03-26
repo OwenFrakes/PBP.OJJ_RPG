@@ -236,3 +236,9 @@ func getPlayerActionAmount():
 
 func getPlayerActionMultiplier():
 	return player_action_multiplier
+
+func save_game() -> void:
+	var config = ConfigFile.new()
+	config.set_value("Player", "class", player_Class)
+	config.set_value("Player", "weapon", player_Class.pWeapon)
+	config.save("user://playerinfo")

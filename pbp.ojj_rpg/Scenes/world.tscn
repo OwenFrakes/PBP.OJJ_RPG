@@ -413,6 +413,20 @@ grow_horizontal = 2
 theme = ExtResource("2_g36tr")
 text = "Resume"
 
+[node name="SaveBtn" type="Button" parent="Player/PauseMenu"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.5
+offset_top = 198.0
+offset_right = 100.5
+offset_bottom = 256.0
+grow_horizontal = 2
+theme = ExtResource("2_g36tr")
+text = "Save Game"
+
 [node name="MainMenuBtn" type="Button" parent="Player/PauseMenu"]
 z_index = 1
 layout_mode = 1
@@ -720,6 +734,7 @@ sprite_frames = ExtResource("17_t8pba")
 
 [connection signal="pressed" from="Player/PlayerCamera/Control/LorePannel/CloseButton" to="Player" method="_on_close_button_pressed"]
 [connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player/PauseMenu" method="resumeGame"]
+[connection signal="pressed" from="Player/PauseMenu/SaveBtn" to="Player" method="save_game"]
 [connection signal="pressed" from="Player/PauseMenu/MainMenuBtn" to="Player/PauseMenu" method="mainMenu"]
 [connection signal="pressed" from="Player/PauseMenu/QuitBtn" to="Player/PauseMenu" method="quitGame"]
 [connection signal="pressed" from="Player/PlayerMenu/Panel/ButtonContainer/AddButton" to="Player/PlayerMenu" method="add_item"]
