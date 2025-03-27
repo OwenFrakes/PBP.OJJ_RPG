@@ -11,6 +11,7 @@ var desired_position = position
 @export var picture : String
 var inFight = false
 @onready var interaction_area = $InteractionArea
+var player_world
 
 #Guard Variables
 @onready var guard_area
@@ -50,7 +51,7 @@ func _ready() -> void:
 	#							  tile_size/player_sprite.texture.get_height())
 	#player_sprite.z_index = 5
 	#add_child(player_sprite)
-	
+	player_world = PlayerStats.worldNum
 	#Add Class to Player
 	player_Class = PlayerClass.new()
 	player_Class.setClass(PlayerStats.selected_player_class.getName(), \
@@ -241,4 +242,5 @@ func save_game() -> void:
 	var config = ConfigFile.new()
 	config.set_value("Player", "class", player_Class)
 	config.set_value("Player", "weapon", player_Class.pWeapon)
+	config.set_value("Player", "worldNum", player_world)
 	config.save("user://playerinfo")

@@ -4,6 +4,7 @@ extends Node
 var selected_player_class : PlayerClass
 var selected_player_weapon
 var enemy
+var worldNum: int
 @onready var player_item_list = "Player/PlayerMenu/Panel/ItemList"
 @onready var player_node_path
 
