@@ -40,7 +40,6 @@ func interact():
 		setDisks()
 		firstTime = false
 	
-	
 	if(count > 9):
 		count = 0
 		itemName.text = disks[count].dName
