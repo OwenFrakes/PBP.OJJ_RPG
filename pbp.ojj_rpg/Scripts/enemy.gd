@@ -5,7 +5,7 @@ var eName = "THE RIZZASTARD"
 var health = 10
 var mana = 10
 var weakness: Array
-var moveset: Array
+var moveset: Array = [Attack.new()]
 var count = 0 
 var action_limit = 100
 var action_amount = 0
@@ -38,7 +38,7 @@ func setEnemy(tName: String, tHealth: float, tMana: float, tWeakness: Array, tMo
 		count += 1
 	randomActionLimit()
 
-## Battle Functions ##
+## Battle Functions ###########################
 func damage(damage_amount: int, condition = null) -> int:
 	health -= damage_amount
 	
@@ -52,14 +52,19 @@ func damage(damage_amount: int, condition = null) -> int:
 		else:
 			print("Already has this condition")
 	
+	print(health)
 	emit_signal("health_change", health)
 	return health
 
-func actionChangeAmount(change_amount):
+func actionAmountChange(change_amount):
 	action_amount += change_amount
 	emit_signal("action_change", action_amount)
 
-## Conditions ##
+func actionAmountZero():
+	action_amount = 0
+	emit_signal("action_change", action_amount)
+
+## Conditions #################################
 func totalActionConditions():
 	action_multiplier = 1
 	
@@ -74,18 +79,22 @@ func passActionConditions():
 	for action_condition in action_conditions:
 		action_condition.passTurn()
 
-## Get Functions ##
+## Get Functions ##############################
 func getName():
 	return eName
 func getHealth():
 	return health
 func getWeakness(pos: int):
 	return weakness[pos]
+func getMoveset():
+	return moveset
 func stringInfo() -> String:
 	return eName + "\n" + str(health) + "\n" + str(mana) + "\n"
 func getActionLimit():
 	return action_limit
 func getActionAmount():
 	return action_amount
+func getActionMultiplier():
+	return action_multiplier
 func randomActionLimit():
 	action_limit = action_limit + randi_range(-10,10)

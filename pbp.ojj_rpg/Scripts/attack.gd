@@ -8,7 +8,7 @@ var type: String
 var learnLevel: float
 var action_condition = null
 
-func _init(tName: String = "Null", tDamage: float = 0, tHCost: float = 0, tMCost: float = 0, tempType: String = "Null", tLearnLevel: float = 0, new_action_condition = null) -> void:
+func _init(tName: String = "Null", tDamage: float = 5, tHCost: float = 0, tMCost: float = 0, tempType: String = "Null", tLearnLevel: float = 0, new_action_condition = null) -> void:
 	aName = tName
 	damage = tDamage
 	hCost = tHCost

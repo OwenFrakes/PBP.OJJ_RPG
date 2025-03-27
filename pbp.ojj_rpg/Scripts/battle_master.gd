@@ -121,13 +121,13 @@ func _process(delta: float) -> void:
 func readyBattle(new_enemy):
 	turn_active = false
 	#Refresh Local Player Variables
-	player_moveset = player_reference.getPlayerMoveset()
-	player_health = player_reference.getPlayerHealth()
-	player_mana = player_reference.getPlayerMana()
-	player_class = player_reference.getPlayerClass()
-	player_action_limit = player_reference.getPlayerActionLimit()
-	player_action_amount = player_reference.getPlayerActionAmount()
-	player_action_multiplier = player_reference.getPlayerActionMultiplier()
+	player_moveset = player_reference.getMoveset()
+	player_health = player_reference.getHealth()
+	player_mana = player_reference.getMana()
+	player_class = player_reference.getClass()
+	player_action_limit = player_reference.getActionLimit()
+	player_action_amount = player_reference.getActionAmount()
+	player_action_multiplier = player_reference.getActionMultiplier()
 	
 	#Put enemy informtaion in the labels.
 	enemy_group = PlayerStats.enemy

@@ -136,6 +136,7 @@ func setHealthBar(new_max, current_value = new_max):
 func changeHealth(new_value):
 	health_bar_node.value = new_value
 	health_label_node.text = "Health: " + str(int(new_value)) + "/" + str(int(health_bar_node.max_value))
+	print("CHANGE_HEALTH() " + str(new_value))
 
 ##Mana###################################################
 func setManaBar(new_max, current_value = new_max):
