@@ -22,6 +22,7 @@ func load_game() -> void:
 		var loading_screen = preload("res://Scenes/loadingScreen.tscn").instantiate()
 		loading_screen.scene_to_be_loaded = "res://Scenes/world.tscn"
 		get_tree().root.add_child(loading_screen)
+		PlayerStats.setPlayerLoc()
 		
 	else:
 		printerr("error on load")
