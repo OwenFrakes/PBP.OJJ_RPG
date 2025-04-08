@@ -2,7 +2,7 @@ class_name Enemy
 extends Node
 
 var eName = "THE RIZZASTARD"
-var health = 10
+var health = 1000
 var mana = 10
 var weakness: Array
 var moveset: Array = [Attack.new()]
@@ -39,7 +39,9 @@ func setEnemy(tName: String, tHealth: float, tMana: float, tWeakness: Array, tMo
 	randomActionLimit()
 
 ## Battle Functions ###########################
-func damage(damage_amount: int, condition = null) -> int:
+func damage(attack : Attack) -> int:
+	var damage_amount = attack.getDamage()
+	var condition = attack.getActionCondition()
 	health -= damage_amount
 	
 	if condition is ActionCondition:
@@ -52,7 +54,7 @@ func damage(damage_amount: int, condition = null) -> int:
 		else:
 			print("Already has this condition")
 	
-	print(health)
+	#print("Enemy damage(): " + int(health))
 	emit_signal("health_change", health)
 	return health
 
@@ -95,6 +97,7 @@ func getActionLimit():
 func getActionAmount():
 	return action_amount
 func getActionMultiplier():
+	totalActionConditions()
 	return action_multiplier
 func randomActionLimit():
 	action_limit = action_limit + randi_range(-10,10)

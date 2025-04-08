@@ -71,12 +71,7 @@ func _process(_delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if(Input.is_key_pressed(KEY_C) && !inFight):
-		var battle_scene = preload("res://Scenes/debugWorld.tscn").instantiate()
-		battle_scene.z_index = 10
-		battle_scene.position = player_camera.global_position
-		battle_scene.readyBattle(self, [Enemy.new()])
-		get_tree().root.add_child(battle_scene)
-		setInFight(true)
+		startBattle()
 	if(Input.is_key_pressed(KEY_L)):
 		levelUp()
 
@@ -142,24 +137,33 @@ func checkForInteract():
 ## BATTLE METHODS ##################################################################################
 func battle(enemy_group):
 	PlayerStats.enemy = enemy_group
-	inFight = true
-	set_collision_mask_value(2, false)
-	switchBattleCamera(true)
-	player_health = player_class.getHealth()
-	player_mana = player_class.getMana()
-	battle_camera.readyBattle(enemy_group)
+	startBattle(enemy_group)
+	#setInFight(true)
+	#switchBattleCamera(true)
+	#player_health = player_class.getHealth()
+	#player_mana = player_class.getMana()
+	#battle_camera.readyBattle(enemy_group)
+
+func startBattle(enemy_group = [Enemy.new()]):
+	var battle_scene = preload("res://Scenes/debugWorld.tscn").instantiate()
+	battle_scene.z_index = 10
+	battle_scene.position = player_camera.global_position
+	battle_scene.readyBattle(self, enemy_group)
+	get_tree().root.add_child(battle_scene)
+	setInFight(true)
 
 func setInFight(boolean: bool):
 	if(boolean):
 		inFight = true
+		set_collision_mask_value(2, false)
 	else:
 		inFight = false
+		set_collision_mask_value(2, true)
 
 func battleWin():
 	PlayerStats.enemy.free()
-	inFight = false
+	setInFight(false)
 	switchBattleCamera(false)
-	set_collision_mask_value(2, true)
 
 func battleLose():
 	battleWin()

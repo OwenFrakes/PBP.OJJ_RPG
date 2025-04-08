@@ -6,25 +6,25 @@ var hCost: float
 var mCost: float
 var type: String
 var learnLevel: float
-var action_condition = null
+var condition = null
 
-func _init(tName: String = "Null", tDamage: float = 5, tHCost: float = 0, tMCost: float = 0, tempType: String = "Null", tLearnLevel: float = 0, new_action_condition = null) -> void:
+func _init(tName: String = "Null", tDamage: float = 1, tHCost: float = 0, tMCost: float = 0, tempType: String = "Null", tLearnLevel: float = 0, new_condition = null) -> void:
 	aName = tName
 	damage = tDamage
 	hCost = tHCost
 	mCost = tMCost
 	type = tempType
 	learnLevel = tLearnLevel
-	action_condition = new_action_condition
+	condition = new_condition
 
-func setAttack(tName: String, tDamage: float, tHCost: float, tMCost: float, tempType: String, tLearnLevel: float, new_action_condition = null):
+func setAttack(tName: String, tDamage: float, tHCost: float, tMCost: float, tempType: String, tLearnLevel: float, new_condition = null):
 	aName = tName
 	damage = tDamage
 	hCost = tHCost
 	mCost = tMCost
 	type = tempType
 	learnLevel = tLearnLevel
-	action_condition = new_action_condition
+	condition = new_condition
 
 #get functions
 func getName():
@@ -40,4 +40,4 @@ func getType():
 func getLearnLevel():
 	return learnLevel
 func getActionCondition():
-	return action_condition
+	return condition

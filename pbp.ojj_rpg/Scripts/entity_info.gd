@@ -81,7 +81,6 @@ func _ready() -> void:
 	###Add the bars to the container###
 	#Conditions
 	vertical_container.add_child(condition_container)
-	addCondition("Freeze")
 	#Name
 	vertical_container.add_child(name_label_node)
 	#Health
@@ -118,6 +117,7 @@ func getGreyedOut() -> bool:
 	return is_greyed_out
 
 func addCondition(condition_name : String):
+	#If it doesn't already have the condition sprite. Add one.
 	if condition_dictionary.get(condition_name) == null:
 		var condition_sprite = TextureRect.new()
 		condition_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -136,7 +136,7 @@ func setHealthBar(new_max, current_value = new_max):
 func changeHealth(new_value):
 	health_bar_node.value = new_value
 	health_label_node.text = "Health: " + str(int(new_value)) + "/" + str(int(health_bar_node.max_value))
-	print("CHANGE_HEALTH() " + str(new_value))
+	#print("CHANGE_HEALTH() " + str(new_value))
 
 ##Mana###################################################
 func setManaBar(new_max, current_value = new_max):

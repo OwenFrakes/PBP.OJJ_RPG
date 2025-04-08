@@ -2,7 +2,6 @@ extends Node2D
 
 #Existing Nodes
 @onready var attacks_container: VBoxContainer = $BattleControl/ScrollControl/ScrollContainer/AttacksContainer
-@onready var label: Label = $BattleControl/Label
 
 @onready var player_marker: Marker2D = $PlayerMarker
 @onready var enemy_marker_1: Marker2D = $EnemyMarker1
@@ -109,21 +108,22 @@ func _process(delta: float) -> void:
 			if actor == player_reference:
 				#Make sure player can act.
 				#print("PLAYER ACTING")
-				pass
+				enablePlayerControls()
 			else:
+				#Just in case.
+				disablePlayerControls()
 				#Make sure the enemy can act.
 				pause = true
 				enemyAttack(actor)
-				print("ENEMY ACTING")
 		
 		# 3. Otherwise, progress time.
 		else:
 			#Player first
+			disablePlayerControls()
 			player_reference.actionAmountChange(delta * player_reference.getActionMultiplier() * 20)
-			#player_info.changeAction(player_reference.player_action_amount)
+			#Then each Enemy
 			for enemy in enemy_group:
 				enemy.actionAmountChange(delta * enemy.getActionMultiplier() * 20)
-			#Then each Enemy
 
 func checkForActions():
 	#Check the player first
@@ -139,9 +139,11 @@ func checkForActions():
 	return null
 
 func playerAttack(player_attack):
-	enemy_group[0].damage(player_attack.getDamage())
-	player_reference.hurt(1)
-	player_reference.manaCost(1)
+	enemy_group[0].damage(player_attack)
+	player_reference.hurt(player_attack.getHealthCost())
+	player_reference.manaCost(player_attack.getManaCost())
+	if enemy_group[0].getHealth() <= 0:
+		pass
 
 func enemyAttack(enemy_reference : Enemy):
 	enemy_reference.actionAmountZero()
@@ -149,6 +151,21 @@ func enemyAttack(enemy_reference : Enemy):
 	player_reference.hurt(enemy_reference.getMoveset()[0].getDamage())
 	await get_tree().create_timer(0.75).timeout
 	pause = false
+
+func enablePlayerControls():
+	var attack_center_containers = attacks_container.get_children()
+	for container in attack_center_containers:
+		var attack_button = container.get_child(0)
+		if attack_button.canUse(player_reference.getMana()):
+			attack_button.disabled = false
+		else:
+			attack_button.disabled = true
+
+func disablePlayerControls():
+	var attack_center_containers = attacks_container.get_children()
+	for container in attack_center_containers:
+		var attack_button = container.get_child(0)
+		attack_button.disabled = true
 
 ##### ACTION FUNCTIONS #####################################
 
@@ -164,6 +181,5 @@ func runAway():
 # Connected signal for selecting an AttackButton.
 func setSelectedAttack(new_attack : Attack) -> void:
 	if player_reference.canAct():
-		label.text = new_attack.getName()
 		player_reference.actionSetZero()
 		playerAttack(new_attack)
