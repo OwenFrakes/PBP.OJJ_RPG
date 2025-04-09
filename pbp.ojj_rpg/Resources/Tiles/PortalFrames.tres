@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://bviflvgb4jmdq"]
+
+[ext_resource type="Texture2D" uid="uid://cv0v3eim8vawd" path="res://Resources/Tiles/TilePictures/portalRings2.png" id="1_mcrel"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwecf"]
+atlas = ExtResource("1_mcrel")
+region = Rect2(0, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dj45y"]
+atlas = ExtResource("1_mcrel")
+region = Rect2(480, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6a48"]
+atlas = ExtResource("1_mcrel")
+region = Rect2(960, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ceeu3"]
+atlas = ExtResource("1_mcrel")
+region = Rect2(1440, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lktx5"]
+atlas = ExtResource("1_mcrel")
+region = Rect2(1920, 0, 480, 480)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwecf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dj45y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6a48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ceeu3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lktx5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
