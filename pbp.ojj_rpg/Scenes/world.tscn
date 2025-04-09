@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ce76w3cgtgu38" path="res://Scripts/PlayerScripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
-[ext_resource type="Script" uid="uid://dy8wshpjblacr" path="res://Scripts/world_terrain.gd" id="2_10gtn"]
+[ext_resource type="Script" path="res://Scripts/world_terrain.gd" id="2_10gtn"]
 [ext_resource type="Theme" uid="uid://jb6cfq2h0xhb" path="res://Resources/Themes/PauseMenu.tres" id="2_g36tr"]
 [ext_resource type="TileSet" uid="uid://bslv4e41bebif" path="res://Resources/Tiles/SuperTileAtlas.tres" id="2_rkuw8"]
 [ext_resource type="Texture2D" uid="uid://bcvg07sc80vv" path="res://Resources/Tiles/TilePictures/GrassyTile.png" id="3_7myob"]
@@ -609,8 +609,8 @@ texture = ExtResource("21_yq1aw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D"]
 z_index = 4
-position = Vector2(3457, -237)
-scale = Vector2(1.0625, 1)
+position = Vector2(3456, -237)
+scale = Vector2(1.06667, 1)
 sprite_frames = ExtResource("22_pyn1s")
 autoplay = "default"
 frame_progress = 0.746992
