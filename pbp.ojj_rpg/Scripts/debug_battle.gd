@@ -14,11 +14,14 @@ extends Node2D
 
 #Arrays of stuff pretty much
 var attacks = []
+var selection_buttons = []
 var enemy_info := []
 var player_info : EntityInfo
+var selected_attack = null
 
 #Variables for Battle
 var entity_acting = false
+var pause = false
 
 #Player & Enemy References
 var player_reference
@@ -67,6 +70,15 @@ func readyEnemyInfo(enemies : Array):
 		
 		enemy_info_entity.position = enemy_markers[enemy_number].position
 		add_child(enemy_info_entity)
+		
+		# Enemy Selection Button
+		var selection_button = SelectionButton.new(enemies[enemy_number])
+		selection_buttons.append(selection_button)
+		selection_button.size = Vector2(128,128)
+		selection_button.position = Vector2(-64,-64)
+		selection_button.send_reference.connect(setEnemySelection)
+		enemy_info_entity.add_child(selection_button)
+		selection_button.hide()
 
 # Makes the EntityInfo for the player.
 func readyPlayerInfo():
@@ -94,7 +106,6 @@ func readyPlayerInfo():
 # 2. Let those things act if they can.
 # 3. Pass time
 
-var pause = false
 func _process(delta: float) -> void:
 	
 	if(pause):
@@ -138,12 +149,15 @@ func checkForActions():
 	
 	return null
 
-func playerAttack(player_attack):
-	enemy_group[0].damage(player_attack)
+func playerAttack(player_attack, the_enemy):
+	the_enemy.damage(player_attack)
 	player_reference.hurt(player_attack.getHealthCost())
 	player_reference.manaCost(player_attack.getManaCost())
 	if enemy_group[0].getHealth() <= 0:
 		pass
+	player_reference.actionSetZero()
+	for button in selection_buttons:
+		button.hide()
 
 func enemyAttack(enemy_reference : Enemy):
 	enemy_reference.actionAmountZero()
@@ -167,6 +181,10 @@ func disablePlayerControls():
 		var attack_button = container.get_child(0)
 		attack_button.disabled = true
 
+func enemySelection():
+	for button in selection_buttons:
+		button.show()
+
 ##### ACTION FUNCTIONS #####################################
 
 # Placeholder for now
@@ -181,5 +199,8 @@ func runAway():
 # Connected signal for selecting an AttackButton.
 func setSelectedAttack(new_attack : Attack) -> void:
 	if player_reference.canAct():
-		player_reference.actionSetZero()
-		playerAttack(new_attack)
+		selected_attack = new_attack
+		enemySelection()
+
+func setEnemySelection(selected_enemy : Enemy):
+	playerAttack(selected_attack, selected_enemy)
