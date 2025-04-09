@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=29 format=4 uid="uid://d4gy4cuq2fxdt"]
 
 [ext_resource type="Script" uid="uid://ce76w3cgtgu38" path="res://Scripts/PlayerScripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://bkhsycdnhp22n" path="res://Scripts/Interactables/tutorial_button.gd" id="18_cdgm0"]
 [ext_resource type="Texture2D" uid="uid://d0vcsr72qk8n6" path="res://Resources/Tiles/TilePictures/portalRings2-1.png (1).png" id="21_yq1aw"]
 [ext_resource type="Texture2D" uid="uid://u2tirml422tb" path="res://Resources/New path-1.png.png" id="22_no8kt"]
+[ext_resource type="SpriteFrames" uid="uid://bviflvgb4jmdq" path="res://Resources/Tiles/PortalFrames.tres" id="22_pyn1s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jpw16"]
 radius = 30.0
@@ -598,10 +599,21 @@ scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
 [node name="PortalRings2-1_png" type="Sprite2D" parent="."]
+visible = false
 z_index = 2
 position = Vector2(3456, -237)
 scale = Vector2(1.06667, 1)
 texture = ExtResource("21_yq1aw")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D"]
+z_index = 4
+position = Vector2(3457, -237)
+scale = Vector2(1.0625, 1)
+sprite_frames = ExtResource("22_pyn1s")
+autoplay = "default"
+frame_progress = 0.746992
 
 [connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player/PauseMenu" method="resumeGame"]
 [connection signal="pressed" from="Player/PauseMenu/MainMenuBtn" to="Player/PauseMenu" method="mainMenu"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buurvbbn43wyu"
-path="res://.godot/imported/Trees.png-86a876a431b970f2758cc19bb7b9c8e4.ctex"
+uid="uid://cv0v3eim8vawd"
+path="res://.godot/imported/portalRings2.png-b071c2e00b464870661bb52af578184d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Trees.png"
-dest_files=["res://.godot/imported/Trees.png-86a876a431b970f2758cc19bb7b9c8e4.ctex"]
+source_file="res://Resources/Tiles/TilePictures/portalRings2.png"
+dest_files=["res://.godot/imported/portalRings2.png-b071c2e00b464870661bb52af578184d.ctex"]
 
 [params]
 
