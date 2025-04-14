@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsptpbl12csmj"
-path="res://.godot/imported/newtree-1.png (1).png-78d19be1ff2239f70f7cfb02d575ae71.ctex"
+uid="uid://6vvrlovcw18v"
+path="res://.godot/imported/newtree with snow-1.png.png-dcfb489acd31b074f0d670173f961d2c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/newtree-1.png (1).png"
-dest_files=["res://.godot/imported/newtree-1.png (1).png-78d19be1ff2239f70f7cfb02d575ae71.ctex"]
+source_file="res://Resources/newtree with snow-1.png.png"
+dest_files=["res://.godot/imported/newtree with snow-1.png.png-dcfb489acd31b074f0d670173f961d2c.ctex"]
 
 [params]
 

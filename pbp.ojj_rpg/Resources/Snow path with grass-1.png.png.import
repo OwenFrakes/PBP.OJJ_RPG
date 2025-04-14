@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx1dcfmp17bou"
-path="res://.godot/imported/image.png-f9e702dac2bd34f8eb06c4301bde3d61.ctex"
+uid="uid://dx30g720vqy56"
+path="res://.godot/imported/Snow path with grass-1.png.png-6a9e875e20c7f33bb86541cfce55e128.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/image.png"
-dest_files=["res://.godot/imported/image.png-f9e702dac2bd34f8eb06c4301bde3d61.ctex"]
+source_file="res://Resources/Snow path with grass-1.png.png"
+dest_files=["res://.godot/imported/Snow path with grass-1.png.png-6a9e875e20c7f33bb86541cfce55e128.ctex"]
 
 [params]
 
