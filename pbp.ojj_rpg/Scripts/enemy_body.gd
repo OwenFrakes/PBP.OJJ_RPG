@@ -39,7 +39,8 @@ func _ready() -> void:
 	enemies[1].setEnemy("Blue Robot 2", 40 * randi_range(1,3), 20, ["fire", "ice"], moveset, sprite_reference.sprite_frames)
 	enemies.append(Enemy.new())
 	enemies[2].setEnemy("Blue Robot 3", 40 * randi_range(1,3), 20, ["fire", "ice"], moveset, sprite_reference.sprite_frames)
-	
+	enemies.append(Enemy.new())
+	enemies[3].setEnemy("Blue Robot 4", 40 * randi_range(1,3), 20, ["fire", "ice"], moveset, sprite_reference.sprite_frames)
 	#Find the player for distance measurements.
 	player_reference = get_tree().root.get_node(PlayerStats.player_node_path)
 	

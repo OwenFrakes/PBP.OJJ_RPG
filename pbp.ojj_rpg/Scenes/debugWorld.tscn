@@ -22,11 +22,8 @@ grow_vertical = 2
 [node name="ScrollControl" type="Control" parent="BattleControl"]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
+anchors_preset = 9
 anchor_bottom = 1.0
-grow_horizontal = 0
 grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="BattleControl/ScrollControl"]
@@ -45,7 +42,7 @@ anchor_bottom = 1.0
 offset_left = 50.0
 offset_top = 50.0
 offset_right = -50.0
-offset_bottom = -50.0
+offset_bottom = -195.0
 grow_horizontal = 2
 grow_vertical = 2
 follow_focus = true
@@ -56,28 +53,34 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RunBtn" type="Button" parent="BattleControl"]
-layout_mode = 0
-offset_left = 189.0
-offset_top = 78.0
-offset_right = 918.0
-offset_bottom = 185.0
-theme_override_font_sizes/font_size = 100
+[node name="RunBtn" type="Button" parent="BattleControl/ScrollControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -145.0
+offset_right = -50.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
 text = "RUN"
 
 [node name="PlayerMarker" type="Marker2D" parent="."]
-position = Vector2(1087, 583)
+position = Vector2(858, 687)
 
 [node name="EnemyMarker1" type="Marker2D" parent="."]
-position = Vector2(216, 565)
+position = Vector2(1128, 400)
 
 [node name="EnemyMarker2" type="Marker2D" parent="."]
-position = Vector2(427, 368)
+position = Vector2(1339, 203)
 
 [node name="EnemyMarker3" type="Marker2D" parent="."]
-position = Vector2(707, 532)
+position = Vector2(1619, 367)
 
 [node name="EnemyMarker4" type="Marker2D" parent="."]
-position = Vector2(474, 744)
+position = Vector2(1386, 579)
 
-[connection signal="pressed" from="BattleControl/RunBtn" to="." method="runAway"]
+[connection signal="pressed" from="BattleControl/ScrollControl/RunBtn" to="." method="runAway"]

@@ -14,10 +14,13 @@ extends Node2D
 
 #Arrays of stuff pretty much
 var attacks = []
-var selection_buttons = []
-var enemy_info := []
 var player_info : EntityInfo
 var selected_attack = null
+
+#Enemy Variables
+var enemy_related_nodes_dict = Dictionary()
+var selection_buttons = []
+var enemy_info := []
 
 #Variables for Battle
 var entity_acting = false
@@ -41,6 +44,7 @@ func _ready() -> void:
 	readyAttackList(player_reference.moveset)
 	readyEnemyInfo(enemy_group)
 	readyPlayerInfo()
+	disablePlayerControls()
 
 # Makes all of the player's moves into buttons that can be pressed.
 func readyAttackList(attack_list : Array = [Attack.new()]):
@@ -79,6 +83,9 @@ func readyEnemyInfo(enemies : Array):
 		selection_button.send_reference.connect(setEnemySelection)
 		enemy_info_entity.add_child(selection_button)
 		selection_button.hide()
+		
+		#Dictionary Key Assignment
+		enemy_related_nodes_dict.get_or_add(enemies[enemy_number], [enemy_info_entity,selection_button])
 
 # Makes the EntityInfo for the player.
 func readyPlayerInfo():
@@ -130,7 +137,6 @@ func _process(delta: float) -> void:
 		# 3. Otherwise, progress time.
 		else:
 			#Player first
-			disablePlayerControls()
 			player_reference.actionAmountChange(delta * player_reference.getActionMultiplier() * 20)
 			#Then each Enemy
 			for enemy in enemy_group:
@@ -153,11 +159,17 @@ func playerAttack(player_attack, the_enemy):
 	the_enemy.damage(player_attack)
 	player_reference.hurt(player_attack.getHealthCost())
 	player_reference.manaCost(player_attack.getManaCost())
-	if enemy_group[0].getHealth() <= 0:
-		pass
+	
+	#Kill the enemy if they're... dead. Also remove the entity info related to it.
+	if the_enemy.getHealth() <= 0:
+		removeEnemy(the_enemy)
+	
+	#Reset player action amount.
 	player_reference.actionSetZero()
-	for button in selection_buttons:
-		button.hide()
+	
+	#Hide attack control and attack buttons.
+	hideEnemySelection()
+	disablePlayerControls()
 
 func enemyAttack(enemy_reference : Enemy):
 	enemy_reference.actionAmountZero()
@@ -181,9 +193,38 @@ func disablePlayerControls():
 		var attack_button = container.get_child(0)
 		attack_button.disabled = true
 
-func enemySelection():
+func showEnemySelection():
 	for button in selection_buttons:
 		button.show()
+
+func hideEnemySelection():
+	for button in selection_buttons:
+		button.hide()
+
+func removeEnemy(enemy_instance : Enemy):
+	# Remove the related nodes first.
+	var related_nodes = enemy_related_nodes_dict.get(enemy_instance)
+	
+	# Entity Info Removal
+	for info_pos in enemy_info.size():
+		if enemy_info[info_pos] == related_nodes[0]:
+			enemy_info[info_pos].queue_free()
+			enemy_info.remove_at(info_pos)
+			break
+	
+	# Selection Button Removal
+	for btn_pos in selection_buttons.size():
+		if selection_buttons[btn_pos] == related_nodes[1]:
+			selection_buttons[btn_pos].queue_free()
+			selection_buttons.remove_at(btn_pos)
+			break
+	
+	# Then remove the enemy.
+	for enemy_pos in enemy_group.size():
+		if enemy_group[enemy_pos] == enemy_instance:
+			enemy_group[enemy_pos].queue_free()
+			enemy_group.remove_at(enemy_pos)
+			break
 
 ##### ACTION FUNCTIONS #####################################
 
@@ -200,7 +241,7 @@ func runAway():
 func setSelectedAttack(new_attack : Attack) -> void:
 	if player_reference.canAct():
 		selected_attack = new_attack
-		enemySelection()
+		showEnemySelection()
 
 func setEnemySelection(selected_enemy : Enemy):
 	playerAttack(selected_attack, selected_enemy)
