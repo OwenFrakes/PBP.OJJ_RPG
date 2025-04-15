@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 	#If the player is touching, do stuff.
 	for body in collisions:
 		if (body is Player) and (!inFight && !player_reference.inFight):
-			player_reference.battle(enemies)
+			player_reference.battle(self)
 			inFight = true
 		elif body is Player and player_reference.inFight:
 			apply_central_impulse((position - player_position) * 5)

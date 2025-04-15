@@ -1,9 +1,12 @@
 extends Node2D
 
-#Existing Nodes
+# Existing Nodes
 @onready var attacks_container: VBoxContainer = $BattleControl/ScrollControl/ScrollContainer/AttacksContainer
 
+# Player Marker
 @onready var player_marker: Marker2D = $PlayerMarker
+
+# Enemy Markers
 @onready var enemy_marker_1: Marker2D = $EnemyMarker1
 @onready var enemy_marker_2: Marker2D = $EnemyMarker2
 @onready var enemy_marker_3: Marker2D = $EnemyMarker3
@@ -21,6 +24,7 @@ var selected_attack = null
 var enemy_related_nodes_dict = Dictionary()
 var selection_buttons = []
 var enemy_info := []
+var battle_xp_amount = 0
 
 #Variables for Battle
 var entity_acting = false
@@ -29,6 +33,7 @@ var pause = false
 #Player & Enemy References
 var player_reference
 var enemy_group = [Enemy.new()]
+var enemy_body_reference : EnemyBody
 
 ##### PRE - _READY FUNCTIONS ############################### 
 
@@ -45,6 +50,7 @@ func _ready() -> void:
 	readyEnemyInfo(enemy_group)
 	readyPlayerInfo()
 	disablePlayerControls()
+	totalXP()
 
 # Makes all of the player's moves into buttons that can be pressed.
 func readyAttackList(attack_list : Array = [Attack.new()]):
@@ -106,6 +112,13 @@ func readyPlayerInfo():
 	player_info.position = player_marker.position
 	add_child(player_info)
 
+func totalXP():
+	for enemy in enemy_group:
+		battle_xp_amount += enemy.getXPAmount()
+
+func setBodyReference(body_reference) -> void:
+	enemy_body_reference = body_reference
+
 ##### BATTLE FUNCTIONS #####################################
 
 ## Battle Order of Operations
@@ -164,12 +177,15 @@ func playerAttack(player_attack, the_enemy):
 	if the_enemy.getHealth() <= 0:
 		removeEnemy(the_enemy)
 	
-	#Reset player action amount.
-	player_reference.actionSetZero()
-	
-	#Hide attack control and attack buttons.
-	hideEnemySelection()
-	disablePlayerControls()
+	if enemy_group == []:
+		battleWin()
+	else:
+		#Reset player action amount.
+		player_reference.actionSetZero()
+		
+		#Hide attack control and attack buttons.
+		hideEnemySelection()
+		disablePlayerControls()
 
 func enemyAttack(enemy_reference : Enemy):
 	enemy_reference.actionAmountZero()
@@ -233,6 +249,23 @@ func removeEnemy(enemy_instance : Enemy):
 func runAway():
 	player_reference.setInFight(false)
 	player_reference.actionSetZero()
+	queue_free()
+
+func battleWin():
+	# Set variables back to normal.
+	player_reference.setInFight(false)
+	player_reference.actionSetZero()
+	
+	# Give the player their XP
+	player_reference.addPlayerExperience(battle_xp_amount)
+	
+	# Get rid of the enemy
+	if enemy_body_reference == null:
+		pass
+	else:
+		enemy_body_reference.queue_free()
+	
+	# Free() the battle scene.
 	queue_free()
 
 ##### SIGNALS FUNCTIONS ####################################

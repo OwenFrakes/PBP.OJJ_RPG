@@ -135,20 +135,16 @@ func checkForInteract():
 			body.interact()
 
 ## BATTLE METHODS ##################################################################################
-func battle(enemy_group):
-	PlayerStats.enemy = enemy_group
-	startBattle(enemy_group)
-	#setInFight(true)
-	#switchBattleCamera(true)
-	#player_health = player_class.getHealth()
-	#player_mana = player_class.getMana()
-	#battle_camera.readyBattle(enemy_group)
+func battle(enemy_body_reference):
+	PlayerStats.enemy = enemy_body_reference
+	startBattle(enemy_body_reference, enemy_body_reference.enemies)
 
-func startBattle(enemy_group = [Enemy.new()]):
+func startBattle(enemy_body : EnemyBody = null, enemy_group = [Enemy.new()]):
 	var battle_scene = preload("res://Scenes/debugWorld.tscn").instantiate()
 	battle_scene.z_index = 10
 	battle_scene.position = player_camera.global_position
 	battle_scene.readyBattle(self, enemy_group)
+	battle_scene.setBodyReference(enemy_body)
 	get_tree().root.add_child(battle_scene)
 	setInFight(true)
 
