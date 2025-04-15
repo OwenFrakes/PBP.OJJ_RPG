@@ -31,7 +31,7 @@ func _process(_delta):
 	
 
 func _input(_event):
-	if(Input.is_action_just_pressed("SpaceBar")):
+	if(Input.is_action_just_pressed("SpaceBar") && loaded):
 		get_tree().paused = false
 		get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(scene_to_be_loaded))
 		free()

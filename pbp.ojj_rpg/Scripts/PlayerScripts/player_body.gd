@@ -8,7 +8,6 @@ var player_class: PlayerClass
 ## Node Variables ##
 @onready var player_animated_sprite = $PlayerAnimatedSprite
 @onready var interaction_area = $InteractionArea
-@onready var battle_camera = $"../BattleCamera"
 @onready var player_camera = $PlayerCamera
 
 ## Battle Variables ##
@@ -141,7 +140,7 @@ func battle(enemy_body_reference):
 
 func startBattle(enemy_body : EnemyBody = null, enemy_group = [Enemy.new()]):
 	var battle_scene = preload("res://Scenes/debugWorld.tscn").instantiate()
-	battle_scene.z_index = 10
+	battle_scene.z_index = 50
 	battle_scene.position = player_camera.global_position
 	battle_scene.readyBattle(self, enemy_group)
 	battle_scene.setBodyReference(enemy_body)
@@ -155,22 +154,6 @@ func setInFight(boolean: bool):
 	else:
 		inFight = false
 		set_collision_mask_value(2, true)
-
-func battleWin():
-	PlayerStats.enemy.free()
-	setInFight(false)
-	switchBattleCamera(false)
-
-func battleLose():
-	battleWin()
-
-func switchBattleCamera(battle_cam_yes : bool):
-	if(battle_cam_yes):
-		battle_camera.make_current()
-		battle_camera.visible = true
-	else:
-		player_camera.make_current()
-		battle_camera.visible = false
 
 func hurt(damage_amount):
 	player_health -= damage_amount

@@ -1,51 +1,22 @@
-[gd_scene load_steps=29 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=14 format=4 uid="uid://d4gy4cuq2fxdt"]
 
-[ext_resource type="Script" uid="uid://ce76w3cgtgu38" path="res://Scripts/PlayerScripts/player_body.gd" id="1_sauk2"]
-[ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
+[ext_resource type="Script" uid="uid://cijkcmdj1bj1k" path="res://Scripts/PlayerScripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Script" uid="uid://dy8wshpjblacr" path="res://Scripts/world_terrain.gd" id="2_10gtn"]
 [ext_resource type="Theme" uid="uid://jb6cfq2h0xhb" path="res://Resources/Themes/PauseMenu.tres" id="2_g36tr"]
 [ext_resource type="TileSet" uid="uid://bslv4e41bebif" path="res://Resources/Tiles/SuperTileAtlas.tres" id="2_rkuw8"]
-[ext_resource type="Texture2D" uid="uid://bcvg07sc80vv" path="res://Resources/Tiles/TilePictures/GrassyTile.png" id="3_7myob"]
-[ext_resource type="Script" uid="uid://cdcnun2mb2608" path="res://Scripts/generation.gd" id="4_31yte"]
-[ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="4_ikl6f"]
-[ext_resource type="Script" uid="uid://15uy4007mh70" path="res://Scripts/PlayerScripts/pause_menu.gd" id="5_awuil"]
-[ext_resource type="Script" uid="uid://be1gv8s1cep2d" path="res://Scripts/PlayerScripts/inventory.gd" id="6_68pg1"]
-[ext_resource type="Script" uid="uid://c4hilngin5b3t" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
-[ext_resource type="Theme" uid="uid://d8wjfefy1skg" path="res://Resources/Themes/PlayerMenu.tres" id="9_m6iir"]
+[ext_resource type="Script" uid="uid://c0p1biuu0xv6c" path="res://Scripts/generation.gd" id="4_31yte"]
+[ext_resource type="Script" uid="uid://ck7g2jnhvpva5" path="res://Scripts/PlayerScripts/pause_menu.gd" id="5_awuil"]
 [ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="10_8inel"]
-[ext_resource type="Script" uid="uid://30gikg7l2enq" path="res://Scripts/background_music.gd" id="15_hd86r"]
-[ext_resource type="Script" uid="uid://bud1x2tpy5ulc" path="res://Scripts/Interactables/enemy_spawner.gd" id="15_mep6t"]
+[ext_resource type="Script" uid="uid://ddw65ycj872j6" path="res://Scripts/background_music.gd" id="15_hd86r"]
 [ext_resource type="PackedScene" uid="uid://mn0g3e7wixmj" path="res://Scenes/Enemies/enemy1.tscn" id="16_iwr0i"]
-[ext_resource type="Texture2D" uid="uid://bxuo1neobyssw" path="res://Resources/Character/dante.png" id="17_iccox"]
-[ext_resource type="SpriteFrames" uid="uid://8y65id60d2c3" path="res://Resources/ChestSpriteFrames.tres" id="17_t8pba"]
-[ext_resource type="Script" uid="uid://bkhsycdnhp22n" path="res://Scripts/Interactables/tutorial_button.gd" id="18_cdgm0"]
-[ext_resource type="Texture2D" uid="uid://d0vcsr72qk8n6" path="res://Resources/Tiles/TilePictures/portalRings2-1.png (1).png" id="21_yq1aw"]
 [ext_resource type="Texture2D" uid="uid://u2tirml422tb" path="res://Resources/New path-1.png.png" id="22_no8kt"]
 [ext_resource type="SpriteFrames" uid="uid://bviflvgb4jmdq" path="res://Resources/Tiles/PortalFrames.tres" id="22_pyn1s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jpw16"]
 radius = 30.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ofps5"]
-bg_color = Color(0.690236, 0.584584, 0.393931, 1)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_mwjq7"]
 radius = 92.0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i3ao1"]
-texture = ExtResource("2_3e5v3")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5s2pl"]
-texture = ExtResource("3_7myob")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_ryh3q"]
-tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_i3ao1")
-sources/1 = SubResource("TileSetAtlasSource_5s2pl")
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
@@ -72,18 +43,17 @@ size = 100
 [node name="Player" type="CharacterBody2D" parent="."]
 z_index = 10
 y_sort_enabled = true
-position = Vector2(109, 5536)
+position = Vector2(3446, 141)
 collision_mask = 3
 script = ExtResource("1_sauk2")
-picture = "res://Resources/Character/dante.png"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(3332, -5494)
 shape = SubResource("CircleShape2D_jpw16")
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 z_index = 25
-position = Vector2(3332, -5494)
+position = Vector2(-960, -540)
+anchor_mode = 0
 
 [node name="PauseMenu" type="Panel" parent="Player"]
 process_mode = 3
@@ -146,468 +116,183 @@ grow_horizontal = 2
 theme = ExtResource("2_g36tr")
 text = "Quit Game"
 
-[node name="PlayerMenu" type="Control" parent="Player"]
-process_mode = 3
-z_index = 100
-layout_mode = 3
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = 2451.0
-offset_top = -5938.0
-offset_right = 4371.0
-offset_bottom = -4858.0
-grow_horizontal = 0
-script = ExtResource("6_68pg1")
-
-[node name="Panel" type="Panel" parent="Player/PlayerMenu"]
-custom_minimum_size = Vector2(600, 0)
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ofps5")
-
-[node name="ItemList" type="ItemList" parent="Player/PlayerMenu/Panel"]
-z_index = 5
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -225.0
-offset_top = -448.0
-offset_right = 225.0
-offset_bottom = 452.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 0
-theme = ExtResource("9_m6iir")
-item_count = 1
-item_0/text = "Item!"
-
-[node name="ListSwitcher" type="TabBar" parent="Player/PlayerMenu/Panel"]
-layout_mode = 0
-offset_left = 75.0
-offset_top = 50.0
-offset_right = 525.0
-offset_bottom = 90.0
-focus_mode = 0
-theme = ExtResource("9_m6iir")
-current_tab = 0
-drag_to_rearrange_enabled = true
-tab_count = 1
-tab_0/title = "Inventory"
-
-[node name="ButtonContainer" type="HBoxContainer" parent="Player/PlayerMenu/Panel"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -155.0
-offset_top = -69.0
-offset_right = 155.0
-offset_bottom = -29.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="AddButton" type="Button" parent="Player/PlayerMenu/Panel/ButtonContainer"]
-layout_mode = 2
-theme = ExtResource("9_m6iir")
-text = "ADD BANANA
-"
-
-[node name="UseButton" type="Button" parent="Player/PlayerMenu/Panel/ButtonContainer"]
-layout_mode = 2
-theme = ExtResource("9_m6iir")
-text = "Use Item"
-
-[node name="RemoveItemButton" type="Button" parent="Player/PlayerMenu/Panel/ButtonContainer"]
-layout_mode = 2
-theme = ExtResource("9_m6iir")
-text = "Remove Item"
-
 [node name="PlayerAnimatedSprite" type="AnimatedSprite2D" parent="Player"]
-position = Vector2(3332, -5494)
 sprite_frames = ExtResource("10_8inel")
+animation = &"idle"
 
 [node name="InteractionArea" type="Area2D" parent="Player"]
-position = Vector2(3332, -5494)
 collision_mask = 4
 
 [node name="InteractShape" type="CollisionShape2D" parent="Player/InteractionArea"]
 shape = SubResource("CircleShape2D_mwjq7")
 
-[node name="BattleCamera" type="Camera2D" parent="."]
-texture_filter = 1
-position = Vector2(-3106, 0)
-scale = Vector2(2, 2)
-anchor_mode = 0
-script = ExtResource("7_8l8pn")
-
-[node name="TileMapLayer" type="TileMapLayer" parent="BattleCamera"]
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAsAAQAAAAAAAAAAAAwAAQAAAAAAAAAAAA0AAQAAAAAAAAAAAA4AAAAAAAAAAAAAAA8AAAAAAAAAAAAAABAAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAABAAYAAAAAAAAAAAABAAcAAAAAAAAAAAABAAgAAAAAAAAAAAABAAkAAAAAAAAAAAABAAoAAQAAAAAAAAABAAsAAQAAAAAAAAABAAwAAAAAAAAAAAABAA0AAQAAAAAAAAABAA4AAQAAAAAAAAABAA8AAQAAAAAAAAABABAAAQAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAACAAQAAAAAAAAAAAACAAUAAAAAAAAAAAACAAYAAAAAAAAAAAACAAcAAAAAAAAAAAACAAgAAAAAAAAAAAACAAkAAAAAAAAAAAACAAoAAQAAAAAAAAACAAsAAQAAAAAAAAACAAwAAAAAAAAAAAACAA0AAQAAAAAAAAACAA4AAQAAAAAAAAACAA8AAQAAAAAAAAACABAAAQAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAQAAAAAAAAADAAYAAAAAAAAAAAADAAcAAAAAAAAAAAADAAgAAAAAAAAAAAADAAkAAAAAAAAAAAADAAoAAQAAAAAAAAADAAsAAQAAAAAAAAADAAwAAQAAAAAAAAADAA0AAQAAAAAAAAADAA4AAQAAAAAAAAADAA8AAQAAAAAAAAADABAAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAUAAQAAAAAAAAAEAAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAEAAgAAAAAAAAAAAAEAAkAAAAAAAAAAAAEAAoAAQAAAAAAAAAEAAsAAQAAAAAAAAAEAAwAAQAAAAAAAAAEAA0AAQAAAAAAAAAEAA4AAQAAAAAAAAAEAA8AAQAAAAAAAAAEABAAAQAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAQAAAAAAAAAFAAMAAQAAAAAAAAAFAAQAAQAAAAAAAAAFAAUAAQAAAAAAAAAFAAYAAAAAAAAAAAAFAAcAAAAAAAAAAAAFAAgAAAAAAAAAAAAFAAkAAAAAAAAAAAAFAAoAAAAAAAAAAAAFAAsAAQAAAAAAAAAFAAwAAQAAAAAAAAAFAA0AAQAAAAAAAAAFAA4AAQAAAAAAAAAFAA8AAQAAAAAAAAAFABAAAQAAAAAAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAAAAAAGAAIAAQAAAAAAAAAGAAMAAQAAAAAAAAAGAAQAAQAAAAAAAAAGAAUAAQAAAAAAAAAGAAYAAAAAAAAAAAAGAAcAAAAAAAAAAAAGAAgAAAAAAAAAAAAGAAkAAAAAAAAAAAAGAAoAAAAAAAAAAAAGAAsAAAAAAAAAAAAGAAwAAQAAAAAAAAAGAA0AAQAAAAAAAAAGAA4AAQAAAAAAAAAGAA8AAAAAAAAAAAAGABAAAAAAAAAAAAAHAAAAAQAAAAAAAAAHAAEAAQAAAAAAAAAHAAIAAQAAAAAAAAAHAAMAAQAAAAAAAAAHAAQAAQAAAAAAAAAHAAUAAQAAAAAAAAAHAAYAAAAAAAAAAAAHAAcAAAAAAAAAAAAHAAgAAQAAAAAAAAAHAAkAAQAAAAAAAAAHAAoAAQAAAAAAAAAHAAsAAAAAAAAAAAAHAAwAAAAAAAAAAAAHAA0AAAAAAAAAAAAHAA4AAAAAAAAAAAAHAA8AAAAAAAAAAAAHABAAAAAAAAAAAAAIAAAAAQAAAAAAAAAIAAEAAQAAAAAAAAAIAAIAAQAAAAAAAAAIAAMAAQAAAAAAAAAIAAQAAQAAAAAAAAAIAAUAAQAAAAAAAAAIAAYAAAAAAAAAAAAIAAcAAAAAAAAAAAAIAAgAAQAAAAAAAAAIAAkAAQAAAAAAAAAIAAoAAQAAAAAAAAAIAAsAAQAAAAAAAAAIAAwAAAAAAAAAAAAIAA0AAAAAAAAAAAAIAA4AAAAAAAAAAAAIAA8AAAAAAAAAAAAIABAAAAAAAAAAAAAJAAAAAQAAAAAAAAAJAAEAAQAAAAAAAAAJAAIAAQAAAAAAAAAJAAMAAQAAAAAAAAAJAAQAAQAAAAAAAAAJAAUAAQAAAAAAAAAJAAYAAAAAAAAAAAAJAAcAAAAAAAAAAAAJAAgAAAAAAAAAAAAJAAkAAQAAAAAAAAAJAAoAAQAAAAAAAAAJAAsAAQAAAAAAAAAJAAwAAQAAAAAAAAAJAA0AAAAAAAAAAAAJAA4AAAAAAAAAAAAJAA8AAAAAAAAAAAAJABAAAAAAAAAAAAAKAAAAAQAAAAAAAAAKAAEAAAAAAAAAAAAKAAIAAQAAAAAAAAAKAAMAAQAAAAAAAAAKAAQAAQAAAAAAAAAKAAUAAQAAAAAAAAAKAAYAAAAAAAAAAAAKAAcAAAAAAAAAAAAKAAgAAAAAAAAAAAAKAAkAAQAAAAAAAAAKAAoAAQAAAAAAAAAKAAsAAQAAAAAAAAAKAAwAAQAAAAAAAAAKAA0AAAAAAAAAAAAKAA4AAAAAAAAAAAAKAA8AAAAAAAAAAAAKABAAAAAAAAAAAAALAAAAAQAAAAAAAAALAAEAAQAAAAAAAAALAAIAAQAAAAAAAAALAAMAAQAAAAAAAAALAAQAAAAAAAAAAAALAAUAAAAAAAAAAAALAAYAAAAAAAAAAAALAAcAAAAAAAAAAAALAAgAAAAAAAAAAAALAAkAAAAAAAAAAAALAAoAAQAAAAAAAAALAAsAAQAAAAAAAAALAAwAAAAAAAAAAAALAA0AAAAAAAAAAAALAA4AAAAAAAAAAAALAA8AAAAAAAAAAAALABAAAAAAAAAAAAAMAAAAAQAAAAAAAAAMAAEAAAAAAAAAAAAMAAIAAQAAAAAAAAAMAAMAAQAAAAAAAAAMAAQAAAAAAAAAAAAMAAUAAAAAAAAAAAAMAAYAAAAAAAAAAAAMAAcAAAAAAAAAAAAMAAgAAAAAAAAAAAAMAAkAAAAAAAAAAAAMAAoAAAAAAAAAAAAMAAsAAAAAAAAAAAAMAAwAAAAAAAAAAAAMAA0AAAAAAAAAAAAMAA4AAAAAAAAAAAAMAA8AAAAAAAAAAAAMABAAAAAAAAAAAAANAAAAAQAAAAAAAAANAAEAAAAAAAAAAAANAAIAAAAAAAAAAAANAAMAAQAAAAAAAAANAAQAAAAAAAAAAAANAAUAAAAAAAAAAAANAAYAAAAAAAAAAAANAAcAAAAAAAAAAAANAAgAAAAAAAAAAAANAAkAAAAAAAAAAAANAAoAAAAAAAAAAAANAAsAAAAAAAAAAAANAAwAAAAAAAAAAAANAA0AAAAAAAAAAAANAA4AAAAAAAAAAAANAA8AAAAAAAAAAAANABAAAAAAAAAAAAAOAAAAAQAAAAAAAAAOAAEAAQAAAAAAAAAOAAIAAAAAAAAAAAAOAAMAAQAAAAAAAAAOAAQAAAAAAAAAAAAOAAUAAAAAAAAAAAAOAAYAAAAAAAAAAAAOAAcAAAAAAAAAAAAOAAgAAAAAAAAAAAAOAAkAAAAAAAAAAAAOAAoAAAAAAAAAAAAOAAsAAAAAAAAAAAAOAAwAAAAAAAAAAAAOAA0AAQAAAAAAAAAOAA4AAQAAAAAAAAAOAA8AAQAAAAAAAAAOABAAAQAAAAAAAAAPAAAAAAAAAAAAAAAPAAEAAAAAAAAAAAAPAAIAAQAAAAAAAAAPAAMAAQAAAAAAAAAPAAQAAAAAAAAAAAAPAAUAAAAAAAAAAAAPAAYAAAAAAAAAAAAPAAcAAAAAAAAAAAAPAAgAAAAAAAAAAAAPAAkAAAAAAAAAAAAPAAoAAAAAAAAAAAAPAAsAAAAAAAAAAAAPAAwAAAAAAAAAAAAPAA0AAQAAAAAAAAAPAA4AAQAAAAAAAAAPAA8AAQAAAAAAAAAPABAAAQAAAAAAAAAQAAAAAAAAAAAAAAAQAAEAAAAAAAAAAAAQAAIAAAAAAAAAAAAQAAMAAAAAAAAAAAAQAAQAAQAAAAAAAAAQAAUAAQAAAAAAAAAQAAYAAAAAAAAAAAAQAAcAAAAAAAAAAAAQAAgAAQAAAAAAAAAQAAkAAAAAAAAAAAAQAAoAAAAAAAAAAAAQAAsAAAAAAAAAAAAQAAwAAQAAAAAAAAAQAA0AAQAAAAAAAAAQAA4AAQAAAAAAAAAQAA8AAQAAAAAAAAAQABAAAQAAAAAAAAARAAAAAAAAAAAAAAARAAEAAAAAAAAAAAARAAIAAAAAAAAAAAARAAMAAAAAAAAAAAARAAQAAQAAAAAAAAARAAUAAQAAAAAAAAARAAYAAQAAAAAAAAARAAcAAQAAAAAAAAARAAgAAQAAAAAAAAARAAkAAAAAAAAAAAARAAoAAAAAAAAAAAARAAsAAAAAAAAAAAARAAwAAAAAAAAAAAARAA0AAQAAAAAAAAARAA4AAQAAAAAAAAARAA8AAQAAAAAAAAARABAAAAAAAAAAAAASAAAAAAAAAAAAAAASAAEAAAAAAAAAAAASAAIAAAAAAAAAAAASAAMAAAAAAAAAAAASAAQAAQAAAAAAAAASAAUAAQAAAAAAAAASAAYAAQAAAAAAAAASAAcAAQAAAAAAAAASAAgAAQAAAAAAAAASAAkAAAAAAAAAAAASAAoAAAAAAAAAAAASAAsAAAAAAAAAAAASAAwAAAAAAAAAAAASAA0AAAAAAAAAAAASAA4AAAAAAAAAAAASAA8AAAAAAAAAAAASABAAAAAAAAAAAAATAAAAAAAAAAAAAAATAAEAAAAAAAAAAAATAAIAAAAAAAAAAAATAAMAAAAAAAAAAAATAAQAAAAAAAAAAAATAAUAAAAAAAAAAAATAAYAAQAAAAAAAAATAAcAAQAAAAAAAAATAAgAAQAAAAAAAAATAAkAAQAAAAAAAAATAAoAAQAAAAAAAAATAAsAAAAAAAAAAAATAAwAAAAAAAAAAAATAA0AAAAAAAAAAAATAA4AAAAAAAAAAAATAA8AAAAAAAAAAAATABAAAAAAAAAAAAAUAAAAAAAAAAAAAAAUAAEAAAAAAAAAAAAUAAIAAAAAAAAAAAAUAAMAAAAAAAAAAAAUAAQAAAAAAAAAAAAUAAUAAAAAAAAAAAAUAAYAAAAAAAAAAAAUAAcAAAAAAAAAAAAUAAgAAAAAAAAAAAAUAAkAAAAAAAAAAAAUAAoAAQAAAAAAAAAUAAsAAAAAAAAAAAAUAAwAAAAAAAAAAAAUAA0AAAAAAAAAAAAUAA4AAAAAAAAAAAAUAA8AAAAAAAAAAAAUABAAAAAAAAAAAAAVAAAAAAAAAAAAAAAVAAEAAAAAAAAAAAAVAAIAAAAAAAAAAAAVAAMAAAAAAAAAAAAVAAQAAAAAAAAAAAAVAAUAAAAAAAAAAAAVAAYAAAAAAAAAAAAVAAcAAAAAAAAAAAAVAAgAAAAAAAAAAAAVAAkAAAAAAAAAAAAVAAoAAAAAAAAAAAAVAAsAAAAAAAAAAAAVAAwAAAAAAAAAAAAVAA0AAAAAAAAAAAAVAA4AAAAAAAAAAAAVAA8AAAAAAAAAAAAVABAAAAAAAAAAAAAWAAAAAQAAAAAAAAAWAAEAAAAAAAAAAAAWAAIAAAAAAAAAAAAWAAMAAAAAAAAAAAAWAAQAAAAAAAAAAAAWAAUAAAAAAAAAAAAWAAYAAAAAAAAAAAAWAAcAAAAAAAAAAAAWAAgAAAAAAAAAAAAWAAkAAAAAAAAAAAAWAAoAAAAAAAAAAAAWAAsAAAAAAAAAAAAWAAwAAAAAAAAAAAAWAA0AAAAAAAAAAAAWAA4AAAAAAAAAAAAWAA8AAAAAAAAAAAAWABAAAAAAAAAAAAAXAAAAAQAAAAAAAAAXAAEAAQAAAAAAAAAXAAIAAQAAAAAAAAAXAAMAAQAAAAAAAAAXAAQAAAAAAAAAAAAXAAUAAAAAAAAAAAAXAAYAAAAAAAAAAAAXAAcAAAAAAAAAAAAXAAgAAAAAAAAAAAAXAAkAAAAAAAAAAAAXAAoAAAAAAAAAAAAXAAsAAAAAAAAAAAAXAAwAAAAAAAAAAAAXAA0AAAAAAAAAAAAXAA4AAAAAAAAAAAAXAA8AAAAAAAAAAAAXABAAAAAAAAAAAAAYAAAAAQAAAAAAAAAYAAEAAQAAAAAAAAAYAAIAAQAAAAAAAAAYAAMAAQAAAAAAAAAYAAQAAAAAAAAAAAAYAAUAAAAAAAAAAAAYAAYAAAAAAAAAAAAYAAcAAAAAAAAAAAAYAAgAAAAAAAAAAAAYAAkAAAAAAAAAAAAYAAoAAAAAAAAAAAAYAAsAAAAAAAAAAAAYAAwAAAAAAAAAAAAYAA0AAAAAAAAAAAAYAA4AAQAAAAAAAAAYAA8AAQAAAAAAAAAYABAAAAAAAAAAAAAZAAAAAQAAAAAAAAAZAAEAAQAAAAAAAAAZAAIAAQAAAAAAAAAZAAMAAAAAAAAAAAAZAAQAAAAAAAAAAAAZAAUAAAAAAAAAAAAZAAYAAAAAAAAAAAAZAAcAAAAAAAAAAAAZAAgAAAAAAAAAAAAZAAkAAAAAAAAAAAAZAAoAAAAAAAAAAAAZAAsAAAAAAAAAAAAZAAwAAQAAAAAAAAAZAA0AAQAAAAAAAAAZAA4AAQAAAAAAAAAZAA8AAQAAAAAAAAAZABAAAAAAAAAAAAAaAAAAAAAAAAAAAAAaAAEAAAAAAAAAAAAaAAIAAAAAAAAAAAAaAAMAAAAAAAAAAAAaAAQAAAAAAAAAAAAaAAUAAAAAAAAAAAAaAAYAAAAAAAAAAAAaAAcAAAAAAAAAAAAaAAgAAAAAAAAAAAAaAAkAAQAAAAAAAAAaAAoAAQAAAAAAAAAaAAsAAQAAAAAAAAAaAAwAAQAAAAAAAAAaAA0AAQAAAAAAAAAaAA4AAQAAAAAAAAAaAA8AAQAAAAAAAAAaABAAAAAAAAAAAAAbAAAAAAAAAAAAAAAbAAEAAAAAAAAAAAAbAAIAAAAAAAAAAAAbAAMAAAAAAAAAAAAbAAQAAAAAAAAAAAAbAAUAAAAAAAAAAAAbAAYAAAAAAAAAAAAbAAcAAAAAAAAAAAAbAAgAAQAAAAAAAAAbAAkAAQAAAAAAAAAbAAoAAAAAAAAAAAAbAAsAAQAAAAAAAAAbAAwAAQAAAAAAAAAbAA0AAQAAAAAAAAAbAA4AAQAAAAAAAAAbAA8AAQAAAAAAAAAbABAAAAAAAAAAAAAcAAAAAAAAAAAAAAAcAAEAAAAAAAAAAAAcAAIAAAAAAAAAAAAcAAMAAAAAAAAAAAAcAAQAAAAAAAAAAAAcAAUAAAAAAAAAAAAcAAYAAAAAAAAAAAAcAAcAAAAAAAAAAAAcAAgAAQAAAAAAAAAcAAkAAAAAAAAAAAAcAAoAAAAAAAAAAAAcAAsAAAAAAAAAAAAcAAwAAAAAAAAAAAAcAA0AAAAAAAAAAAAcAA4AAAAAAAAAAAAcAA8AAAAAAAAAAAAcABAAAAAAAAAAAAAdAAAAAAAAAAAAAAAdAAEAAAAAAAAAAAAdAAIAAAAAAAAAAAAdAAMAAAAAAAAAAAAdAAQAAAAAAAAAAAAdAAUAAAAAAAAAAAAdAAYAAAAAAAAAAAAdAAcAAAAAAAAAAAAdAAgAAAAAAAAAAAAdAAkAAAAAAAAAAAAdAAoAAAAAAAAAAAAdAAsAAAAAAAAAAAAdAAwAAAAAAAAAAAAdAA0AAAAAAAAAAAAdAA4AAAAAAAAAAAAdAA8AAAAAAAAAAAAdABAAAAAAAAAAAAA=")
-tile_set = SubResource("TileSet_ryh3q")
-
-[node name="Control" type="Control" parent="BattleCamera"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="RunBtn" type="Button" parent="BattleCamera/Control"]
-z_index = 1
-texture_filter = 1
-layout_mode = 0
-offset_left = 849.0
-offset_top = 484.0
-offset_right = 948.0
-offset_bottom = 535.0
-text = "RUN"
-
-[node name="FightBtn" type="Button" parent="BattleCamera/Control"]
-z_index = 1
-texture_filter = 1
-layout_mode = 0
-offset_left = 737.0
-offset_top = 484.0
-offset_right = 836.0
-offset_bottom = 535.0
-text = "FIGHT!
-"
-
-[node name="ItemsBtn" type="Button" parent="BattleCamera/Control"]
-visible = false
-z_index = 1
-texture_filter = 1
-layout_mode = 0
-offset_left = 627.0
-offset_top = 483.0
-offset_right = 726.0
-offset_bottom = 534.0
-text = "ITEMS
-"
-
-[node name="Attacks" type="Panel" parent="BattleCamera/Control"]
-visible = false
-layout_mode = 0
-offset_left = 676.0
-offset_top = -1.0
-offset_right = 958.0
-offset_bottom = 477.0
-
-[node name="AttackList" type="ItemList" parent="BattleCamera/Control/Attacks"]
-layout_mode = 0
-offset_right = 282.0
-offset_bottom = 478.0
-focus_mode = 0
-
-[node name="EnemyChoice" type="ItemList" parent="BattleCamera/Control/Attacks/AttackList"]
-visible = false
-z_index = 100
-layout_mode = 0
-offset_top = 394.0
-offset_right = 281.0
-offset_bottom = 477.0
-focus_mode = 0
-
-[node name="PlayerPosition1" type="Marker2D" parent="BattleCamera"]
-position = Vector2(545, 265)
-
-[node name="EnemyPosition1" type="Marker2D" parent="BattleCamera"]
-position = Vector2(85.5, 98)
-
-[node name="EnemyPosition2" type="Marker2D" parent="BattleCamera"]
-position = Vector2(268, 148.5)
-
-[node name="EnemyPosition3" type="Marker2D" parent="BattleCamera"]
-position = Vector2(89, 359.5)
-
-[node name="EnemyPosition4" type="Marker2D" parent="BattleCamera"]
-position = Vector2(269, 405)
-
-[node name="EnemySpawnerInteractable" type="StaticBody2D" parent="."]
-position = Vector2(2343, 2393)
-script = ExtResource("15_mep6t")
-
-[node name="Label" type="Label" parent="EnemySpawnerInteractable"]
-visible = false
-offset_left = -248.0
-offset_top = -98.0
-offset_right = 231.0
-offset_bottom = -64.0
-theme_override_font_sizes/font_size = 24
-text = "Interact With me to spawn more Enemies"
-horizontal_alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="EnemySpawnerInteractable"]
-texture = ExtResource("4_ikl6f")
-
-[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
-process_mode = 3
-script = ExtResource("15_hd86r")
-
-[node name="TutorialNode" type="Node" parent="."]
-
-[node name="MovementLabel" type="Label" parent="TutorialNode"]
-visible = false
-offset_left = 384.0
-offset_top = 2260.0
-offset_right = 735.0
-offset_bottom = 2283.0
-text = "Move with the WASD keys, or the Arrow Keys."
-
-[node name="CombatLabel" type="Label" parent="TutorialNode"]
-visible = false
-offset_left = 1023.0
-offset_top = 2204.0
-offset_right = 1348.0
-offset_bottom = 2305.0
-text = "Enemies will chase you around, for now they are inescapable.
-Touching them will begin a battle.
-Here's a real enemy, that just can't move.
-After each battle, the player recieves new moves to use.
-"
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="InventoryLabel" type="Label" parent="TutorialNode"]
-visible = false
-offset_left = 1405.0
-offset_top = 2156.0
-offset_right = 1730.0
-offset_bottom = 2335.0
-text = "You have access to an inventory by pressing the TAB key. The inventory currently doesn't have much function, but play around with it some and tell us how it feels.
-
-There's a banana button for fun too. (Guess what using it does.)"
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="InteractablesLabel" type="Label" parent="TutorialNode"]
-visible = false
-offset_left = 1022.0
-offset_top = 2457.0
-offset_right = 1347.0
-offset_bottom = 2584.0
-text = "Interactables are objects that get highlighted in green when the player gets near them. Interactables can be interacted with by pressing the E key.
-Example Below:"
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="PauseMenuLabel" type="Label" parent="TutorialNode"]
-visible = false
-offset_left = 1408.0
-offset_top = 2502.0
-offset_right = 1733.0
-offset_bottom = 2629.0
-text = "To go back to the main menu, or to quit the game, press the ESC button in the top left of your keyboard. 
-This also pauses the game."
-horizontal_alignment = 1
-autowrap_mode = 2
-
 [node name="NewEnemy" parent="." instance=ExtResource("16_iwr0i")]
-position = Vector2(3461, 196)
+position = Vector2(3467, 1260)
 enemy_movement_disabled = true
 
-[node name="TutorialButton" type="StaticBody2D" parent="."]
-position = Vector2(1193, 2619)
-script = ExtResource("18_cdgm0")
+[node name="Walls" type="Node2D" parent="."]
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="TutorialButton"]
-z_index = 1
-emitting = false
-amount = 3
-texture = ExtResource("17_iccox")
-lifetime = 1.5
-one_shot = true
-direction = Vector2(0, -1)
-gravity = Vector2(0, 1960)
-initial_velocity_min = 600.0
-initial_velocity_max = 800.0
-linear_accel_min = 100.0
-linear_accel_max = 100.0
-damping_min = 500.0
-damping_max = 500.0
-angle_max = 360.0
-scale_amount_min = 0.5
-scale_amount_max = 0.5
-
-[node name="Animation" type="AnimatedSprite2D" parent="TutorialButton"]
-sprite_frames = ExtResource("17_t8pba")
-
-[node name="Trees9" type="Sprite2D" parent="."]
+[node name="Wall1" type="Sprite2D" parent="Walls"]
 z_index = 1
 position = Vector2(376.042, -291.725)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees13" type="Sprite2D" parent="."]
+[node name="Wall2" type="Sprite2D" parent="Walls"]
 z_index = 1
 position = Vector2(2374.04, -291.725)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees14" type="Sprite2D" parent="."]
+[node name="Wall3" type="Sprite2D" parent="Walls"]
 z_index = 1
 position = Vector2(4372.04, -291.725)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees15" type="Sprite2D" parent="."]
+[node name="Wall4" type="Sprite2D" parent="Walls"]
 z_index = 1
 position = Vector2(6370.04, -291.725)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees16" type="Sprite2D" parent="."]
+[node name="Wall5" type="Sprite2D" parent="Walls"]
 z_index = 11
 position = Vector2(302.042, 6692.28)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees17" type="Sprite2D" parent="."]
+[node name="Wall6" type="Sprite2D" parent="Walls"]
 z_index = 11
 position = Vector2(2300.04, 6692.28)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees18" type="Sprite2D" parent="."]
+[node name="Wall7" type="Sprite2D" parent="Walls"]
 z_index = 11
 position = Vector2(4298.04, 6692.28)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees19" type="Sprite2D" parent="."]
+[node name="Wall8" type="Sprite2D" parent="Walls"]
 z_index = 11
 position = Vector2(6296.04, 6692.28)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees20" type="Sprite2D" parent="."]
+[node name="Wall9" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(-291.725, 153.042)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees21" type="Sprite2D" parent="."]
+[node name="Wall10" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(-291.724, 2151.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees22" type="Sprite2D" parent="."]
+[node name="Wall11" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(-291.724, 4149.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees23" type="Sprite2D" parent="."]
+[node name="Wall12" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(-291.682, 6146.32)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees32" type="Sprite2D" parent="."]
+[node name="Wall13" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(-879.725, 153.042)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees33" type="Sprite2D" parent="."]
+[node name="Wall14" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(-879.703, 2151.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.8055)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees34" type="Sprite2D" parent="."]
+[node name="Wall15" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(-879.724, 4149.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees35" type="Sprite2D" parent="."]
+[node name="Wall16" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(-879.682, 6146.32)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees24" type="Sprite2D" parent="."]
+[node name="Wall17" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(6691.28, 411.042)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees25" type="Sprite2D" parent="."]
+[node name="Wall18" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(6691.28, 2409.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees26" type="Sprite2D" parent="."]
+[node name="Wall19" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(6691.28, 4407.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees27" type="Sprite2D" parent="."]
+[node name="Wall20" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(6691.32, 6404.32)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees28" type="Sprite2D" parent="."]
+[node name="Wall21" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(7279.28, 413.042)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees29" type="Sprite2D" parent="."]
+[node name="Wall22" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(7279.28, 2411.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees30" type="Sprite2D" parent="."]
+[node name="Wall23" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(7279.28, 4409.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees31" type="Sprite2D" parent="."]
+[node name="Wall24" type="Sprite2D" parent="Walls"]
 z_index = 12
 position = Vector2(7279.32, 6406.32)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="PortalRings2-1_png" type="Sprite2D" parent="."]
-visible = false
-z_index = 2
-position = Vector2(3456, -237)
-scale = Vector2(1.06667, 1)
-texture = ExtResource("21_yq1aw")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D"]
+[node name="Portal" type="AnimatedSprite2D" parent="."]
 z_index = 4
 position = Vector2(3457, -237)
 scale = Vector2(1.0625, 1)
@@ -615,13 +300,10 @@ sprite_frames = ExtResource("22_pyn1s")
 autoplay = "default"
 frame_progress = 0.746992
 
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+script = ExtResource("15_hd86r")
+
 [connection signal="pressed" from="Player/PauseMenu/ResumeBtn" to="Player/PauseMenu" method="resumeGame"]
 [connection signal="pressed" from="Player/PauseMenu/MainMenuBtn" to="Player/PauseMenu" method="mainMenu"]
 [connection signal="pressed" from="Player/PauseMenu/QuitBtn" to="Player/PauseMenu" method="quitGame"]
-[connection signal="pressed" from="Player/PlayerMenu/Panel/ButtonContainer/AddButton" to="Player/PlayerMenu" method="add_item"]
-[connection signal="pressed" from="Player/PlayerMenu/Panel/ButtonContainer/UseButton" to="Player/PlayerMenu" method="use_item"]
-[connection signal="pressed" from="Player/PlayerMenu/Panel/ButtonContainer/RemoveItemButton" to="Player/PlayerMenu" method="remove_item"]
-[connection signal="pressed" from="BattleCamera/Control/RunBtn" to="BattleCamera" method="battleLose"]
-[connection signal="pressed" from="BattleCamera/Control/FightBtn" to="BattleCamera" method="_on_fight_btn_pressed"]
-[connection signal="item_clicked" from="BattleCamera/Control/Attacks/AttackList" to="BattleCamera" method="_on_attack_list_item_clicked"]
-[connection signal="item_clicked" from="BattleCamera/Control/Attacks/AttackList/EnemyChoice" to="BattleCamera" method="_on_enemy_choice_item_clicked"]
