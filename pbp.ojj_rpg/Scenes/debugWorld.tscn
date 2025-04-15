@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://caq5d8nmcqe1g"]
+
+[ext_resource type="Script" uid="uid://bhgvr3flcurpt" path="res://Scripts/debug_battle.gd" id="1_71au1"]
+
+[node name="DebugWorld" type="Node2D"]
+script = ExtResource("1_71au1")
+
+[node name="BattleControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="BattleBackground" type="Panel" parent="BattleControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollControl" type="Control" parent="BattleControl"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="BattleControl/ScrollControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BattleControl/ScrollControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = -195.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="AttacksContainer" type="VBoxContainer" parent="BattleControl/ScrollControl/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RunBtn" type="Button" parent="BattleControl/ScrollControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -145.0
+offset_right = -50.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+text = "RUN"
+
+[node name="PlayerMarker" type="Marker2D" parent="."]
+position = Vector2(858, 687)
+
+[node name="EnemyMarker1" type="Marker2D" parent="."]
+position = Vector2(1128, 400)
+
+[node name="EnemyMarker2" type="Marker2D" parent="."]
+position = Vector2(1339, 203)
+
+[node name="EnemyMarker3" type="Marker2D" parent="."]
+position = Vector2(1619, 367)
+
+[node name="EnemyMarker4" type="Marker2D" parent="."]
+position = Vector2(1386, 579)
+
+[connection signal="pressed" from="BattleControl/ScrollControl/RunBtn" to="." method="runAway"]

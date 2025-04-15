@@ -23,16 +23,15 @@ var enemy_position
 var player_action_limit
 var player_action_amount
 var player_action_multiplier
+var player_action_conditions
+var player_damage_conditions
 
 ##Control Nodes####
 @onready var combat_control_node = $Control
-@onready var attack_container = $Control/Attacks
-@onready var enemy_choice = $Control/Attacks/AttackList/EnemyChoice
 @onready var attack_list = $Control/Attacks/AttackList
+@onready var enemy_choice = $Control/Attacks/AttackList/EnemyChoice
 @onready var enemy_info_positions = [$EnemyPosition1, $EnemyPosition2, $EnemyPosition3, $EnemyPosition4]
 @onready var player_info_positions = [$PlayerPosition1]
-
-var count : float
 
 func _ready() -> void:
 	# When the world is loaded, this section is too, this is disabled
@@ -42,8 +41,8 @@ func _ready() -> void:
 	process_mode = PROCESS_MODE_DISABLED
 
 var pause = false
-var last_player_action = 0
-var last_enemy_action = 0
+var acting_player = 0
+var acting_enemy = 0
 func _process(delta: float) -> void:
 	
 	##Pause for graphics##
@@ -54,15 +53,16 @@ func _process(delta: float) -> void:
 	elif(turn_active):
 		#If it's the player's turn, just make the controls visible, the player does the rest.
 		if(is_player_turn):
+			#totalActionMultipliers()
 			controlsUsable(true)
 		
-		#Enemies 'act' when it's their turn. TO BE DONE LATER.
+		#Enemies 'act' when it's their turn.
 		else:
+			enemies[acting_enemy].passActionConditions()
 			pause = true
-			controlsUsable(false)
 			turn_active = false
 			await get_tree().create_timer(1).timeout
-			enemyAttack(last_enemy_action)
+			enemyAttack(acting_enemy)
 			pause = false
 	
 	##Since no entity is acting, check if one can, else pass time.##
@@ -78,10 +78,10 @@ func _process(delta: float) -> void:
 				player_action_amount = 0
 				
 				#Save who acted last good data and other stuff, don't read too much into it.
-				last_player_action = player_act
+				acting_player = player_act
 				
 				#Emphasize the acting entity
-				entityGreyout(false, last_player_action)
+				entityGreyout(false, acting_player)
 				
 				#Break the Loop
 				break
@@ -96,19 +96,20 @@ func _process(delta: float) -> void:
 				#Reset the amount of action they have.
 				enemies[enemy_action].action_amount = 0
 				enemy_entity_info[enemy_action].changeAction(enemies[enemy_action].action_amount)
-				print(enemies[enemy_action].getName() + " acted")
 				
 				#Save who acted last for the attack function.
-				last_enemy_action = enemy_action
+				acting_enemy = enemy_action
 				
 				#Emphasize the acting entity
-				entityGreyout(true, last_enemy_action)
+				entityGreyout(true, acting_enemy)
 				
 				#Break the Loop
 				break
 		
+		##Otherwise, just progress the action amounts.
 		if(!turn_active):
 			for i in range(enemies.size()):
+				enemies[i].totalActionConditions()
 				enemies[i].action_amount += delta * enemies[i].action_multiplier * 20
 				enemy_entity_info[i].changeAction(enemies[i].action_amount)
 			
@@ -120,13 +121,13 @@ func _process(delta: float) -> void:
 func readyBattle(new_enemy):
 	turn_active = false
 	#Refresh Local Player Variables
-	player_moveset = player_reference.getPlayerMoveset()
-	player_health = player_reference.getPlayerHealth()
-	player_mana = player_reference.getPlayerMana()
-	player_class = player_reference.getPlayerClass()
-	player_action_limit = player_reference.getPlayerActionLimit()
-	player_action_amount = player_reference.getPlayerActionAmount()
-	player_action_multiplier = player_reference.getPlayerActionMultiplier()
+	player_moveset = player_reference.getMoveset()
+	player_health = player_reference.getHealth()
+	player_mana = player_reference.getMana()
+	player_class = player_reference.getClass()
+	player_action_limit = player_reference.getActionLimit()
+	player_action_amount = player_reference.getActionAmount()
+	player_action_multiplier = player_reference.getActionMultiplier()
 	
 	#Put enemy informtaion in the labels.
 	enemy_group = PlayerStats.enemy
@@ -139,19 +140,14 @@ func readyBattle(new_enemy):
 	#Clears the attack list from a previous battle.
 	#Adds the new current attacks.
 	attack_list.clear()
-	count = 0
-	while(count < player_moveset.size()):
-		attack_list.add_item(player_moveset[count].getName(), null, true)
-		count += 1
-	
+	for player_move in player_moveset:
+		attack_list.add_item(player_move.getName(), null, true)
 	
 	#Clears enemy choices,
 	#then gives the new, current enemies.
 	enemy_choice.clear()
-	count = 0
-	while(count < enemies.size()):
-		enemy_choice.add_item(enemies[count].getName(), null, true)
-		count += 1
+	for enemy in enemies:
+		enemy_choice.add_item(enemy.getName(), null, true)
 	
 	controlsUsable(false)
 	process_mode = PROCESS_MODE_INHERIT
@@ -176,42 +172,31 @@ func readyBattle(new_enemy):
 		player_info.setActionBar(player_action_limit)
 		player_info.setManaBar(player_mana)
 		add_child(player_info)
-	
-	#debugCheckArray()
 
 ###############Control Nodes#################
-var greyout_color = Color(0.5, 0.5, 0.5)
 func entityGreyout(is_enemy : bool, entity_number : int):
 	for num in range(player_group.size()):
-		if(is_enemy || entity_number != last_player_action):
-			player_entity_info[num].image_node.self_modulate = greyout_color
+		if(is_enemy || entity_number != acting_player):
+			player_entity_info[num].greyout(true)
 	
 	#Make all but the acting enemy grey.
 	for num in range(enemies.size()):
-		if(!is_enemy || last_enemy_action != num):
-			enemy_entity_info[num].image_node.self_modulate = greyout_color
+		if(!is_enemy || acting_enemy != num):
+			enemy_entity_info[num].greyout(true)
 
 func resetGreyout():
 	for num in range(player_group.size()):
-		player_entity_info[num].image_node.self_modulate = Color(1, 1, 1)
+		player_entity_info[num].greyout(false)
 	for num in range(enemies.size()):
-		enemy_entity_info[num].image_node.self_modulate = Color(1, 1, 1)
-
-func debugCheckArray():
-	var string = "Enemies: "
-	for enemy in enemies:
-		string += enemy.getName() + " "
-	print(string)
-	string = "InfoNodes: "
-	for node in enemy_entity_info:
-		string += node.name_label_node.text + " "
-	print(string)
+		enemy_entity_info[num].greyout(false)
 
 func controlsUsable(boolean : bool):
 	if(boolean):
-		combat_control_node.visible = true
+		enemy_choice.deselect_all()
+		attack_list.deselect_all()
+		combat_control_node.show()
 	else:
-		combat_control_node.visible = false
+		combat_control_node.hide()
 
 ###################Jank############################
 func battleWin():
@@ -237,108 +222,99 @@ func battleLose():
 	#process_mode = PROCESS_MODE_DISABLED
 	battleWin()
 
-#Toggle Attack Container Visibility
-func _on_fight_btn_pressed() -> void:
-	if attack_container.visible:
-		attack_container.visible = false
-	else:
-		attack_container.visible = true
-
 #Show the available enemies, and then get the position of the correct attack from the player's moveset.
-func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+func onAttackSelected(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	
+	#Ready the enemy selection
 	enemy_choice.clear()
 	for num1 in range(enemies.size()):
 		enemy_choice.add_item(enemies[num1].getName(), null, true)
 	
+	#Show the enemy selection
 	enemy_choice.visible = true
+	
+	#Iterate through each player attack
+	#If the name of the player attack matches the selected attack, say it's the selected attack.
+	#Then stop.
 	for num2 in range(player_moveset.size()):
 		if(player_moveset[num2].getName() == attack_list.get_item_text(index)):
-			print(player_moveset[num2].getName())
 			move_position = num2
 			break
 
 #Applies damage to the enemy, goes through enemy attacks on the player, 
 #and makes player menus invisible for the enemy's turn.
-func _on_enemy_choice_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+func onEnemySelected(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	enemy_position = index
 	playerAttack()
-	attack_container.visible = false
 	enemy_choice.visible = false
+
+func totalActionMultipliers():
+	player_action_multiplier = 1
+	
+	for condition in player_action_conditions:
+		pass
+
+## PLAYER METHODS #####################################################
 
 #Removes enemy health, subtracts attack costs, removes enemies if dead, and checks to win the battle.
 func playerAttack():
-	var enemyHP = enemies[enemy_position].getHealth()
-	enemyHP -= player_moveset[move_position].getDamage() * getPlayerAttackEffectiveness()
-	enemies[enemy_position].health = enemyHP
-	enemy_entity_info[enemy_position].changeHealth(enemies[enemy_position].health)
+	#damage enemy
+	enemies[enemy_position].damage(getPlayerAttack(), player_moveset[move_position].getActionCondition())
+	enemy_entity_info[enemy_position].changeHealth(enemies[enemy_position].getHealth())
 	
+	#subtract requirements
 	player_health -= player_moveset[move_position].getHealthCost()
 	player_mana -= player_moveset[move_position].getManaCost()
-	print(player_moveset[move_position].getManaCost())
-	print(player_mana)
 	player_entity_info[0].changeHealth(player_health)
 	player_entity_info[0].changeMana(player_mana)
 	
-	
-	if enemyHP <= 0:
+	#Remove Dead Enemies
+	if enemies[enemy_position].getHealth() <= 0:
 		enemies.remove_at(enemy_position)
 		enemy_entity_info[enemy_position].free()
 		enemy_entity_info.remove_at(enemy_position)
-		count = 0 
+	
+	#Check if victory is achieved.
 	if enemies.size() == 0:
 		battleWin()
+	
+	#Otherwise, continue combat.
 	else:
 		controlsUsable(false)
 		turn_active = false
 		resetGreyout()
-		#debugCheckArray()
+
+func getPlayerAttack() -> int:
+	for enemy_weakness in enemies[enemy_position].weakness:
+		if player_moveset[move_position].getType() == enemy_weakness:
+			return player_moveset[move_position].getDamage() * 2
+	return player_moveset[move_position].getDamage()
+
+## ENEMY METHODS #####################################################
 
 #Subtracts from player health.
 func enemyAttack(enemy_location: int):
-	var tempAttack = getEnemyAttack(enemy_location)
-	player_health -= tempAttack.getDamage() * getEnemyAttackEffectiveness(tempAttack.getType(), enemy_location)
-	print(tempAttack.getDamage() * getEnemyAttackEffectiveness(tempAttack.getType(), enemy_location))
+	player_health -= getEnemyAttack(enemy_location)
 	player_entity_info[0].changeHealth(player_health)
 	resetGreyout()
 
 #this local variable of enemyPos is being fed an int from enemyAttack()
-func getEnemyAttack(enemy_location: int):
-	count = 0
-	var weakCount = 0
+func getEnemyAttack(enemy_location: int) -> int:
 	#for each of the players weaknesses, check if an enemy move matches typing.
-	while(weakCount < player_class.getWeakness().size()):
-		#for each move of the selected enemy
-		while(count < enemies[enemy_location].moveset.size()):
-			#If an enemy's move matches a player weakness, return that move. Else iterate
-			if enemies[enemy_location].moveset[count].getType() == player_class.getWeakness()[weakCount]:
-				return enemies[enemy_location].moveset[count]
-			else:
-				count += 1
-		weakCount += 1
-	return enemies[enemy_location].moveset[0]
+	for player_weakness in player_class.getWeakness():
+		for enemy_attack in enemies[enemy_location].moveset:
+			if enemy_attack.getType() == player_weakness:
+				return enemy_attack.getDamage() * 2
+	return enemies[enemy_location].moveset[0].getDamage()
 
-#Goes through all of the player's weakness looking for matches.
-func getEnemyAttackEffectiveness(attackType: String, enemyLoc: int):
-	count = 0
-	var weakCount = 0
-	#for each of the players weaknesses, check if an enemy move matches typing.
-	while(weakCount < player_class.getWeakness().size()):
-		#for each move of the selected enemy
-		while(count < enemies[enemyLoc].moveset.size()):
-			#If an enemy's move matches a player weakness, return that move. Else iterate
-			if enemies[enemyLoc].moveset[count].getType() == player_class.getWeakness()[weakCount]:
-				return 2
-			else:
-				count += 1
-		weakCount += 1
-	return 1
+## DEBUG METHODS #######################################################
 
-func getPlayerAttackEffectiveness():
-	count = 0
-	while(count < enemies[enemy_position].weakness.size()):
-		if(player_moveset[move_position].getType() == enemies[enemy_position].getWeakness(count)):
-			return 2
-		else:
-			count += 1
-	return 1
+func debugCheckArray():
+	var string = "Enemies: "
+	for enemy in enemies:
+		string += enemy.getName() + " "
+	print(string)
+	string = "InfoNodes: "
+	for node in enemy_entity_info:
+		string += node.name_label_node.text + " "
+	print(string)

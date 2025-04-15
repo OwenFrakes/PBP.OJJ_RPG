@@ -1,83 +1,58 @@
 class_name Player
 extends CharacterBody2D
 
-#Sprite / Tile size
-var tile_size = 64.0
-
-#Variables
-@onready var player_animated_sprite = $PlayerAnimatedSprite
-var player_size : Vector2
-var desired_position = position
-@export var picture : String
+## Variables ##
 var inFight = false
+var player_class: PlayerClass
+
+## Node Variables ##
+@onready var player_animated_sprite = $PlayerAnimatedSprite
 @onready var interaction_area = $InteractionArea
-
-#Guard Variables
-@onready var guard_area
-var faced_direction = Vector2(0,1)
-
-#Leveling Variables
-var level: float
-var exp: float
-var required_exp: float
-var moveset: Array
-var count: float
-var check: bool
-
-#Battle Variables
 @onready var battle_camera = $"../BattleCamera"
 @onready var player_camera = $PlayerCamera
-var movePos: int
-var enemyPos: int
-var playerHP: float
-var playerMana: float
+
+## Battle Variables ##
+var player_max_health
+var player_max_mana
+var player_health: float
+var player_mana: float
 var player_action_limit = 50
 var player_action_amount = 0
 var player_action_multiplier = 1
 
-#Players Class
-var player_Class: PlayerClass
+## Leveling Variables ##
+var level = 1
+var exp : int = 0
+var required_exp : int = 100
+var moveset := []
+
+## Signals ##
+signal health_change(new_health)
+signal mana_change(new_mana)
+signal action_change(new_action_amount)
 
 ## START UP ########################################################################################
 func _ready() -> void:
 	PlayerStats.player_node_path = get_path()
-	##Give the player their sprite body.
-	#player_sprite = Sprite2D.new()
-	#player_sprite.texture = load(picture)
-	## The size of each picture will be 32x32 pixels.
-	## Scale will be changed to make the size of the picture so. Where scale is : scale = 32/t
-	#player_sprite.scale = Vector2(tile_size/player_sprite.texture.get_width(), \
-	#							  tile_size/player_sprite.texture.get_height())
-	#player_sprite.z_index = 5
-	#add_child(player_sprite)
 	
-	#Add Class to Player
-	player_Class = PlayerClass.new()
-	player_Class.setClass(PlayerStats.selected_player_class.getName(), \
-						PlayerStats.selected_player_class.getHealth(), \
-						PlayerStats.selected_player_class.getStamina(), \
-						PlayerStats.selected_player_class.getMana(), \
-						PlayerStats.selected_player_weapon.getName(), \
-						PlayerStats.selected_player_weapon.getDamage(), \
-						PlayerStats.selected_player_weapon.getAttackSpeed(), \
-						PlayerStats.selected_player_weapon.getType(), \
-						PlayerStats.selected_player_class.getWeakness(), \
-						PlayerStats.selected_player_class.getSpriteSetString())
+	#Set Player Class to what was chosen in the selection menu.
+	player_class = PlayerStats.selected_player_class
+	player_max_health = player_class.getHealth()
+	player_health = player_max_health
+	player_max_mana = player_class.getMana()
+	player_mana = player_max_mana
 	
 	#Start Moveset
-	count = 0 
-	moveset.resize(0)
-	moveset.append(attack.new())
-	moveset[count] = player_Class.getLearnset()[count]
-	count += 1
+	moveset.append(null)
+	moveset[0] = player_class.getLearnset()[0]
 	
-	player_animated_sprite.sprite_frames = player_Class.getSpriteSet()
+	player_animated_sprite.sprite_frames = player_class.getSpriteSet()
 	
 	player_action_multiplier = PlayerStats.selected_player_class.getWeaponSpeed()
 
 ## EVERY FRAME #####################################################################################
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	#If not in a fight, the player can move.
 	if(!inFight):
@@ -94,6 +69,12 @@ func _process(delta: float) -> void:
 	#faceGuard()
 	move_and_slide()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if(Input.is_key_pressed(KEY_C) && !inFight):
+		startBattle()
+	if(Input.is_key_pressed(KEY_L)):
+		levelUp()
+
 ## MOVEMENT METHODS ################################################################################
 func move():
 	var move_magnitude = Input.get_vector("Left","Right","Up","Down")
@@ -106,19 +87,15 @@ func move():
 		player_animated_sprite.play()
 		match(move_magnitude):
 			Vector2(1,0): ## Moving Right
-				faced_direction = Vector2(1,0)
 				if(!(player_animated_sprite.animation == "walking_right")):
 					player_animated_sprite.play("walking_right")
 			Vector2(-1,0): ## Moving Left
-				faced_direction = Vector2(-1,0)
 				if(!(player_animated_sprite.animation == "walking_left")):
 					player_animated_sprite.play("walking_left")
 			Vector2(0,1): ## Moving Down
-				faced_direction = Vector2(0,1)
 				if(!(player_animated_sprite.animation == "walking_down")):
 					player_animated_sprite.play("walking_down")
 			Vector2(0,-1): ## Moving Up
-				faced_direction = Vector2(0,-1)
 				if(!(player_animated_sprite.animation == "walking_up")):
 					player_animated_sprite.play("walking_up")
 
@@ -158,26 +135,31 @@ func checkForInteract():
 			body.interact()
 
 ## BATTLE METHODS ##################################################################################
-func battle(enemy_group):
-	PlayerStats.enemy = enemy_group
-	inFight = true
-	set_collision_mask_value(2, false)
-	switchBattleCamera(true)
-	playerHP = player_Class.getHealth()
-	playerMana = player_Class.getMana()
-	battle_camera.readyBattle(enemy_group)
+func battle(enemy_body_reference):
+	PlayerStats.enemy = enemy_body_reference
+	startBattle(enemy_body_reference, enemy_body_reference.enemies)
+
+func startBattle(enemy_body : EnemyBody = null, enemy_group = [Enemy.new()]):
+	var battle_scene = preload("res://Scenes/debugWorld.tscn").instantiate()
+	battle_scene.z_index = 10
+	battle_scene.position = player_camera.global_position
+	battle_scene.readyBattle(self, enemy_group)
+	battle_scene.setBodyReference(enemy_body)
+	get_tree().root.add_child(battle_scene)
+	setInFight(true)
 
 func setInFight(boolean: bool):
 	if(boolean):
 		inFight = true
+		set_collision_mask_value(2, false)
 	else:
 		inFight = false
+		set_collision_mask_value(2, true)
 
 func battleWin():
 	PlayerStats.enemy.free()
-	inFight = false
+	setInFight(false)
 	switchBattleCamera(false)
-	set_collision_mask_value(2, true)
 
 func battleLose():
 	battleWin()
@@ -190,46 +172,77 @@ func switchBattleCamera(battle_cam_yes : bool):
 		player_camera.make_current()
 		battle_camera.visible = false
 
+func hurt(damage_amount):
+	player_health -= damage_amount
+	emit_signal("health_change", player_health)
+
+func manaCost(mana_cost):
+	player_mana -= mana_cost
+	emit_signal("mana_change", player_mana)
+
+func actionAmountChange(change_amount):
+	player_action_amount += change_amount
+	emit_signal("action_change", player_action_amount)
+
+func actionSetZero():
+	player_action_amount = 0
+	emit_signal("action_change", player_action_amount)
+
 #######################Level-Related Methods#############################################
 
-func levelUp():
-	level += 1
-	exp = exp - required_exp
-	required_exp += 100
-	if level == player_Class.getLearnset()[count].getLearnLevel():
-		moveset.append(attack.new())
-		moveset[count] = player_Class.getLearnset()[count]
-		count += 1
-
 func addPlayerExperience(xp_amount : float):
+	#Add experience.
 	exp += xp_amount
+	
+	#Check for level ups.
 	if (exp >= required_exp):
 		levelUp()
 
-## Extra Methods #########################################################################
-
-func faceGuard():
-	guard_area.position = faced_direction * 500
+func levelUp():
+	#Increment Level Stat
+	level += 1
+	
+	#Subtract necessary experience.
+	exp = exp - required_exp
+	
+	#Increase next level cap.
+	required_exp += 100
+	
+	#Check if a move can be learned.
+	if player_class.canLearnMove(level):
+		moveset.append(null)
+		moveset[moveset.size()-1] = player_class.nextMove(level)
+	else:
+		print("No learnable move at this level.")
 
 ## Get Methods ###########################################################################
 
-func getPlayerMoveset():
+func getMoveset():
 	return moveset
 
-func getPlayerHealth():
-	return playerHP
+func getMaxHealth():
+	return player_max_health
 
-func getPlayerMana():
-	return playerMana
+func getHealth():
+	return player_health
 
-func getPlayerClass():
-	return player_Class
+func getMaxMana():
+	return player_max_mana
 
-func getPlayerActionLimit():
+func getMana():
+	return player_mana
+
+func getClass():
+	return player_class
+
+func getActionLimit():
 	return player_action_limit
 
-func getPlayerActionAmount():
+func getActionAmount():
 	return player_action_amount
 
-func getPlayerActionMultiplier():
+func getActionMultiplier():
 	return player_action_multiplier
+
+func canAct() -> bool:
+	return getActionAmount() >= getActionLimit()

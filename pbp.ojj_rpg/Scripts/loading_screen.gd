@@ -17,7 +17,7 @@ func _ready():
 	ResourceLoader.load_threaded_request(scene_to_be_loaded)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	var progress = []
 	var progress_enum = ResourceLoader.load_threaded_get_status(scene_to_be_loaded, progress)
 	
