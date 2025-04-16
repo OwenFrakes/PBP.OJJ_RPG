@@ -34,7 +34,7 @@ func setClass(tempName: String, temphealth: float, tempstamina: float, tempmana:
 	learnset[2] = Attack.new()
 	learnset[2].setAttack("Moderate Attack", pWeapon.damage * 1.5, 4, 0, pWeapon.type, 5)
 	learnset[3] = Attack.new()
-	learnset[3].setAttack("Moderate Ice", 40, 0, 3, "ice", 7, ActionCondition.new("Ice", 1, -0.5))
+	learnset[3].setAttack("Moderate Ice", 40, 0, 3, "ice", 7, ActionCondition.new("Ice", 2, -0.33))
 	learnset[4] = Attack.new()
 	learnset[4].setAttack("Moderate Electric", 40, 0, 3, "electric", 9)
 	learnset[5] = Attack.new()

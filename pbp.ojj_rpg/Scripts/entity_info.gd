@@ -11,7 +11,8 @@ var vertical_container = VBoxContainer.new()
 
 ##Grid Container for Conditions##
 var condition_container = GridContainer.new()
-var condition_dictionary = Dictionary()
+var action_condition_dictionary = Dictionary()
+var damage_condition_dictionary = Dictionary()
 
 #Entity Name
 var name_label_node = Label.new()
@@ -116,15 +117,39 @@ func greyout(boolean : bool) -> void:
 func getGreyedOut() -> bool:
 	return is_greyed_out
 
-func addCondition(condition_name : String):
+func updateActionConditions(action_condition_array : Array):
 	#If it doesn't already have the condition sprite. Add one.
-	if condition_dictionary.get(condition_name) == null:
-		var condition_sprite = TextureRect.new()
-		condition_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		condition_sprite.texture = load("res://Resources/Conditions/IceCondition.png")
-		condition_sprite.custom_minimum_size = Vector2(32,32)
-		condition_dictionary.get_or_add(condition_name, condition_sprite)
-		condition_container.add_child(condition_sprite)
+	
+	#Go through each condition in the array.
+	for condition in action_condition_array:
+		#If it doesn't exist, add it.
+		if action_condition_dictionary.get(condition.getName()) == null:
+			#Make the Texture for it.
+			var condition_sprite = TextureRect.new()
+			condition_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			condition_sprite.texture = load("res://Resources/Conditions/IceCondition.png")
+			condition_sprite.custom_minimum_size = Vector2(32,32)
+			#Signal for Duration?
+			#condition_sprite.mouse_entered.connect()
+			#Add it to the dictionary.
+			action_condition_dictionary.get_or_add(condition.getName(), condition_sprite)
+			#Have it exist.
+			condition_container.add_child(condition_sprite)
+	
+	var exists = false
+	#If dictionary has it, but array doesn't, condition over, remove.
+	#Go through each key.
+	for key in action_condition_dictionary.keys():
+		#Go through each condition.
+		for action_condition in action_condition_array:
+			#If the key matches a condition, it's good.
+			#Otherwise remove it.
+			if key == action_condition.getName():
+				exists = true
+				break
+		if !exists:
+			action_condition_dictionary.get_or_add(key).queue_free()
+			action_condition_dictionary.erase(key)
 
 ##Health###################################################
 func setHealthBar(new_max, current_value = new_max):

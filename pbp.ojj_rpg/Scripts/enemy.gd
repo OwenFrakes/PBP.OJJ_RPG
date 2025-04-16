@@ -29,6 +29,8 @@ var xp_amount = 100
 signal health_change(new_health)
 signal mana_change(new_mana)
 signal action_change(new_action_amount)
+signal action_condition_change(condition_array)
+signal damage_condition_change(condition_array)
 
 # Called when the node enters the scene tree for the first time.
 func setEnemy(tName: String, tHealth: float, tMana: float, tWeakness: Array, tMoveset: Array, new_frames: SpriteFrames = load("res://Resources/Character/SpriteSets/blue_robot_set.tres")):
@@ -53,19 +55,23 @@ func damage(attack : Attack) -> int:
 	var condition = attack.getActionCondition()
 	health -= damage_amount
 	
-	if condition is ActionCondition:
-		var pre_existing = false
-		for existing_condition in action_conditions:
-			if condition.getName() == existing_condition.getName():
-				pre_existing = true
-		if !pre_existing:
-			action_conditions.append(condition)
-		else:
-			print("Already has this condition")
+	tryCondition(condition)
 	
-	#print("Enemy damage(): " + int(health))
 	emit_signal("health_change", health)
 	return health
+
+func tryCondition(this_condition):
+	if this_condition is ActionCondition:
+		var pre_existing = false
+		for existing_condition in action_conditions:
+			if this_condition.getName() == existing_condition.getName():
+				pre_existing = true
+				break
+		if !pre_existing:
+			action_conditions.append(this_condition)
+			emit_signal("action_condition_change", action_conditions)
+		else:
+			print("Already has this condition")
 
 func actionAmountChange(change_amount):
 	action_amount += change_amount
@@ -87,8 +93,11 @@ func totalActionConditions():
 		action_multiplier += action_condition.getStrength()
 
 func passActionConditions():
-	for action_condition in action_conditions:
-		action_condition.passTurn()
+	for condition_pos in action_conditions.size():
+		action_conditions[condition_pos].passTurn()
+		if action_conditions[condition_pos].getDuration() <= 0:
+			action_conditions.remove_at(condition_pos)
+			emit_signal("action_condition_change", action_conditions)
 
 func randomActionLimit():
 	action_limit = action_limit + randi_range(-10,10)

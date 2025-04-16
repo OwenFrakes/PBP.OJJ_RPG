@@ -17,9 +17,15 @@ func _init(new_attack : Attack) -> void:
 		"electric":
 			icon = load("res://Resources/Conditions/ElectricityCondition.png")
 		"light":
-			icon = load("res://Resources/Conditions/BananaCondition.png")
+			icon = load("res://Resources/Conditions/Light.png")
 		"dark":
-			icon = load("res://Resources/Conditions/BananaCondition.png")
+			icon = load("res://Resources/Conditions/Dark.png")
+		"bash":
+			icon = load("res://Resources/Conditions/Bash.png")
+		"slash":
+			icon = load("res://Resources/Conditions/Pierce.png")
+		"pierce":
+			icon = load("res://Resources/Conditions/Slash.png")
 	
 	#Text
 	text = stored_attack.getName()

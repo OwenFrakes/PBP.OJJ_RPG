@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://caq5d8nmcqe1g"]
 
-[ext_resource type="Script" uid="uid://bhgvr3flcurpt" path="res://Scripts/debug_battle.gd" id="1_71au1"]
+[ext_resource type="Script" uid="uid://bhgvr3flcurpt" path="res://Scripts/battle.gd" id="1_71au1"]
 
 [node name="DebugWorld" type="Node2D"]
 script = ExtResource("1_71au1")

@@ -63,34 +63,38 @@ func readyAttackList(attack_list : Array = [Attack.new()]):
 		attacks.append(attack_btn)
 
 # Makes the EntityInfo's for the enemies.
+# Also, this is horrible to look at. Don't stare too long.
 func readyEnemyInfo(enemies : Array):
 	for enemy_number in range(enemies.size()):
+		
+		## Define the Info Entity
 		var enemy_info_entity = EntityInfo.new(enemies[enemy_number].getName(), enemies[enemy_number].enemy_sprite_frames)
 		enemy_info.append(enemy_info_entity)
-		
 		# Set upper limits.
 		enemy_info_entity.setHealthBar(enemies[enemy_number].getHealth())
 		enemy_info_entity.setActionBar(enemies[enemy_number].getActionLimit())
 		enemy_info_entity.isEnemy()
-		
 		# Connect signals
 		# Make sure not to try and manipulate local variables in a global context...
 		enemies[enemy_number].health_change.connect(enemy_info_entity.changeHealth)
 		enemies[enemy_number].action_change.connect(enemy_info_entity.changeAction)
-		
+		enemies[enemy_number].action_condition_change.connect(enemy_info_entity.updateActionConditions)
+		# Move the Info Entity to the correct position.
 		enemy_info_entity.position = enemy_markers[enemy_number].position
 		add_child(enemy_info_entity)
 		
-		# Enemy Selection Button
+		## Make the Enemy Selection Button
 		var selection_button = SelectionButton.new(enemies[enemy_number])
 		selection_buttons.append(selection_button)
 		selection_button.size = Vector2(128,128)
 		selection_button.position = Vector2(-64,-64)
+		# Connect Signal
 		selection_button.send_reference.connect(setEnemySelection)
+		# Add and hide it.
 		enemy_info_entity.add_child(selection_button)
 		selection_button.hide()
 		
-		#Dictionary Key Assignment
+		## Dictionary Key Assignment
 		enemy_related_nodes_dict.get_or_add(enemies[enemy_number], [enemy_info_entity,selection_button])
 
 # Makes the EntityInfo for the player.
@@ -146,6 +150,9 @@ func _process(delta: float) -> void:
 				#Make sure the enemy can act.
 				pause = true
 				enemyAttack(actor)
+				
+				#Pass time on conditions.
+				actor.passActionConditions()
 		
 		# 3. Otherwise, progress time.
 		else:
@@ -173,12 +180,15 @@ func playerAttack(player_attack, the_enemy):
 	player_reference.hurt(player_attack.getHealthCost())
 	player_reference.manaCost(player_attack.getManaCost())
 	
-	#Kill the enemy if they're... dead. Also remove the entity info related to it.
+	# Kill the enemy if they're... dead. Also remove the entity info related to it.
 	if the_enemy.getHealth() <= 0:
 		removeEnemy(the_enemy)
 	
+	# Have the player win if they're all dead.
 	if enemy_group == []:
 		battleWin()
+	
+	# Otherwise, continue as usual.
 	else:
 		#Reset player action amount.
 		player_reference.actionSetZero()
