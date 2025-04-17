@@ -129,12 +129,23 @@ func updateActionConditions(action_condition_array : Array):
 			condition_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			condition_sprite.texture = load("res://Resources/Conditions/IceCondition.png")
 			condition_sprite.custom_minimum_size = Vector2(32,32)
-			#Signal for Duration?
-			#condition_sprite.mouse_entered.connect()
 			#Add it to the dictionary.
 			action_condition_dictionary.get_or_add(condition.getName(), condition_sprite)
 			#Have it exist.
 			condition_container.add_child(condition_sprite)
+			
+			## Duration Label
+			var condition_label = Label.new()
+			condition_label.theme = load("res://Resources/Themes/ConditionTheme.tres")
+			condition_label.text = str(condition.getDuration())
+			condition_label.custom_minimum_size = Vector2(32,32)
+			condition_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			condition_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+			condition_label.hide()
+			# Using signals, the number appears and disappears when the mouse hovers.
+			condition_sprite.mouse_entered.connect(condition_label.show)
+			condition_sprite.mouse_exited.connect(condition_label.hide)
+			condition_sprite.add_child(condition_label)
 	
 	var exists = false
 	#If dictionary has it, but array doesn't, condition over, remove.

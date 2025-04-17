@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj8kycp22sbt5"
-path="res://.godot/imported/Brawler Walking.png-335f3eef15edf3e28ab70fc125a48684.ctex"
+uid="uid://bgwdlh3h3rkkx"
+path="res://.godot/imported/Brawler Updated .png-e201d274fb124268ba8c465b69feb714.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Character/Brawler Walking.png"
-dest_files=["res://.godot/imported/Brawler Walking.png-335f3eef15edf3e28ab70fc125a48684.ctex"]
+source_file="res://Resources/Character/Brawler Updated .png"
+dest_files=["res://.godot/imported/Brawler Updated .png-e201d274fb124268ba8c465b69feb714.ctex"]
 
 [params]
 

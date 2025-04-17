@@ -100,7 +100,7 @@ func readyEnemyInfo(enemies : Array):
 # Makes the EntityInfo for the player.
 func readyPlayerInfo():
 	player_info = EntityInfo.new("Player", player_reference.player_animated_sprite.sprite_frames)
-	player_info.z_index = 100
+	player_info.z_index = 5
 	
 	# Set upper limits.
 	player_info.setHealthBar(player_reference.getMaxHealth(), player_reference.getHealth())
@@ -180,6 +180,8 @@ func playerAttack(player_attack, the_enemy):
 	player_reference.hurt(player_attack.getHealthCost())
 	player_reference.manaCost(player_attack.getManaCost())
 	
+	attackAnimation(enemy_related_nodes_dict.get_or_add(the_enemy)[0].position)
+	
 	# Kill the enemy if they're... dead. Also remove the entity info related to it.
 	if the_enemy.getHealth() <= 0:
 		removeEnemy(the_enemy)
@@ -201,6 +203,7 @@ func enemyAttack(enemy_reference : Enemy):
 	enemy_reference.actionAmountZero()
 	await get_tree().create_timer(0.75).timeout
 	player_reference.hurt(enemy_reference.getMoveset()[0].getDamage())
+	attackAnimation(player_info.position)
 	await get_tree().create_timer(0.75).timeout
 	pause = false
 
@@ -277,6 +280,19 @@ func battleWin():
 	
 	# Free() the battle scene.
 	queue_free()
+
+##### GUI / MISC FUNCTIONS #################################
+
+func attackAnimation(pos : Vector2):
+	var animation_sprite = AnimatedSprite2D.new()
+	animation_sprite.sprite_frames = load("res://Resources/AttackAnimations/default_attack.tres")
+	animation_sprite.animation_finished.connect(animation_sprite.queue_free)
+	animation_sprite.position = pos
+	animation_sprite.autoplay = "default"
+	animation_sprite.scale = Vector2(2,2)
+	animation_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	animation_sprite.z_index = 10
+	add_child(animation_sprite)
 
 ##### SIGNALS FUNCTIONS ####################################
 
