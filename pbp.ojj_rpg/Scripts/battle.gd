@@ -2,6 +2,7 @@ extends Node2D
 
 # Existing Nodes
 @onready var attacks_container: VBoxContainer = $BattleControl/ScrollControl/ScrollContainer/AttacksContainer
+@onready var run_btn: Button = $BattleControl/ScrollControl/RunBtn
 
 # Player Marker
 @onready var player_marker: Marker2D = $PlayerMarker
@@ -61,6 +62,7 @@ func readyAttackList(attack_list : Array = [Attack.new()]):
 		attack_btn.send_attack.connect(setSelectedAttack)
 		center_container.add_child(attack_btn)
 		attacks.append(attack_btn)
+	attacks.append(run_btn)
 
 # Makes the EntityInfo's for the enemies.
 # Also, this is horrible to look at. Don't stare too long.
@@ -88,11 +90,18 @@ func readyEnemyInfo(enemies : Array):
 		selection_buttons.append(selection_button)
 		selection_button.size = Vector2(128,128)
 		selection_button.position = Vector2(-64,-64)
+		selection_button.theme = load("res://Resources/Themes/ConditionTheme.tres")
 		# Connect Signal
 		selection_button.send_reference.connect(setEnemySelection)
 		# Add and hide it.
 		enemy_info_entity.add_child(selection_button)
 		selection_button.hide()
+		# Add an animated sprite so people can know to select it.
+		var button_sprite = AnimatedSprite2D.new()
+		button_sprite.autoplay = "default"
+		button_sprite.sprite_frames = load("res://Resources/AttackAnimations/attack_selection.tres")
+		button_sprite.position = Vector2(selection_button.size.x/2, -20)
+		selection_button.add_child(button_sprite)
 		
 		## Dictionary Key Assignment
 		enemy_related_nodes_dict.get_or_add(enemies[enemy_number], [enemy_info_entity,selection_button])
@@ -208,19 +217,17 @@ func enemyAttack(enemy_reference : Enemy):
 	pause = false
 
 func enablePlayerControls():
-	var attack_center_containers = attacks_container.get_children()
-	for container in attack_center_containers:
-		var attack_button = container.get_child(0)
-		if attack_button.canUse(player_reference.getMana()):
+	for attack_button in attacks:
+		if attack_button is AttackButton && attack_button.canUse(player_reference.getMana()):
 			attack_button.disabled = false
-		else:
+		elif attack_button is AttackButton:
 			attack_button.disabled = true
+		else:
+			attack_button.disabled = false
 
 func disablePlayerControls():
-	var attack_center_containers = attacks_container.get_children()
-	for container in attack_center_containers:
-		var attack_button = container.get_child(0)
-		attack_button.disabled = true
+	for attack in attacks:
+		attack.disabled = true
 
 func showEnemySelection():
 	for button in selection_buttons:
@@ -299,6 +306,7 @@ func attackAnimation(pos : Vector2):
 # Connected signal for selecting an AttackButton.
 func setSelectedAttack(new_attack : Attack) -> void:
 	if player_reference.canAct():
+		# Get attack data and show enemies.
 		selected_attack = new_attack
 		showEnemySelection()
 

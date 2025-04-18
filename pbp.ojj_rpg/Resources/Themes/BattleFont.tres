@@ -1,4 +1,8 @@
-[gd_resource type="Theme" format=3 uid="uid://vglyosakatfl"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://vglyosakatfl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kguo7"]
+bg_color = Color(0.716637, 0.437028, 1, 1)
 
 [resource]
 Button/font_sizes/font_size = 56
+Button/styles/focus = SubResource("StyleBoxFlat_kguo7")

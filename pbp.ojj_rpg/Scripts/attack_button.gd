@@ -33,13 +33,12 @@ func _init(new_attack : Attack) -> void:
 	#Signal
 	pressed.connect(sendAttackSignal)
 	
-	#Focus
-	focus_mode = Control.FOCUS_NONE
-	
 	# Make the button look nice and big.
 	custom_minimum_size = Vector2(500,100)
 	theme = load("res://Resources/Themes/BattleFont.tres")
 	autowrap_mode = TextServer.AUTOWRAP_WORD
+	clip_contents = false
+	
 
 func sendAttackSignal():
 	emit_signal("send_attack", stored_attack)
