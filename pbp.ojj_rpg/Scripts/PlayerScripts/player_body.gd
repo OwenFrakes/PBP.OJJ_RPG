@@ -139,7 +139,7 @@ func battle(enemy_body_reference):
 	startBattle(enemy_body_reference, enemy_body_reference.enemies)
 
 func startBattle(enemy_body : EnemyBody = null, enemy_group = [Enemy.new()]):
-	var battle_scene = preload("res://Scenes/debugWorld.tscn").instantiate()
+	var battle_scene = preload("res://Scenes/battle.tscn").instantiate()
 	battle_scene.z_index = 50
 	battle_scene.position = player_camera.global_position
 	battle_scene.readyBattle(self, enemy_group)
