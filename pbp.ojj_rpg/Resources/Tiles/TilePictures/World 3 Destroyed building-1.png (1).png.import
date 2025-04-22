@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpmkgh8ni4vcx"
-path="res://.godot/imported/burnt tree-1.png.png-4c36378d7b2e7a7873ee6fe0de5decc3.ctex"
+uid="uid://pmxw2hdml2ow"
+path="res://.godot/imported/World 3 Destroyed building-1.png (1).png-fe6ee2dbf8f6efca954ba7aaa56640ca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Tiles/TilePictures/burnt tree-1.png.png"
-dest_files=["res://.godot/imported/burnt tree-1.png.png-4c36378d7b2e7a7873ee6fe0de5decc3.ctex"]
+source_file="res://Resources/Tiles/TilePictures/World 3 Destroyed building-1.png (1).png"
+dest_files=["res://.godot/imported/World 3 Destroyed building-1.png (1).png-fe6ee2dbf8f6efca954ba7aaa56640ca.ctex"]
 
 [params]
 

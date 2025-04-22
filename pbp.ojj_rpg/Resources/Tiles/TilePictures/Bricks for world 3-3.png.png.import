@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doos3u2ype1r8"
-path="res://.godot/imported/PathAndObjects-2.png (2).png-0b5dfa6fb74c9735d55a5acb998867cf.ctex"
+uid="uid://bfskkaeo7klnk"
+path="res://.godot/imported/Bricks for world 3-3.png.png-33b6b37d9fb879b95bec39f2fdcb3bb4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/PathAndObjects-2.png (2).png"
-dest_files=["res://.godot/imported/PathAndObjects-2.png (2).png-0b5dfa6fb74c9735d55a5acb998867cf.ctex"]
+source_file="res://Resources/Tiles/TilePictures/Bricks for world 3-3.png.png"
+dest_files=["res://.godot/imported/Bricks for world 3-3.png.png-33b6b37d9fb879b95bec39f2fdcb3bb4.ctex"]
 
 [params]
 
