@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lw0h4pw4d514"
-path="res://.godot/imported/cryochamber-2.png.png-1198e4c0cda8d25379a1dd8ac32e67a4.ctex"
+uid="uid://dir2ov3vvwwnc"
+path="res://.godot/imported/TitleImage.png-757577caa45d1de3d1da8eb3ec034e93.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/cryochamber-2.png.png"
-dest_files=["res://.godot/imported/cryochamber-2.png.png-1198e4c0cda8d25379a1dd8ac32e67a4.ctex"]
+source_file="res://Resources/Gubbins/TitleImage.png"
+dest_files=["res://.godot/imported/TitleImage.png-757577caa45d1de3d1da8eb3ec034e93.ctex"]
 
 [params]
 

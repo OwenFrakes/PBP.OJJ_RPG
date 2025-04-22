@@ -81,6 +81,7 @@ func readyEnemyInfo(enemies : Array):
 		enemies[enemy_number].health_change.connect(enemy_info_entity.changeHealth)
 		enemies[enemy_number].action_change.connect(enemy_info_entity.changeAction)
 		enemies[enemy_number].action_condition_change.connect(enemy_info_entity.updateActionConditions)
+		enemies[enemy_number].damage_condition_change.connect(enemy_info_entity.updateDamageConditions)
 		# Move the Info Entity to the correct position.
 		enemy_info_entity.position = enemy_markers[enemy_number].position
 		add_child(enemy_info_entity)
@@ -162,6 +163,8 @@ func _process(delta: float) -> void:
 				
 				#Pass time on conditions.
 				actor.passActionConditions()
+				actor.passDamageConditions()
+				checkEnemiesForDeaths()
 		
 		# 3. Otherwise, progress time.
 		else:
@@ -261,6 +264,11 @@ func removeEnemy(enemy_instance : Enemy):
 			enemy_group[enemy_pos].queue_free()
 			enemy_group.remove_at(enemy_pos)
 			break
+
+func checkEnemiesForDeaths():
+	for enemy in enemy_group:
+		if enemy.getHealth() <= 0:
+			removeEnemy(enemy)
 
 ##### ACTION FUNCTIONS #####################################
 

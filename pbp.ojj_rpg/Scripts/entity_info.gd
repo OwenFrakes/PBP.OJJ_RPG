@@ -125,27 +125,10 @@ func updateActionConditions(action_condition_array : Array):
 		#If it doesn't exist, add it.
 		if action_condition_dictionary.get(condition.getName()) == null:
 			#Make the Texture for it.
-			var condition_sprite = TextureRect.new()
-			condition_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			condition_sprite.texture = load("res://Resources/Conditions/IceCondition.png")
-			condition_sprite.custom_minimum_size = Vector2(32,32)
-			#Add it to the dictionary.
+			var condition_sprite = ConditionSprite.new("res://Resources/Conditions/IceCondition.png", condition.getDuration())
+			condition.duration_change.connect(condition_sprite.updateLabel)
 			action_condition_dictionary.get_or_add(condition.getName(), condition_sprite)
-			#Have it exist.
 			condition_container.add_child(condition_sprite)
-			
-			## Duration Label
-			var condition_label = Label.new()
-			condition_label.theme = load("res://Resources/Themes/ConditionTheme.tres")
-			condition_label.text = str(condition.getDuration())
-			condition_label.custom_minimum_size = Vector2(32,32)
-			condition_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			condition_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-			condition_label.hide()
-			# Using signals, the number appears and disappears when the mouse hovers.
-			condition_sprite.mouse_entered.connect(condition_label.show)
-			condition_sprite.mouse_exited.connect(condition_label.hide)
-			condition_sprite.add_child(condition_label)
 	
 	var exists = false
 	#If dictionary has it, but array doesn't, condition over, remove.
@@ -161,6 +144,34 @@ func updateActionConditions(action_condition_array : Array):
 		if !exists:
 			action_condition_dictionary.get_or_add(key).queue_free()
 			action_condition_dictionary.erase(key)
+
+func updateDamageConditions(damage_condition_array : Array):
+	#If it doesn't already have the condition sprite. Add one.
+	
+	#Go through each condition in the array.
+	for condition in damage_condition_array:
+		#If it doesn't exist, add it.
+		if damage_condition_dictionary.get(condition.getName()) == null:
+			#Make the Texture for it.
+			var condition_sprite = ConditionSprite.new("res://Resources/Conditions/FireCondition.png", condition.getDuration())
+			condition.duration_change.connect(condition_sprite.updateLabel)
+			damage_condition_dictionary.get_or_add(condition.getName(), condition_sprite)
+			condition_container.add_child(condition_sprite)
+	
+	var exists = false
+	#If dictionary has it, but array doesn't, condition over, remove.
+	#Go through each key.
+	for key in damage_condition_dictionary.keys():
+		#Go through each condition.
+		for damage_condition in damage_condition_array:
+			#If the key matches a condition, it's good.
+			#Otherwise remove it.
+			if key == damage_condition.getName():
+				exists = true
+				break
+		if !exists:
+			damage_condition_dictionary.get_or_add(key).queue_free()
+			damage_condition_dictionary.erase(key)
 
 ##Health###################################################
 func setHealthBar(new_max, current_value = new_max):

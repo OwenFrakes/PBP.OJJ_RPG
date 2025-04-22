@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwikra2qi8nme"
-path="res://.godot/imported/ChestOpeningAnimation.png-a76891ae8b58a869ef6b0939d5230c1c.ctex"
+uid="uid://dsptpbl12csmj"
+path="res://.godot/imported/newtree-1.png (1).png-083cc03c3da85577013dfb02c8f8ab35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/ChestOpeningAnimation.png"
-dest_files=["res://.godot/imported/ChestOpeningAnimation.png-a76891ae8b58a869ef6b0939d5230c1c.ctex"]
+source_file="res://Resources/Gubbins/newtree-1.png (1).png"
+dest_files=["res://.godot/imported/newtree-1.png (1).png-083cc03c3da85577013dfb02c8f8ab35.ctex"]
 
 [params]
 

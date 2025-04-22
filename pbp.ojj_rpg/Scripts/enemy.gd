@@ -53,7 +53,7 @@ func setEnemy(tName: String, tHealth: float, tMana: float, tWeakness: Array, tMo
 func damage(attack : Attack) -> int:
 	var damage_amount = attack.getDamage()
 	var condition = attack.getActionCondition()
-	health -= damage_amount
+	health -= damage_amount * getEffectiveness(attack.getType())
 	
 	tryCondition(condition)
 	
@@ -61,6 +61,7 @@ func damage(attack : Attack) -> int:
 	return health
 
 func tryCondition(this_condition):
+	## Action Condition ##
 	if this_condition is ActionCondition:
 		var pre_existing = false
 		for existing_condition in action_conditions:
@@ -70,6 +71,18 @@ func tryCondition(this_condition):
 		if !pre_existing:
 			action_conditions.append(this_condition)
 			emit_signal("action_condition_change", action_conditions)
+		else:
+			print("Already has this condition")
+	## Damage Condition ##
+	if this_condition is DamageCondition:
+		var pre_existing = false
+		for existing_condition in damage_conditions:
+			if this_condition.getName() == existing_condition.getName():
+				pre_existing = true
+				break
+		if !pre_existing:
+			damage_conditions.append(this_condition)
+			emit_signal("damage_condition_change", damage_conditions)
 		else:
 			print("Already has this condition")
 
@@ -98,6 +111,21 @@ func passActionConditions():
 		if action_conditions[condition_pos].getDuration() <= 0:
 			action_conditions.remove_at(condition_pos)
 			emit_signal("action_condition_change", action_conditions)
+
+func passDamageConditions():
+	for condition_pos in damage_conditions.size():
+		damage_conditions[condition_pos].passTurn()
+		health -= damage_conditions[condition_pos].getStrength()
+		emit_signal("health_change", health)
+		if damage_conditions[condition_pos].getDuration() <= 0:
+			damage_conditions.remove_at(condition_pos)
+			emit_signal("damage_condition_change", damage_conditions)
+
+func getEffectiveness(attack_type : String) -> int:
+	for weak in weakness:
+		if weak == attack_type:
+			return 2
+	return 1
 
 func randomActionLimit():
 	action_limit = action_limit + randi_range(-10,10)
