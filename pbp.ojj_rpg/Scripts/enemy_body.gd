@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
 		var player_distance = sqrt(pow(player_distance_vector.x, 2) + pow(player_distance_vector.y, 2))
 		
 		#If within hopping distance, and not on cooldown, hop.
-		if(player_distance < 1000 && move_cooldown <= 0):
+		if(player_distance < 740 && move_cooldown <= 0):
 			#Calculate the jump power. Fun equation to read in code.
 			var jump_power = (((-1.0 / (10.0/3.0)) * (player_distance/100.0)) + 3.0) + randf_range(-0.5, 0.5)
 			#print(jump_power)

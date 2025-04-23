@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=15 format=4 uid="uid://d4gy4cuq2fxdt"]
 
 [ext_resource type="Script" uid="uid://cijkcmdj1bj1k" path="res://Scripts/PlayerScripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Script" uid="uid://dy8wshpjblacr" path="res://Scripts/world_terrain.gd" id="2_10gtn"]
@@ -6,6 +6,7 @@
 [ext_resource type="TileSet" uid="uid://bslv4e41bebif" path="res://Resources/Tiles/SuperTileAtlas.tres" id="2_rkuw8"]
 [ext_resource type="Script" uid="uid://c0p1biuu0xv6c" path="res://Scripts/generation.gd" id="4_31yte"]
 [ext_resource type="Script" uid="uid://ck7g2jnhvpva5" path="res://Scripts/PlayerScripts/pause_menu.gd" id="5_awuil"]
+[ext_resource type="Script" uid="uid://2iwrt2efbqjg" path="res://Scripts/player_camera.gd" id="8_7yui6"]
 [ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="10_8inel"]
 [ext_resource type="Script" uid="uid://ddw65ycj872j6" path="res://Scripts/background_music.gd" id="15_hd86r"]
 [ext_resource type="PackedScene" uid="uid://mn0g3e7wixmj" path="res://Scenes/Enemies/enemy1.tscn" id="16_iwr0i"]
@@ -49,11 +50,6 @@ script = ExtResource("1_sauk2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_jpw16")
-
-[node name="PlayerCamera" type="Camera2D" parent="Player"]
-z_index = 25
-position = Vector2(-960, -540)
-anchor_mode = 0
 
 [node name="PauseMenu" type="Panel" parent="Player"]
 process_mode = 3
@@ -126,9 +122,16 @@ collision_mask = 4
 [node name="InteractShape" type="CollisionShape2D" parent="Player/InteractionArea"]
 shape = SubResource("CircleShape2D_mwjq7")
 
+[node name="CameraController" type="Node2D" parent="Player"]
+script = ExtResource("8_7yui6")
+
+[node name="PlayerCamera" type="Camera2D" parent="Player/CameraController"]
+z_index = 25
+position = Vector2(-960, -540)
+anchor_mode = 0
+
 [node name="NewEnemy" parent="." instance=ExtResource("16_iwr0i")]
 position = Vector2(3467, 1260)
-enemy_movement_disabled = true
 
 [node name="Walls" type="Node2D" parent="."]
 

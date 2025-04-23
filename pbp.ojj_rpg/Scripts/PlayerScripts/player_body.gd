@@ -8,7 +8,7 @@ var player_class: PlayerClass
 ## Node Variables ##
 @onready var player_animated_sprite = $PlayerAnimatedSprite
 @onready var interaction_area = $InteractionArea
-@onready var player_camera = $PlayerCamera
+@onready var player_camera: Camera2D = $CameraController/PlayerCamera
 
 ## Battle Variables ##
 var player_max_health
