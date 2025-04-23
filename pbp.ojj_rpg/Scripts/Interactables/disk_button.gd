@@ -15,7 +15,7 @@ func setDisks():
 	disks.resize(10)
 	print(disks.size())
 	disks[0] = Disk.new()
-	disks[0].setDisk("Disk 1", "res://Resources/Disks/purple-disk.png.png", "This is disk 1")
+	disks[0].setDisk("Disk 1", "res://Resources/Disks/purple-disk.png.png", getStringFromFile("res://Resources/TxtFiles/Disk Discriptions/Disk1Disc.txt"))
 	disks[1] = Disk.new()
 	disks[1].setDisk("Disk 2", "res://Resources/Disks/black-disk.png.png", "This is disk 2")
 	disks[2] = Disk.new()
@@ -63,4 +63,8 @@ func interact():
 	animation.play("default")
 	await animation.animation_finished
 		
-	
+
+func getStringFromFile(file_path : String) -> String:
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	var text = file.get_as_text()
+	return text
