@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvt3bgo4pitdb"
-path="res://.godot/imported/image (1).png-9a999ccf517cbded24c9042cc086cec0.ctex"
+uid="uid://c1djh802gqm4i"
+path="res://.godot/imported/Red burnt tent-3.png.png-1023c70af7ec5e725802b674d7c18091.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/image (1).png"
-dest_files=["res://.godot/imported/image (1).png-9a999ccf517cbded24c9042cc086cec0.ctex"]
+source_file="res://Resources/Tiles/TilePictures/Red burnt tent-3.png.png"
+dest_files=["res://.godot/imported/Red burnt tent-3.png.png-1023c70af7ec5e725802b674d7c18091.ctex"]
 
 [params]
 

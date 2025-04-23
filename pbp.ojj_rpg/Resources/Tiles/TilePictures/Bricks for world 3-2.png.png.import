@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cftup8cjjenir"
-path="res://.godot/imported/Tree Left-1.png.png-9a7f624719b050a965e968b12fe3e12c.ctex"
+uid="uid://b37ruwg046jgf"
+path="res://.godot/imported/Bricks for world 3-2.png.png-65197167b2171fa34aadf90610a3f784.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Tree Left-1.png.png"
-dest_files=["res://.godot/imported/Tree Left-1.png.png-9a7f624719b050a965e968b12fe3e12c.ctex"]
+source_file="res://Resources/Tiles/TilePictures/Bricks for world 3-2.png.png"
+dest_files=["res://.godot/imported/Bricks for world 3-2.png.png-65197167b2171fa34aadf90610a3f784.ctex"]
 
 [params]
 

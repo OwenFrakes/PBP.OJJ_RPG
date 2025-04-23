@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm4fm6tn7a6jl"
-path="res://.godot/imported/Tree-2.png.png-d0d4af4a10264a931e226c8b441b9541.ctex"
+uid="uid://c1ppb1x3b2im2"
+path="res://.godot/imported/Destroyed building-1.png (1).png-8df7be0206a079b1e4c01665e1bce8b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Tree-2.png.png"
-dest_files=["res://.godot/imported/Tree-2.png.png-d0d4af4a10264a931e226c8b441b9541.ctex"]
+source_file="res://Resources/Tiles/TilePictures/Destroyed building-1.png (1).png"
+dest_files=["res://.godot/imported/Destroyed building-1.png (1).png-8df7be0206a079b1e4c01665e1bce8b0.ctex"]
 
 [params]
 
