@@ -4,6 +4,7 @@ extends Node
 var selected_player_class : PlayerClass
 var selected_player_weapon
 var enemy
+var worldNum: int
 @onready var player_item_list = "Player/PlayerMenu/Panel/ItemList"
 @onready var player_node_path
 
@@ -19,4 +20,11 @@ func _input(_event: InputEvent) -> void:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-	
+			
+func setPlayerLoc():
+	if worldNum == 1:
+		Vector2(0, 1)
+	elif worldNum == 2:
+		Vector2(0,2)
+	else:
+		Vector2(0,3)
