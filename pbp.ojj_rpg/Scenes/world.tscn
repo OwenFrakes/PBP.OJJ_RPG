@@ -79,6 +79,39 @@ shape = SubResource("CircleShape2D_jpw16")
 z_index = 25
 position = Vector2(3332, -5494)
 
+[node name="LorePannel" type="Panel" parent="Player/PlayerCamera"]
+
+[node name="CloseButton" type="Button" parent="Player/PlayerCamera/LorePannel"]
+layout_mode = 0
+offset_left = 1755.0
+offset_top = 13.0
+offset_right = 1909.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 50
+text = "X"
+
+[node name="ItemName" type="Label" parent="Player/PlayerCamera/LorePannel"]
+layout_mode = 0
+offset_left = 285.0
+offset_top = 142.0
+offset_right = 577.0
+offset_bottom = 279.0
+theme_override_font_sizes/font_size = 100
+text = "Dante"
+
+[node name="ItemPic" type="Sprite2D" parent="Player/PlayerCamera/LorePannel"]
+position = Vector2(418.75, 621.25)
+texture = ExtResource("4_ikl6f")
+
+[node name="ItemInfo" type="Label" parent="Player/PlayerCamera/LorePannel"]
+layout_mode = 0
+offset_left = 887.0
+offset_top = 121.0
+offset_right = 1791.0
+offset_bottom = 417.0
+theme_override_font_sizes/font_size = 100
+text = "blah blah blah lore"
+
 [node name="PauseMenu" type="Panel" parent="Player"]
 process_mode = 3
 visible = false
@@ -308,46 +341,6 @@ offset_top = 394.0
 offset_right = 281.0
 offset_bottom = 477.0
 focus_mode = 0
-
-[node name="LorePannel" type="Panel" parent="BattleCamera/Control"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="CloseButton" type="Button" parent="BattleCamera/Control/LorePannel"]
-layout_mode = 0
-offset_left = 1755.0
-offset_top = 13.0
-offset_right = 1909.0
-offset_bottom = 90.0
-theme_override_font_sizes/font_size = 50
-text = "X"
-
-[node name="ItemName" type="Label" parent="BattleCamera/Control/LorePannel"]
-layout_mode = 0
-offset_left = 285.0
-offset_top = 142.0
-offset_right = 577.0
-offset_bottom = 279.0
-theme_override_font_sizes/font_size = 100
-text = "Dante"
-
-[node name="ItemPic" type="Sprite2D" parent="BattleCamera/Control/LorePannel"]
-position = Vector2(418.75, 621.25)
-texture = ExtResource("4_ikl6f")
-
-[node name="ItemInfo" type="Label" parent="BattleCamera/Control/LorePannel"]
-layout_mode = 0
-offset_left = 887.0
-offset_top = 121.0
-offset_right = 1791.0
-offset_bottom = 417.0
-theme_override_font_sizes/font_size = 100
-text = "blah blah blah lore"
 
 [node name="PlayerPosition1" type="Marker2D" parent="BattleCamera"]
 position = Vector2(545, 265)
