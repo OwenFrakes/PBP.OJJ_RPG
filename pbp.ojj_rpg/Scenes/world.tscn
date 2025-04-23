@@ -1,6 +1,6 @@
-[gd_scene load_steps=27 format=4 uid="uid://d4gy4cuq2fxdt"]
+[gd_scene load_steps=26 format=4 uid="uid://d4gy4cuq2fxdt"]
 
-[ext_resource type="Script" uid="uid://ce76w3cgtgu38" path="res://Scripts/PlayerScripts/player_body.gd" id="1_sauk2"]
+[ext_resource type="Script" uid="uid://cijkcmdj1bj1k" path="res://Scripts/PlayerScripts/player_body.gd" id="1_sauk2"]
 [ext_resource type="Texture2D" uid="uid://cnv823cj7vo3p" path="res://Resources/Tiles/TilePictures/GreenTile.png" id="2_3e5v3"]
 [ext_resource type="Script" path="res://Scripts/world_terrain.gd" id="2_10gtn"]
 [ext_resource type="Theme" uid="uid://jb6cfq2h0xhb" path="res://Resources/Themes/PauseMenu.tres" id="2_g36tr"]
@@ -9,15 +9,14 @@
 [ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="4_ikl6f"]
 [ext_resource type="Script" uid="uid://15uy4007mh70" path="res://Scripts/PlayerScripts/pause_menu.gd" id="5_awuil"]
 [ext_resource type="Script" uid="uid://be1gv8s1cep2d" path="res://Scripts/PlayerScripts/inventory.gd" id="6_68pg1"]
-[ext_resource type="Script" uid="uid://c4hilngin5b3t" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
+[ext_resource type="Script" uid="uid://xfjocewlrtdk" path="res://Scripts/battle_master.gd" id="7_8l8pn"]
 [ext_resource type="Theme" uid="uid://d8wjfefy1skg" path="res://Resources/Themes/PlayerMenu.tres" id="9_m6iir"]
 [ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="10_8inel"]
 [ext_resource type="Script" uid="uid://30gikg7l2enq" path="res://Scripts/background_music.gd" id="15_hd86r"]
-[ext_resource type="Script" uid="uid://bud1x2tpy5ulc" path="res://Scripts/Interactables/enemy_spawner.gd" id="15_mep6t"]
+[ext_resource type="Script" uid="uid://c3hq0752p1f0k" path="res://Scripts/Interactables/enemy_spawner.gd" id="15_mep6t"]
 [ext_resource type="PackedScene" uid="uid://mn0g3e7wixmj" path="res://Scenes/Enemies/enemy1.tscn" id="16_iwr0i"]
 [ext_resource type="Texture2D" uid="uid://bxuo1neobyssw" path="res://Resources/Character/dante.png" id="17_iccox"]
 [ext_resource type="SpriteFrames" uid="uid://8y65id60d2c3" path="res://Resources/ChestSpriteFrames.tres" id="17_t8pba"]
-[ext_resource type="Script" uid="uid://bkhsycdnhp22n" path="res://Scripts/Interactables/tutorial_button.gd" id="18_cdgm0"]
 [ext_resource type="Texture2D" uid="uid://u2tirml422tb" path="res://Resources/New path-1.png.png" id="22_no8kt"]
 [ext_resource type="SpriteFrames" uid="uid://bviflvgb4jmdq" path="res://Resources/Tiles/PortalFrames.tres" id="22_pyn1s"]
 
@@ -71,7 +70,6 @@ y_sort_enabled = true
 position = Vector2(109, 5536)
 collision_mask = 3
 script = ExtResource("1_sauk2")
-picture = "res://Resources/Character/dante.png"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(3332, -5494)
@@ -229,6 +227,7 @@ text = "Remove Item"
 [node name="PlayerAnimatedSprite" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(3332, -5494)
 sprite_frames = ExtResource("10_8inel")
+animation = &"idle"
 
 [node name="InteractionArea" type="Area2D" parent="Player"]
 position = Vector2(3332, -5494)
@@ -412,7 +411,6 @@ enemy_movement_disabled = true
 [node name="TutorialButton" type="StaticBody2D" parent="."]
 visible = false
 position = Vector2(1193, 2619)
-script = ExtResource("18_cdgm0")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="TutorialButton"]
 z_index = 1
@@ -436,160 +434,160 @@ scale_amount_max = 0.5
 [node name="Animation" type="AnimatedSprite2D" parent="TutorialButton"]
 sprite_frames = ExtResource("17_t8pba")
 
-[node name="Trees9" type="Sprite2D" parent="."]
+[node name="Rock Wall" type="Sprite2D" parent="."]
 z_index = 1
 position = Vector2(376.042, -291.725)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees13" type="Sprite2D" parent="."]
+[node name="Rock Wall2" type="Sprite2D" parent="."]
 z_index = 1
 position = Vector2(2374.04, -291.725)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees14" type="Sprite2D" parent="."]
+[node name="Rock Wall3" type="Sprite2D" parent="."]
 z_index = 1
 position = Vector2(4372.04, -291.725)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees15" type="Sprite2D" parent="."]
+[node name="Rock Wall4" type="Sprite2D" parent="."]
 z_index = 1
 position = Vector2(6370.04, -291.725)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees16" type="Sprite2D" parent="."]
+[node name="Rock Wall5" type="Sprite2D" parent="."]
 z_index = 11
 position = Vector2(302.042, 6692.28)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees17" type="Sprite2D" parent="."]
+[node name="Rock Wall6" type="Sprite2D" parent="."]
 z_index = 11
 position = Vector2(2300.04, 6692.28)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees18" type="Sprite2D" parent="."]
+[node name="Rock Wall7" type="Sprite2D" parent="."]
 z_index = 11
 position = Vector2(4298.04, 6692.28)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees19" type="Sprite2D" parent="."]
+[node name="Rock Wall8" type="Sprite2D" parent="."]
 z_index = 11
 position = Vector2(6296.04, 6692.28)
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees20" type="Sprite2D" parent="."]
+[node name="Rock Wall9" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(-291.721, 410.046)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees21" type="Sprite2D" parent="."]
+[node name="Rock Wall10" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(-291.72, 2408.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees22" type="Sprite2D" parent="."]
+[node name="Rock Wall11" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(-291.72, 4406.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees23" type="Sprite2D" parent="."]
+[node name="Rock Wall12" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(-291.678, 6403.32)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees32" type="Sprite2D" parent="."]
+[node name="Rock Wall13" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(-879.721, 410.046)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees33" type="Sprite2D" parent="."]
+[node name="Rock Wall14" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(-879.699, 2408.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.8055)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees34" type="Sprite2D" parent="."]
+[node name="Rock Wall15" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(-879.72, 4406.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees35" type="Sprite2D" parent="."]
+[node name="Rock Wall16" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(-879.678, 6403.32)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees24" type="Sprite2D" parent="."]
+[node name="Rock Wall17" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(6691.28, 411.042)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees25" type="Sprite2D" parent="."]
+[node name="Rock Wall18" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(6691.28, 2409.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees26" type="Sprite2D" parent="."]
+[node name="Rock Wall19" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(6691.28, 4407.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees27" type="Sprite2D" parent="."]
+[node name="Rock Wall20" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(6691.32, 6404.32)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees28" type="Sprite2D" parent="."]
+[node name="Rock Wall21" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(7279.28, 413.042)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees29" type="Sprite2D" parent="."]
+[node name="Rock Wall22" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(7279.28, 2411.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees30" type="Sprite2D" parent="."]
+[node name="Rock Wall23" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(7279.28, 4409.04)
 rotation = 1.5708
 scale = Vector2(1.99809, 1.80537)
 texture = ExtResource("22_no8kt")
 
-[node name="Trees31" type="Sprite2D" parent="."]
+[node name="Rock Wall24" type="Sprite2D" parent="."]
 z_index = 12
 position = Vector2(7279.32, 6406.32)
 rotation = 1.5708
