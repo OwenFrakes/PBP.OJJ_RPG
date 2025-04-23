@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq0dtjfqau7uh"]
+
+[ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="1_lk5xw"]
+
+[node name="Temp" type="Node2D"]
+
+[node name="LorePannel" type="Panel" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseButton" type="Button" parent="LorePannel"]
+layout_mode = 0
+offset_left = 1755.0
+offset_top = 13.0
+offset_right = 1909.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 50
+text = "X"
+
+[node name="ItemName" type="Label" parent="LorePannel"]
+layout_mode = 0
+offset_left = 285.0
+offset_top = 142.0
+offset_right = 577.0
+offset_bottom = 279.0
+theme_override_font_sizes/font_size = 100
+text = "Dante"
+
+[node name="ItemPic" type="Sprite2D" parent="LorePannel"]
+position = Vector2(418.75, 621.25)
+texture = ExtResource("1_lk5xw")
+
+[node name="ItemInfo" type="Label" parent="LorePannel"]
+layout_mode = 0
+offset_left = 887.0
+offset_top = 121.0
+offset_right = 1791.0
+offset_bottom = 417.0
+theme_override_font_sizes/font_size = 100
+text = "blah blah blah lore"
