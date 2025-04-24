@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bruyfumt0715q"
-path="res://.godot/imported/download-1.png.png-5ad8876ca44d76a85a64ff1fa0c06bf2.ctex"
+uid="uid://cftup8cjjenir"
+path="res://.godot/imported/Tree Left-1.png.png-9a7f624719b050a965e968b12fe3e12c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Gubbins/download-1.png.png"
-dest_files=["res://.godot/imported/download-1.png.png-5ad8876ca44d76a85a64ff1fa0c06bf2.ctex"]
+source_file="res://Resources/Tree Left-1.png.png"
+dest_files=["res://.godot/imported/Tree Left-1.png.png-9a7f624719b050a965e968b12fe3e12c.ctex"]
 
 [params]
 

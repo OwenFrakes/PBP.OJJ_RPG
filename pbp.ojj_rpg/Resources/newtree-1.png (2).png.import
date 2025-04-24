@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djbbr0gljwolb"
-path="res://.godot/imported/PathAndObjects-2.png (4).png-5d9f4715e4194ca81e824cc6d16fe7ff.ctex"
+uid="uid://2kvjvhjs6oh8"
+path="res://.godot/imported/newtree-1.png (2).png-2bbc3cb3444498f882971f2472398e75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Gubbins/PathAndObjects-2.png (4).png"
-dest_files=["res://.godot/imported/PathAndObjects-2.png (4).png-5d9f4715e4194ca81e824cc6d16fe7ff.ctex"]
+source_file="res://Resources/newtree-1.png (2).png"
+dest_files=["res://.godot/imported/newtree-1.png (2).png-2bbc3cb3444498f882971f2472398e75.ctex"]
 
 [params]
 

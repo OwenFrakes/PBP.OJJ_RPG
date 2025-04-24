@@ -10,7 +10,7 @@
 [ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="10_8inel"]
 [ext_resource type="Script" uid="uid://ddw65ycj872j6" path="res://Scripts/background_music.gd" id="15_hd86r"]
 [ext_resource type="PackedScene" uid="uid://mn0g3e7wixmj" path="res://Scenes/Enemies/enemy1.tscn" id="16_iwr0i"]
-[ext_resource type="Texture2D" uid="uid://u2tirml422tb" path="res://Resources/Gubbins/New path-1.png.png" id="22_no8kt"]
+[ext_resource type="Texture2D" uid="uid://u2tirml422tb" path="res://Resources/New path-1.png.png" id="22_no8kt"]
 [ext_resource type="SpriteFrames" uid="uid://bviflvgb4jmdq" path="res://Resources/Tiles/PortalFrames.tres" id="22_pyn1s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jpw16"]
