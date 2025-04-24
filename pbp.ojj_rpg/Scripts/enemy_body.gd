@@ -58,6 +58,8 @@ func _physics_process(delta: float) -> void:
 		if (body is Player) and (!inFight && !player_reference.inFight):
 			player_reference.battle(self)
 			inFight = true
+		elif body is Player and (inFight && player_reference.inFight):
+			pass
 		elif body is Player and player_reference.inFight:
 			apply_central_impulse((position - player_position) * 5)
 	
@@ -99,7 +101,10 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		set_linear_velocity(Vector2(0,0))
 	elif(move_cooldown < 0.05 && move_cooldown > 0):
 		set_linear_velocity(Vector2((get_linear_velocity().x * 0.9),(get_linear_velocity().y * 0.9)))
-		
+	
+	if inFight:
+		set_linear_velocity(Vector2(0,0))
+
 ##TO DO##
 func body_animation():
 	pass

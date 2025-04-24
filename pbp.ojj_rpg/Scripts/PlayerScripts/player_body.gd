@@ -29,6 +29,7 @@ var moveset := []
 signal health_change(new_health)
 signal mana_change(new_mana)
 signal action_change(new_action_amount)
+signal in_fight_change(boolean)
 
 ## START UP ########################################################################################
 func _ready() -> void:
@@ -139,13 +140,16 @@ func battle(enemy_body_reference):
 	startBattle(enemy_body_reference, enemy_body_reference.enemies)
 
 func startBattle(enemy_body : EnemyBody = null, enemy_group = [Enemy.new()]):
+	
+	setInFight(true)
+	await get_tree().create_timer(1.5).timeout
+	
 	var battle_scene = preload("res://Scenes/battle.tscn").instantiate()
 	battle_scene.z_index = 50
-	battle_scene.position = player_camera.global_position
+	battle_scene.position = Vector2(position.x - 960, position.y - 540)
 	battle_scene.readyBattle(self, enemy_group)
 	battle_scene.setBodyReference(enemy_body)
 	get_tree().root.add_child(battle_scene)
-	setInFight(true)
 
 func setInFight(boolean: bool):
 	if(boolean):
