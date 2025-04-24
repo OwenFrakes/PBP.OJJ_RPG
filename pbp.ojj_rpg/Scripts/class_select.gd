@@ -7,6 +7,7 @@ signal selected_class_changed()
 
 @onready var character_title: Label = $CharacterSelect/CharacterTitle
 @onready var character_description: RichTextLabel = $CharacterSelect/CharacterDescription
+@onready var attack_description: RichTextLabel = $CharacterSelect/AttackDescription
 @onready var character_sprite: AnimatedSprite2D = $CharacterSelect/CryoPod/CharacterSprite
 
 ## Sprite Sets ##
@@ -72,6 +73,9 @@ func updateClassDescriptions() -> void:
 	
 	# CharacterDescription
 	character_description.text = getStringFromFile(class_description[pClass.cName])
+	
+	# AttackDescription
+	attack_description.text = "Attack Stuff"
 	
 	# CharacterSprite
 	character_sprite.sprite_frames = pClass.getSpriteSet()

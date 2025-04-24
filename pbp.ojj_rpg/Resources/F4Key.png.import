@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgwdlh3h3rkkx"
-path="res://.godot/imported/Brawler Updated .png-e201d274fb124268ba8c465b69feb714.ctex"
+uid="uid://bi54brywbb0vy"
+path="res://.godot/imported/F4Key.png-13c88e9a5243650e32c88220a7fff4b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Character/Brawler Updated .png"
-dest_files=["res://.godot/imported/Brawler Updated .png-e201d274fb124268ba8c465b69feb714.ctex"]
+source_file="res://Resources/F4Key.png"
+dest_files=["res://.godot/imported/F4Key.png-13c88e9a5243650e32c88220a7fff4b8.ctex"]
 
 [params]
 

@@ -58,8 +58,6 @@ func _physics_process(delta: float) -> void:
 		if (body is Player) and (!inFight && !player_reference.inFight):
 			player_reference.battle(self)
 			inFight = true
-		elif body is Player and (inFight && player_reference.inFight):
-			pass
 		elif body is Player and player_reference.inFight:
 			apply_central_impulse((position - player_position) * 5)
 	
@@ -70,7 +68,7 @@ func _physics_process(delta: float) -> void:
 		var player_distance = sqrt(pow(player_distance_vector.x, 2) + pow(player_distance_vector.y, 2))
 		
 		#If within hopping distance, and not on cooldown, hop.
-		if(player_distance < 740 && move_cooldown <= 0):
+		if(player_distance < 1000 && move_cooldown <= 0):
 			#Calculate the jump power. Fun equation to read in code.
 			var jump_power = (((-1.0 / (10.0/3.0)) * (player_distance/100.0)) + 3.0) + randf_range(-0.5, 0.5)
 			#print(jump_power)
@@ -101,10 +99,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		set_linear_velocity(Vector2(0,0))
 	elif(move_cooldown < 0.05 && move_cooldown > 0):
 		set_linear_velocity(Vector2((get_linear_velocity().x * 0.9),(get_linear_velocity().y * 0.9)))
-	
-	if inFight:
-		set_linear_velocity(Vector2(0,0))
-
+		
 ##TO DO##
 func body_animation():
 	pass
