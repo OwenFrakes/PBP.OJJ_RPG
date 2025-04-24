@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=4 uid="uid://bgoj82y2prwxg"]
 
 [ext_resource type="TileSet" uid="uid://bslv4e41bebif" path="res://Resources/Tiles/SuperTileAtlas.tres" id="1_5mnyf"]
-[ext_resource type="Script" path="res://Scripts/world_terrain.gd" id="2_7ahl7"]
+[ext_resource type="Script" uid="uid://dy8wshpjblacr" path="res://Scripts/world_terrain.gd" id="2_7ahl7"]
 [ext_resource type="Texture2D" uid="uid://bh3ls71r65t3x" path="res://Resources/Tiles/TilePictures/portalRings Blue.png" id="4_v7cm0"]
 [ext_resource type="Texture2D" uid="uid://b4av5u5u4jdg4" path="res://Resources/Tiles/TilePictures/Snow Wall.png" id="5_7ahl7"]
 

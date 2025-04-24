@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=4 uid="uid://dahx5bhen30vy"]
 
 [ext_resource type="TileSet" uid="uid://bslv4e41bebif" path="res://Resources/Tiles/SuperTileAtlas.tres" id="1_6whob"]
-[ext_resource type="Script" path="res://Scripts/world_terrain.gd" id="2_u7krg"]
-[ext_resource type="Script" uid="uid://cdcnun2mb2608" path="res://Scripts/generation.gd" id="3_tx0tn"]
+[ext_resource type="Script" uid="uid://dy8wshpjblacr" path="res://Scripts/world_terrain.gd" id="2_u7krg"]
+[ext_resource type="Script" uid="uid://c0p1biuu0xv6c" path="res://Scripts/generation.gd" id="3_tx0tn"]
 [ext_resource type="Texture2D" uid="uid://bh3ls71r65t3x" path="res://Resources/Tiles/TilePictures/portalRings Blue.png" id="4_wjtap"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v7gqg"]
