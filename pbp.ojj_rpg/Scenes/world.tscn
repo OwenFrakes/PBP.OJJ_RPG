@@ -131,7 +131,7 @@ position = Vector2(-960, -540)
 anchor_mode = 0
 
 [node name="NewEnemy" parent="." instance=ExtResource("16_iwr0i")]
-position = Vector2(3467, 1260)
+position = Vector2(4577, 135)
 
 [node name="Walls" type="Node2D" parent="."]
 
