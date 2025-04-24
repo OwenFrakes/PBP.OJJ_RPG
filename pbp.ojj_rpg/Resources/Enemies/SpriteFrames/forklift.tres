@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://wm0jef0svl3a"]
+
+[ext_resource type="Texture2D" uid="uid://dqpmotkn65a2p" path="res://Resources/Enemies/forkliftEnemy.png" id="1_wgnhh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o037s"]
+atlas = ExtResource("1_wgnhh")
+region = Rect2(0, 0, 1151, 1078)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o037s")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]

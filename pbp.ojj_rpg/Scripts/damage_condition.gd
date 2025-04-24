@@ -1,4 +1,4 @@
-class_name ActionCondition
+class_name DamageCondition
 extends Node
 
 var condition_name : String

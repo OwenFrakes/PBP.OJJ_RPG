@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d2edha6ave3td"]
+[gd_scene load_steps=10 format=3 uid="uid://d2edha6ave3td"]
 
 [ext_resource type="Theme" uid="uid://dp3x3xta2yuh4" path="res://Resources/Themes/ClassMenu.tres" id="1_4dvgp"]
 [ext_resource type="Script" uid="uid://dfjye70vt4qy4" path="res://Scripts/class_select.gd" id="2_dexyt"]
@@ -8,9 +8,6 @@
 [ext_resource type="AudioStream" uid="uid://boq8opagbskiu" path="res://Resources/Sound Effects/OldPCBootSound.mp3" id="5_xchjy"]
 [ext_resource type="Script" uid="uid://didhf5s8ek4gk" path="res://Scripts/CutSceneScripts/cut_scene_panel.gd" id="6_yt0mq"]
 [ext_resource type="Script" uid="uid://bgv7q6ujr3hra" path="res://Scripts/CutSceneScripts/cut_scene_controller.gd" id="7_s2r4v"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qvyvf"]
-bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njlbc"]
 bg_color = Color(0, 0, 0, 1)
@@ -23,15 +20,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
-
-[node name="Background" type="Panel" parent="CharacterSelect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qvyvf")
 
 [node name="SelectButton" type="Button" parent="CharacterSelect"]
 custom_minimum_size = Vector2(300, 0)
@@ -47,6 +35,7 @@ offset_right = 150.0
 offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 0
+focus_mode = 0
 theme = ExtResource("1_4dvgp")
 text = "Select
 "
@@ -64,33 +53,28 @@ grow_horizontal = 2
 alignment = 1
 
 [node name="BrawlerBtn" type="Button" parent="CharacterSelect/ClassContainer"]
-custom_minimum_size = Vector2(200, 150)
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-theme = ExtResource("1_4dvgp")
 text = "Brawler"
 
 [node name="SwordsmanBtn" type="Button" parent="CharacterSelect/ClassContainer"]
-custom_minimum_size = Vector2(200, 150)
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-theme = ExtResource("1_4dvgp")
 text = "Swordsman"
 
 [node name="GunslingerBtn" type="Button" parent="CharacterSelect/ClassContainer"]
-custom_minimum_size = Vector2(200, 150)
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-theme = ExtResource("1_4dvgp")
 text = "Gunslinger"
 
 [node name="EngineerBtn" type="Button" parent="CharacterSelect/ClassContainer"]
-custom_minimum_size = Vector2(200, 150)
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-theme = ExtResource("1_4dvgp")
 text = "Engineer"
 
 [node name="SniperBtn" type="Button" parent="CharacterSelect/ClassContainer"]
-custom_minimum_size = Vector2(200, 150)
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-theme = ExtResource("1_4dvgp")
 text = "Sniper"
 
 [node name="CryoPod" type="Sprite2D" parent="CharacterSelect"]
@@ -116,9 +100,6 @@ offset_top = 212.0
 offset_right = 1184.0
 offset_bottom = -156.0
 grow_vertical = 2
-theme = ExtResource("1_4dvgp")
-text = "	This is what character description text would look like. Of course though, this is replaced when this scene is loaded. This exists only to make sure the theme and it's sizings work."
-vertical_alignment = 1
 
 [node name="Panel" type="Panel" parent="CharacterSelect/CharacterDescription"]
 z_index = -1
@@ -139,7 +120,6 @@ offset_top = 223.0
 offset_right = 811.5
 offset_bottom = 336.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.301961, 0.843137, 0.309804, 1)
 theme_override_font_sizes/font_size = 82
 text = "Brawler"
 horizontal_alignment = 1
