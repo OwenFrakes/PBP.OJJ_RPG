@@ -17,9 +17,15 @@ func _init(new_attack : Attack) -> void:
 		"electric":
 			icon = load("res://Resources/Conditions/ElectricityCondition.png")
 		"light":
-			icon = load("res://Resources/Conditions/BananaCondition.png")
+			icon = load("res://Resources/Conditions/Light.png")
 		"dark":
-			icon = load("res://Resources/Conditions/BananaCondition.png")
+			icon = load("res://Resources/Conditions/Dark.png")
+		"bash":
+			icon = load("res://Resources/Conditions/Bash.png")
+		"slash":
+			icon = load("res://Resources/Conditions/Pierce.png")
+		"pierce":
+			icon = load("res://Resources/Conditions/Slash.png")
 	
 	#Text
 	text = stored_attack.getName()
@@ -27,13 +33,12 @@ func _init(new_attack : Attack) -> void:
 	#Signal
 	pressed.connect(sendAttackSignal)
 	
-	#Focus
-	focus_mode = Control.FOCUS_NONE
-	
 	# Make the button look nice and big.
 	custom_minimum_size = Vector2(500,100)
 	theme = load("res://Resources/Themes/BattleFont.tres")
 	autowrap_mode = TextServer.AUTOWRAP_WORD
+	clip_contents = false
+	
 
 func sendAttackSignal():
 	emit_signal("send_attack", stored_attack)

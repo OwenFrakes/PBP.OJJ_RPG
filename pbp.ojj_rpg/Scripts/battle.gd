@@ -2,6 +2,7 @@ extends Node2D
 
 # Existing Nodes
 @onready var attacks_container: VBoxContainer = $BattleControl/ScrollControl/ScrollContainer/AttacksContainer
+@onready var run_btn: Button = $BattleControl/ScrollControl/RunBtn
 
 # Player Marker
 @onready var player_marker: Marker2D = $PlayerMarker
@@ -61,42 +62,55 @@ func readyAttackList(attack_list : Array = [Attack.new()]):
 		attack_btn.send_attack.connect(setSelectedAttack)
 		center_container.add_child(attack_btn)
 		attacks.append(attack_btn)
+	attacks.append(run_btn)
 
 # Makes the EntityInfo's for the enemies.
+# Also, this is horrible to look at. Don't stare too long.
 func readyEnemyInfo(enemies : Array):
 	for enemy_number in range(enemies.size()):
+		
+		## Define the Info Entity
 		var enemy_info_entity = EntityInfo.new(enemies[enemy_number].getName(), enemies[enemy_number].enemy_sprite_frames)
 		enemy_info.append(enemy_info_entity)
-		
 		# Set upper limits.
 		enemy_info_entity.setHealthBar(enemies[enemy_number].getHealth())
 		enemy_info_entity.setActionBar(enemies[enemy_number].getActionLimit())
 		enemy_info_entity.isEnemy()
-		
 		# Connect signals
 		# Make sure not to try and manipulate local variables in a global context...
 		enemies[enemy_number].health_change.connect(enemy_info_entity.changeHealth)
 		enemies[enemy_number].action_change.connect(enemy_info_entity.changeAction)
-		
+		enemies[enemy_number].action_condition_change.connect(enemy_info_entity.updateActionConditions)
+		enemies[enemy_number].damage_condition_change.connect(enemy_info_entity.updateDamageConditions)
+		# Move the Info Entity to the correct position.
 		enemy_info_entity.position = enemy_markers[enemy_number].position
 		add_child(enemy_info_entity)
 		
-		# Enemy Selection Button
+		## Make the Enemy Selection Button
 		var selection_button = SelectionButton.new(enemies[enemy_number])
 		selection_buttons.append(selection_button)
 		selection_button.size = Vector2(128,128)
 		selection_button.position = Vector2(-64,-64)
+		selection_button.theme = load("res://Resources/Themes/ConditionTheme.tres")
+		# Connect Signal
 		selection_button.send_reference.connect(setEnemySelection)
+		# Add and hide it.
 		enemy_info_entity.add_child(selection_button)
 		selection_button.hide()
+		# Add an animated sprite so people can know to select it.
+		var button_sprite = AnimatedSprite2D.new()
+		button_sprite.autoplay = "default"
+		button_sprite.sprite_frames = load("res://Resources/AttackAnimations/attack_selection.tres")
+		button_sprite.position = Vector2(selection_button.size.x/2, -20)
+		selection_button.add_child(button_sprite)
 		
-		#Dictionary Key Assignment
+		## Dictionary Key Assignment
 		enemy_related_nodes_dict.get_or_add(enemies[enemy_number], [enemy_info_entity,selection_button])
 
 # Makes the EntityInfo for the player.
 func readyPlayerInfo():
 	player_info = EntityInfo.new("Player", player_reference.player_animated_sprite.sprite_frames)
-	player_info.z_index = 100
+	player_info.z_index = 5
 	
 	# Set upper limits.
 	player_info.setHealthBar(player_reference.getMaxHealth(), player_reference.getHealth())
@@ -146,6 +160,11 @@ func _process(delta: float) -> void:
 				#Make sure the enemy can act.
 				pause = true
 				enemyAttack(actor)
+				
+				#Pass time on conditions.
+				actor.passActionConditions()
+				actor.passDamageConditions()
+				checkEnemiesForDeaths()
 		
 		# 3. Otherwise, progress time.
 		else:
@@ -173,12 +192,17 @@ func playerAttack(player_attack, the_enemy):
 	player_reference.hurt(player_attack.getHealthCost())
 	player_reference.manaCost(player_attack.getManaCost())
 	
-	#Kill the enemy if they're... dead. Also remove the entity info related to it.
+	attackAnimation(enemy_related_nodes_dict.get_or_add(the_enemy)[0].position)
+	
+	# Kill the enemy if they're... dead. Also remove the entity info related to it.
 	if the_enemy.getHealth() <= 0:
 		removeEnemy(the_enemy)
 	
+	# Have the player win if they're all dead.
 	if enemy_group == []:
 		battleWin()
+	
+	# Otherwise, continue as usual.
 	else:
 		#Reset player action amount.
 		player_reference.actionSetZero()
@@ -191,23 +215,22 @@ func enemyAttack(enemy_reference : Enemy):
 	enemy_reference.actionAmountZero()
 	await get_tree().create_timer(0.75).timeout
 	player_reference.hurt(enemy_reference.getMoveset()[0].getDamage())
+	attackAnimation(player_info.position)
 	await get_tree().create_timer(0.75).timeout
 	pause = false
 
 func enablePlayerControls():
-	var attack_center_containers = attacks_container.get_children()
-	for container in attack_center_containers:
-		var attack_button = container.get_child(0)
-		if attack_button.canUse(player_reference.getMana()):
+	for attack_button in attacks:
+		if attack_button is AttackButton && attack_button.canUse(player_reference.getMana()):
 			attack_button.disabled = false
-		else:
+		elif attack_button is AttackButton:
 			attack_button.disabled = true
+		else:
+			attack_button.disabled = false
 
 func disablePlayerControls():
-	var attack_center_containers = attacks_container.get_children()
-	for container in attack_center_containers:
-		var attack_button = container.get_child(0)
-		attack_button.disabled = true
+	for attack in attacks:
+		attack.disabled = true
 
 func showEnemySelection():
 	for button in selection_buttons:
@@ -242,6 +265,11 @@ func removeEnemy(enemy_instance : Enemy):
 			enemy_group.remove_at(enemy_pos)
 			break
 
+func checkEnemiesForDeaths():
+	for enemy in enemy_group:
+		if enemy.getHealth() <= 0:
+			removeEnemy(enemy)
+
 ##### ACTION FUNCTIONS #####################################
 
 # Placeholder for now
@@ -268,11 +296,25 @@ func battleWin():
 	# Free() the battle scene.
 	queue_free()
 
+##### GUI / MISC FUNCTIONS #################################
+
+func attackAnimation(pos : Vector2):
+	var animation_sprite = AnimatedSprite2D.new()
+	animation_sprite.sprite_frames = load("res://Resources/AttackAnimations/default_attack.tres")
+	animation_sprite.animation_finished.connect(animation_sprite.queue_free)
+	animation_sprite.position = pos
+	animation_sprite.autoplay = "default"
+	animation_sprite.scale = Vector2(2,2)
+	animation_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	animation_sprite.z_index = 10
+	add_child(animation_sprite)
+
 ##### SIGNALS FUNCTIONS ####################################
 
 # Connected signal for selecting an AttackButton.
 func setSelectedAttack(new_attack : Attack) -> void:
 	if player_reference.canAct():
+		# Get attack data and show enemies.
 		selected_attack = new_attack
 		showEnemySelection()
 
