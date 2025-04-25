@@ -9,6 +9,7 @@ var player_class: PlayerClass
 @onready var player_animated_sprite = $PlayerAnimatedSprite
 @onready var interaction_area = $InteractionArea
 @onready var player_camera: Camera2D = $CameraController/PlayerCamera
+@onready var camera_controller = $CameraController
 
 ## Battle Variables ##
 var player_max_health
@@ -142,14 +143,23 @@ func battle(enemy_body_reference):
 func startBattle(enemy_body : EnemyBody = null, enemy_group = [Enemy.new()]):
 	
 	setInFight(true)
-	await get_tree().create_timer(1.5).timeout
+	var fight_animation_sprite = AnimatedSprite2D.new()
+	print(str(get_viewport().size.x/480.0))
+	fight_animation_sprite.z_index = 100
+	fight_animation_sprite.scale = Vector2(get_viewport().size.x/480.0, get_viewport().size.y/270.0)
+	fight_animation_sprite.sprite_frames = load("res://Resources/AttackAnimations/battleStart.tres")
+	fight_animation_sprite.play("default")
+	fight_animation_sprite.animation_finished.connect(fight_animation_sprite.queue_free)
+	camera_controller.add_child(fight_animation_sprite)
+	
+	await get_tree().create_timer(1.4516).timeout
 	
 	var battle_scene = preload("res://Scenes/battle.tscn").instantiate()
 	battle_scene.z_index = 50
-	battle_scene.position = Vector2(position.x - 960, position.y - 540)
+	battle_scene.position = Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2)
 	battle_scene.readyBattle(self, enemy_group)
 	battle_scene.setBodyReference(enemy_body)
-	get_tree().root.add_child(battle_scene)
+	camera_controller.add_child(battle_scene)
 
 func setInFight(boolean: bool):
 	if(boolean):

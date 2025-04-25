@@ -4,7 +4,7 @@ extends Node2D
 @onready var background = $Control/SplashArt
 @onready var continue_label = $Control/LoadingBar/ContinueLabel
 var scene_to_be_loaded = "res://Scenes/world.tscn"
-var splash_art = "res://Resources/Gubbins/TitleImage.png"
+var splash_art = "res://Resources/TitleImage.png"
 var loaded = false
 
 # Called when the node enters the scene tree for the first time.
