@@ -148,6 +148,7 @@ func startBattle(enemy_body : EnemyBody = null, enemy_group = [Enemy.new()]):
 	fight_animation_sprite.z_index = 100
 	fight_animation_sprite.scale = Vector2(get_viewport().size.x/480.0, get_viewport().size.y/270.0)
 	fight_animation_sprite.sprite_frames = load("res://Resources/AttackAnimations/battleStart.tres")
+	fight_animation_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	fight_animation_sprite.play("default")
 	fight_animation_sprite.animation_finished.connect(fight_animation_sprite.queue_free)
 	camera_controller.add_child(fight_animation_sprite)
