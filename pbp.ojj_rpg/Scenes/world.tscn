@@ -431,7 +431,6 @@ text = "blah blah blah lore"
 
 [node name="NewEnemy" parent="." instance=ExtResource("16_iwr0i")]
 position = Vector2(4351, 537)
-enemy_movement_disabled = true
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 process_mode = 3
