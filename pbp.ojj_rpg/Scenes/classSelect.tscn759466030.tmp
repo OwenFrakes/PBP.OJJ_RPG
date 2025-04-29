@@ -1,0 +1,226 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2edha6ave3td"]
+
+[ext_resource type="Theme" uid="uid://dp3x3xta2yuh4" path="res://Resources/Themes/ClassMenu.tres" id="1_4dvgp"]
+[ext_resource type="Script" uid="uid://dfjye70vt4qy4" path="res://Scripts/class_select.gd" id="2_dexyt"]
+[ext_resource type="SpriteFrames" uid="uid://b1hlf4f2paiod" path="res://Resources/Character/SpriteSets/brawler_set.tres" id="2_pa5da"]
+[ext_resource type="Texture2D" uid="uid://lw0h4pw4d514" path="res://Resources/cryochamber-2.png.png" id="3_3mehw"]
+[ext_resource type="Script" uid="uid://dkgujka6h1nx1" path="res://Scripts/CutSceneScripts/cut_scene_label.gd" id="4_qly2d"]
+[ext_resource type="AudioStream" uid="uid://boq8opagbskiu" path="res://Resources/Sound Effects/OldPCBootSound.mp3" id="5_xchjy"]
+[ext_resource type="Script" uid="uid://didhf5s8ek4gk" path="res://Scripts/CutSceneScripts/cut_scene_panel.gd" id="6_yt0mq"]
+[ext_resource type="Script" uid="uid://bgv7q6ujr3hra" path="res://Scripts/CutSceneScripts/cut_scene_controller.gd" id="7_s2r4v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njlbc"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="ClassSelect" type="Node2D"]
+script = ExtResource("2_dexyt")
+
+[node name="CharacterSelect" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="SelectButton" type="Button" parent="CharacterSelect"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -130.0
+offset_right = 150.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+theme = ExtResource("1_4dvgp")
+text = "Select
+"
+
+[node name="ClassContainer" type="HBoxContainer" parent="CharacterSelect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -383.0
+offset_top = 31.0
+offset_right = 383.0
+offset_bottom = 181.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="BrawlerBtn" type="Button" parent="CharacterSelect/ClassContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "Brawler"
+
+[node name="SwordsmanBtn" type="Button" parent="CharacterSelect/ClassContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "Swordsman"
+
+[node name="GunslingerBtn" type="Button" parent="CharacterSelect/ClassContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "Gunslinger"
+
+[node name="EngineerBtn" type="Button" parent="CharacterSelect/ClassContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "Engineer"
+
+[node name="SniperBtn" type="Button" parent="CharacterSelect/ClassContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "Sniper"
+
+[node name="CryoPod" type="Sprite2D" parent="CharacterSelect"]
+texture_filter = 1
+position = Vector2(1487, 630)
+scale = Vector2(6, 6)
+texture = ExtResource("3_3mehw")
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterSelect/CryoPod"]
+texture_filter = 1
+position = Vector2(0, -2.28571)
+scale = Vector2(0.857143, 0.857143)
+sprite_frames = ExtResource("2_pa5da")
+animation = &"idle"
+
+[node name="CharacterDescription" type="RichTextLabel" parent="CharacterSelect"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_left = 57.0
+offset_top = 212.0
+offset_right = 1184.0
+offset_bottom = -156.0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CharacterSelect/CharacterDescription"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CharacterTitle" type="Label" parent="CharacterSelect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 242.5
+offset_top = 223.0
+offset_right = 811.5
+offset_bottom = 336.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 82
+text = "Brawler"
+horizontal_alignment = 1
+
+[node name="CutSceneController" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("7_s2r4v")
+start_delay = 3.0
+children_time_gap = 1.5
+
+[node name="Text1" type="Label" parent="CutSceneController"]
+z_index = 1
+layout_mode = 0
+offset_left = 43.0
+offset_top = 556.0
+offset_right = 979.0
+offset_bottom = 1028.0
+theme_override_colors/font_color = Color(0.301961, 0.843137, 0.309804, 1)
+theme_override_font_sizes/font_size = 64
+text = "> AI Countermeasure #7
+> Start Up Sequence
+> Updating Candidate Database
+> Evaluating Candidates"
+vertical_alignment = 2
+script = ExtResource("4_qly2d")
+line_delay = 0.75
+text_delay = 0.075
+kill_text_after = true
+kill_delay = 1.0
+
+[node name="Text3" type="Label" parent="CutSceneController"]
+z_index = 1
+layout_mode = 0
+offset_left = 43.0
+offset_top = 556.0
+offset_right = 979.0
+offset_bottom = 1028.0
+theme_override_colors/font_color = Color(0.301961, 0.843137, 0.309804, 1)
+theme_override_font_sizes/font_size = 64
+text = "> ..."
+vertical_alignment = 2
+script = ExtResource("4_qly2d")
+line_delay = 0.75
+text_delay = 0.1
+kill_text_after = true
+kill_delay = 0.5
+
+[node name="Text2" type="Label" parent="CutSceneController"]
+z_index = 1
+layout_mode = 0
+offset_left = 43.0
+offset_top = 556.0
+offset_right = 979.0
+offset_bottom = 1028.0
+theme_override_colors/font_color = Color(0.301961, 0.843137, 0.309804, 1)
+theme_override_font_sizes/font_size = 64
+text = "> 5 Available Candidates Found
+> Commencing User Input"
+vertical_alignment = 2
+script = ExtResource("4_qly2d")
+line_delay = 0.75
+text_delay = 0.075
+kill_text_after = true
+kill_delay = 1.0
+
+[node name="Panel" type="Panel" parent="CutSceneController"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_njlbc")
+script = ExtResource("6_yt0mq")
+fade = true
+fade_time = 0.5
+
+[node name="SkipLabel" type="Label" parent="CutSceneController/Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.374139, 0.374139, 0.374139, 1)
+text = "Press the Space Bar to skip."
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CutSceneController"]
+stream = ExtResource("5_xchjy")
+autoplay = true
+
+[connection signal="pressed" from="CharacterSelect/SelectButton" to="." method="selectClass"]
+[connection signal="pressed" from="CharacterSelect/ClassContainer/BrawlerBtn" to="." method="setToBrawler"]
+[connection signal="pressed" from="CharacterSelect/ClassContainer/SwordsmanBtn" to="." method="setToSwordsman"]
+[connection signal="pressed" from="CharacterSelect/ClassContainer/GunslingerBtn" to="." method="setToGunslinger"]
+[connection signal="pressed" from="CharacterSelect/ClassContainer/EngineerBtn" to="." method="setToEngineer"]
+[connection signal="pressed" from="CharacterSelect/ClassContainer/SniperBtn" to="." method="setToSniper"]

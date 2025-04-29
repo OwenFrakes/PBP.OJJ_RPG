@@ -1,17 +1,55 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dp3x3xta2yuh4"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dp3x3xta2yuh4"]
+
+[ext_resource type="FontFile" uid="uid://ch5nl5vnnebyq" path="res://Resources/Themes/Fonts/Evil Empire.otf" id="1_wt6wl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4sly7"]
 bg_color = Color(0.493545, 0.493546, 0.493545, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83hcq"]
 bg_color = Color(0.237539, 0.237539, 0.237539, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ehfib"]
 bg_color = Color(0.393086, 0.393086, 0.393085, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [resource]
+default_font = ExtResource("1_wt6wl")
+Button/colors/font_color = Color(0.301961, 0.843137, 0.309804, 1)
+Button/colors/font_focus_color = Color(0.321411, 0.910255, 0.331068, 1)
+Button/colors/font_hover_color = Color(0.46075, 0.982419, 0.456371, 1)
+Button/colors/font_hover_pressed_color = Color(0.282233, 0.766887, 0.287703, 1)
+Button/colors/font_pressed_color = Color(0.213868, 0.563939, 0.215794, 1)
+Button/font_sizes/font_size = 30
 Button/styles/focus = SubResource("StyleBoxFlat_4sly7")
 Button/styles/hover = SubResource("StyleBoxFlat_4sly7")
 Button/styles/hover_pressed = SubResource("StyleBoxFlat_83hcq")
 Button/styles/normal = SubResource("StyleBoxFlat_ehfib")
 Button/styles/pressed = SubResource("StyleBoxFlat_83hcq")
+RichTextLabel/colors/default_color = Color(0.301961, 0.843137, 0.309804, 1)
+RichTextLabel/font_sizes/normal_font_size = 42

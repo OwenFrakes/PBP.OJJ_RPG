@@ -1,16 +1,28 @@
 extends Node
 var pClass : PlayerClass
 var classes : Array
-var place: int
+var selected_class: int
 
-@onready var character_text = $"../../../CharacterStats"
-@onready var animated_sprite_node = $"../../../../../AnimatedSprite2D"
+signal selected_class_changed()
+
+@onready var character_title: Label = $CharacterSelect/CharacterTitle
+@onready var character_description: RichTextLabel = $CharacterSelect/CharacterDescription
+@onready var character_sprite: AnimatedSprite2D = $CharacterSelect/CryoPod/CharacterSprite
+
 ## Sprite Sets ##
-var brawler_sprite_set = load("res://Resources/Character/SpriteSets/brawler_set.tres")
-var swordsman_sprite_set = load("res://Resources/Character/SpriteSets/swordsman_set.tres")
-var gunslinger_sprite_set = load("res://Resources/Character/SpriteSets/gunslinger_set.tres")
-var engineer_sprite_set = load("res://Resources/Character/SpriteSets/engineer_set.tres")
-var marksman_sprite_set = load("res://Resources/Character/SpriteSets/marksman_set.tres")
+var brawler_sprite_set = "res://Resources/Character/SpriteSets/brawler_set.tres"
+var swordsman_sprite_set = "res://Resources/Character/SpriteSets/swordsman_set.tres"
+var gunslinger_sprite_set = "res://Resources/Character/SpriteSets/gunslinger_set.tres"
+var engineer_sprite_set = "res://Resources/Character/SpriteSets/engineer_set.tres"
+var marksman_sprite_set = "res://Resources/Character/SpriteSets/marksman_set.tres"
+
+const class_description = {
+	"Brawler" : "res://Resources/TxtFiles/CharacterDescriptions/BrawlerClassText.txt",
+	"Swordsman" : "res://Resources/TxtFiles/CharacterDescriptions/SwordsmanClassText.txt",
+	"Gun Slinger" : "res://Resources/TxtFiles/CharacterDescriptions/GunslingerClassText.txt",
+	"Engineer" : "res://Resources/TxtFiles/CharacterDescriptions/EngineerClassText.txt", 
+	"Marksman" : "res://Resources/TxtFiles/CharacterDescriptions/SniperClassText.txt"
+}
 
 func _ready() -> void:
 	pClass = PlayerClass.new()
@@ -48,49 +60,57 @@ func _ready() -> void:
 	classes[4].setClass("Marksman", 75, 20, 20, "Sniper", 80, 0.5, "pierce", ["light, fire"], marksman_sprite_set)
 	
 	#Change text to tell player what they have selected.
-	pClass = classes[0]
-	character_text.text = "Name: " + pClass.getName() + \
-	"\nWeapon: " + pClass.getWeaponName() + \
-	"\nHealth: " + str(pClass.getHealth()) + \
-	"\nStamina:" + str(pClass.getStamina()) + \
-	"\nMana:" + str(pClass.getMana()) 
-
-func _on_pressed() -> void:
-	#Cycle if more than 4, otherwise go to next class.
-	if place == 4:
-		place = 0
-	else:
-		place += 1
+	setSelectedClass(0)
+	updateClassDescriptions()
 	
-	#Change text to tell player what they have selected.
-	pClass = classes[place]
-	character_text.text = "Name: " + pClass.getName() + \
-	"\nWeapon: " + pClass.getWeaponName() + \
-	"\nHealth: " + str(pClass.getHealth()) + \
-	"\nStamina:" + str(pClass.getStamina()) + \
-	"\nMana:" + str(pClass.getMana()) 
-	animated_sprite_node.sprite_frames = pClass.getSpriteSet()
-	
+	selected_class_changed.connect(updateClassDescriptions)
 
-func _on_previous_button_pressed() -> void:
-	#Cycle backwards to 4 if more than 0, otherwise go to previous class.
-	if place == 0:
-		place = 4
-	else:
-		place -= 1
+func updateClassDescriptions() -> void:
+	## Class Description Nodes ##
+	# CharacterTitle
+	character_title.text = pClass.cName
 	
-	#Change text to tell player what they have selected.
-	pClass = classes[place]
-	character_text.text = "Name: " + pClass.getName() + \
-	"\nWeapon: " + pClass.getWeaponName() + \
-	"\nHealth: " + str(pClass.getHealth()) + \
-	"\nStamina:" + str(pClass.getStamina()) + \
-	"\nMana:" + str(pClass.getMana()) 
-	animated_sprite_node.sprite_frames = pClass.getSpriteSet()
+	# CharacterDescription
+	character_description.text = getStringFromFile(class_description[pClass.cName])
+	
+	# CharacterSprite
+	character_sprite.sprite_frames = pClass.getSpriteSet()
+	character_sprite.animation = "idle"
+	character_sprite.frame = 0
+	character_sprite.stop()
 
-func _on_select_button_pressed() -> void:
+func selectClass() -> void:
 	#Make the global singleton have these stats.
-	PlayerStats.selected_player_class = classes[place]
-	PlayerStats.selected_player_weapon = classes[place].pWeapon
+	PlayerStats.selected_player_class = classes[selected_class]
+	PlayerStats.selected_player_weapon = classes[selected_class].pWeapon
 	#Go to next scene.
-	get_tree().change_scene_to_file("res://Scenes/world.tscn")
+	var loading_screen = preload("res://Scenes/loadingScreen.tscn").instantiate()
+	loading_screen.scene_to_be_loaded = "res://Scenes/world.tscn"
+	get_tree().root.add_child(loading_screen)
+
+## Class Switch Methods ##
+
+func setSelectedClass(class_num : int) -> void:
+	selected_class = class_num
+	pClass = classes[selected_class]
+	selected_class_changed.emit()
+
+func setToBrawler() -> void:
+	setSelectedClass(0)
+
+func setToSwordsman() -> void:
+	setSelectedClass(1)
+
+func setToGunslinger() -> void:
+	setSelectedClass(2)
+
+func setToEngineer() -> void:
+	setSelectedClass(3)
+
+func setToSniper() -> void:
+	setSelectedClass(4)
+
+func getStringFromFile(file_path : String) -> String:
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	var text = file.get_as_text()
+	return text

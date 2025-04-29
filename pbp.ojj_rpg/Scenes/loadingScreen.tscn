@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://db1pfykq4j11y"]
+
+[ext_resource type="Script" uid="uid://deqg1irf38l2i" path="res://Scripts/loading_screen.gd" id="1_lvaio"]
+[ext_resource type="Texture2D" uid="uid://wxkuqncnr1qe" path="res://Resources/icon.svg" id="2_tale8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vyxml"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o185p"]
+bg_color = Color(0.393699, 0.683532, 0.343704, 1)
+
+[node name="LoadingScreen" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_lvaio")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.31802, 0.31802, 0.31802, 1)
+
+[node name="SplashArt" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_tale8")
+
+[node name="LoadingBar" type="ProgressBar" parent="Control"]
+custom_minimum_size = Vector2(1440, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -160.0
+offset_right = 500.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+theme_override_styles/background = SubResource("StyleBoxEmpty_vyxml")
+theme_override_styles/fill = SubResource("StyleBoxFlat_o185p")
+max_value = 1.0
+
+[node name="ContinueLabel" type="Label" parent="Control/LoadingBar"]
+visible = false
+custom_minimum_size = Vector2(1440, 100)
+layout_mode = 1
+anchors_preset = -1
+offset_top = 100.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 64
+text = "Press the 'Space Bar' to Continue"
+horizontal_alignment = 1
+vertical_alignment = 1
