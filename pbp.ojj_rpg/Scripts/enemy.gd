@@ -2,7 +2,7 @@ class_name Enemy
 extends Node
 
 # Name and Appearance
-var eName = "THE RIZZASTARD"
+var eName = "DEBUG_ENEMY"
 var enemy_sprite_frames = load("res://Resources/Character/SpriteSets/blue_robot_set.tres")
 
 # Stats
