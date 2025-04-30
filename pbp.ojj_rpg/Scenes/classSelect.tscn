@@ -151,8 +151,8 @@ anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 script = ExtResource("7_s2r4v")
-start_delay = 3.0
-children_time_gap = 1.5
+start_delay = 1.0
+children_time_gap = 0.5
 
 [node name="Text1" type="Label" parent="CutSceneController"]
 z_index = 1
@@ -170,7 +170,7 @@ text = "> AI Countermeasure #7
 vertical_alignment = 2
 script = ExtResource("4_qly2d")
 line_delay = 0.75
-text_delay = 0.075
+text_delay = 0.05
 kill_text_after = true
 kill_delay = 1.0
 
@@ -205,7 +205,7 @@ text = "> 5 Available Candidates Found
 vertical_alignment = 2
 script = ExtResource("4_qly2d")
 line_delay = 0.75
-text_delay = 0.075
+text_delay = 0.05
 kill_text_after = true
 kill_delay = 1.0
 
@@ -219,7 +219,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_njlbc")
 script = ExtResource("6_yt0mq")
 fade = true
-fade_time = 0.5
+fade_time = 0.25
 
 [node name="SkipLabel" type="Label" parent="CutSceneController/Panel"]
 layout_mode = 1

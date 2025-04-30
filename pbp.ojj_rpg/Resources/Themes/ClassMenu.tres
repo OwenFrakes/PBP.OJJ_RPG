@@ -1,6 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dp3x3xta2yuh4"]
-
-[ext_resource type="FontFile" uid="uid://ch5nl5vnnebyq" path="res://Resources/Themes/Fonts/Evil Empire.otf" id="1_wt6wl"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dp3x3xta2yuh4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4sly7"]
 bg_color = Color(0.493545, 0.493546, 0.493545, 1)
@@ -39,7 +37,6 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [resource]
-default_font = ExtResource("1_wt6wl")
 Button/colors/font_color = Color(0.301961, 0.843137, 0.309804, 1)
 Button/colors/font_focus_color = Color(0.321411, 0.910255, 0.331068, 1)
 Button/colors/font_hover_color = Color(0.46075, 0.982419, 0.456371, 1)
